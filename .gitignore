@@ -1,0 +1,7 @@
+.idea/**
+target/**
+.suspicious/**
+.temp/**
+RunTestAgent/target/**
+resultMessage/**
+src/test/**

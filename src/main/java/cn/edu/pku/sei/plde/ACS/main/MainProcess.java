@@ -73,28 +73,30 @@ public class MainProcess {
 
 
     private boolean checkProjectDirectory(){
-            if (!new File(classpath).exists()){
-                System.out.println("Classpath :"+classpath+" do not exist!");
-                return false;
-            }
-            if (!new File(classSrc).exists()){
-                System.out.println("ClassSourcePath :"+classSrc+" do not exist!");
-                return false;
-            }
-            if (!new File(testClasspath).exists()){
-                System.out.println("TestClassPath :"+testClasspath+" do not exist!");
-                return false;
-            }
-            if (!new File(testClassSrc).exists()){
-                System.out.println("TestSourcePath :"+testClassSrc+" do not exist!");
-                return false;
-            }
-            return true;
+        if (!new File(classpath).exists()){
+            System.out.println("Classpath :"+classpath+" do not exist!");
+            return false;
         }
+        if (!new File(classSrc).exists()){
+            System.out.println("ClassSourcePath :"+classSrc+" do not exist!");
+            return false;
+        }
+        if (!new File(testClasspath).exists()){
+            System.out.println("TestClassPath :"+testClasspath+" do not exist!");
+            return false;
+        }
+        if (!new File(testClassSrc).exists()){
+            System.out.println("TestSourcePath :"+testClassSrc+" do not exist!");
+            return false;
+        }
+        return true;
+    }
 
 
     public boolean suspiciousLoop(List<Suspicious> suspiciouses, String project, TimeLine timeLine) {
-        for (Suspicious suspicious: suspiciouses){
+
+        for (int i = 0; i < suspiciouses.size(); i++){
+            Suspicious suspicious = suspiciouses.get(i);
             suspicious._libPath = libPath;
             boolean tried = false;
             for (Suspicious _suspicious: triedSuspicious){
@@ -110,7 +112,7 @@ public class MainProcess {
                     return false;
                 }
 
-                if (fixSuspicious(suspicious, project, timeLine)){
+                if (fixSuspicious(i, suspicious, project, timeLine)){
                     return true;
                 }
             } catch (Exception e){
@@ -125,16 +127,29 @@ public class MainProcess {
     }
 
 
-    public boolean fixSuspicious(Suspicious suspicious, String project, TimeLine timeLine) throws Exception{
+    public boolean fixSuspicious(int i, Suspicious suspicious, String project, TimeLine timeLine) throws Exception{
         successHalfFlag = false;
-        SuspiciousFixer fixer = new SuspiciousFixer(suspicious, project, timeLine);
+//        SuspiciousFixer fixer = new SuspiciousFixer(suspicious, project, timeLine);
+
+        boolean usingML = true;
+        SuspiciousFixer fixer = new SuspiciousFixer(i, suspicious, project, timeLine, usingML);
         if (timeLine.isTimeout()){
             return false;
         }
-        if (fixer.mainFixProcess()){
-            RecordUtils.printCollectingMessage(suspicious, timeLine);
-            return isFixSuccess(project, timeLine);
+
+        if(usingML){
+            if(fixer.mainFixProcessByML()){
+                RecordUtils.printCollectingMessage(suspicious, timeLine);
+                //TODO
+                return isFixSuccess(project, timeLine);
+            }
+        }else {
+            if (fixer.mainFixProcess()){
+                RecordUtils.printCollectingMessage(suspicious, timeLine);
+                return isFixSuccess(project, timeLine);
+            }
         }
+
         return false;
     }
 

@@ -13,6 +13,9 @@ import cn.edu.pku.sei.plde.ACS.visible.model.VariableInfo;
 import com.google.common.collect.Sets;
 import java.util.*;
 
+import cn.edu.pku.sei.plde.ACS.utils.ShellUtils;
+//import edu.pku.sei.conditon.simple.Invocker;
+
 /**
  * Created by yanrunfa on 16-4-13.
  */
@@ -23,6 +26,8 @@ public class SuspiciousFixer {
     private Map<VariableInfo, List<String>> trueValues;
     private Map<VariableInfo, List<String>> falseValues;
     private List<TraceResult> traceResults;
+
+    private int ithSuspicous = -1;
     private Suspicious suspicious;
     private List<ExceptionVariable> exceptionVariables;
     private String project;
@@ -30,6 +35,7 @@ public class SuspiciousFixer {
     private List<String> methodOneHistory = new ArrayList<>();
     private List<String> methodTwoHistory = new ArrayList<>();
     private List<String> bannedHistory = new ArrayList<>();
+
     public SuspiciousFixer(Suspicious suspicious, String project, TimeLine timeLine){
         this.suspicious = suspicious;
         this.project = project;
@@ -42,6 +48,41 @@ public class SuspiciousFixer {
         }
     }
 
+    public SuspiciousFixer(int ithSuspicous, Suspicious suspicious, String project, TimeLine timeLine, boolean usingML){
+        this.ithSuspicous = ithSuspicous;
+        this.suspicious = suspicious;
+        this.project = project;
+        this.timeLine = timeLine;
+        if(!usingML){
+            traceResults = suspicious.getTraceResult(project, timeLine);
+            trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());
+            falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());
+        }
+
+        if (FAILED_TEST_NUM == 0){
+            FAILED_TEST_NUM = TestUtils.getFailTestNumInProject(project);
+        }
+    }
+
+    public boolean mainFixProcessByML(){
+        String srcRoot = suspicious._srcPath;
+        String filePath = suspicious._classname.replace(".", "/") + ".java";
+        int line = suspicious.getDefaultErrorLine();
+
+//        Invocker.getExprs(this.project, srcRoot, filePath, line, this.ithSuspicous);
+
+        String jdkEightPath = "/home/nightwish/program_files/jdk1.8.0_111/bin/java";
+
+        String predCmd = jdkEightPath + " -jar Condition.jar " + this.project +
+                " " + srcRoot + " " + filePath + " " + line + " " + this.ithSuspicous;
+
+        ShellUtils.runCmd(predCmd, null);
+
+
+
+        return false;
+    }
+
     public boolean mainFixProcess(){
         ExceptionExtractor extractor = new ExceptionExtractor(suspicious);
         Map<Integer, List<TraceResult>> traceResultWithLine = traceResultClassify(traceResults);
@@ -51,11 +92,11 @@ public class SuspiciousFixer {
                 return integer.compareTo(t1);
             }
         });
-         for (Map.Entry<Integer, List<TraceResult>> entry: traceResultWithLine.entrySet()){
+        for (Map.Entry<Integer, List<TraceResult>> entry: traceResultWithLine.entrySet()){
             if (suspicious.tracedErrorLine.contains(entry.getKey())){
                 firstToGo.put(entry.getKey(), entry.getValue());
             }
-         }
+        }
         for (Map.Entry<Integer, List<TraceResult>> entry: firstToGo.entrySet()){
             if (timeLine.isTimeout()){
                 return false;

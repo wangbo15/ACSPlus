@@ -18,6 +18,9 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args){
+
+        args = new String[]{"/home/nightwish/workspace/bug_repair/tmp/", "Math_3", "timeout:3600"};
+
         if (args.length == 0){
             System.out.println("Hello world");
             System.exit(0);
