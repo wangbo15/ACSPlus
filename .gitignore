@@ -5,3 +5,5 @@ target/**
 RunTestAgent/target/**
 resultMessage/**
 src/test/**
+project/**
+

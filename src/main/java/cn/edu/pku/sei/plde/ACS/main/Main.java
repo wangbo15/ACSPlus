@@ -1,5 +1,6 @@
 package cn.edu.pku.sei.plde.ACS.main;
 
+import cn.edu.pku.sei.plde.ACS.utils.ShellUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
@@ -19,7 +20,9 @@ public class Main {
 
     public static void main(String[] args){
 
-        args = new String[]{"/home/nightwish/workspace/bug_repair/tmp/", "Math_3", "timeout:3600"};
+        args = new String[]{"/home/nightwish/workspace/bug_repair/tmp/", "Math_1", "timeout:3600"};
+
+        ShellUtils.runCmd("defects4j test", new File(args[0] + args[1]));
 
         if (args.length == 0){
             System.out.println("Hello world");

@@ -53,8 +53,9 @@ public class SuspiciousFixer {
         this.suspicious = suspicious;
         this.project = project;
         this.timeLine = timeLine;
+
+        traceResults = suspicious.getTraceResult(project, timeLine);
         if(!usingML){
-            traceResults = suspicious.getTraceResult(project, timeLine);
             trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());
             falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());
         }
@@ -78,8 +79,41 @@ public class SuspiciousFixer {
 
         ShellUtils.runCmd(predCmd, null);
 
+        List<String> allConditions = ExprUtil.loadConditions(this.project, this.ithSuspicous);
 
-
+        ExceptionExtractor extractor = new ExceptionExtractor(suspicious);
+        Map<Integer, List<TraceResult>> traceResultWithLine = traceResultClassify(traceResults);
+        Map<Integer, List<TraceResult>> firstToGo = new TreeMap<Integer, List<TraceResult>>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer integer, Integer t1) {
+                return integer.compareTo(t1);
+            }
+        });
+        for (Map.Entry<Integer, List<TraceResult>> entry: traceResultWithLine.entrySet()){
+            if (suspicious.tracedErrorLine.contains(entry.getKey())){
+                firstToGo.put(entry.getKey(), entry.getValue());
+            }
+        }
+        for (Map.Entry<Integer, List<TraceResult>> entry: firstToGo.entrySet()){
+            if (timeLine.isTimeout()){
+                return false;
+            }
+            if (fixInLineWithPredictor(entry.getKey(), allConditions, extractor, false)){
+                return true;
+            }
+        }
+        //why need these lines
+        for (Map.Entry<Integer, List<TraceResult>> entry: traceResultWithLine.entrySet()){
+            if (firstToGo.containsKey(entry.getKey())){
+                continue;
+            }
+            if (timeLine.isTimeout()){
+                return false;
+            }
+            if (fixInLineWithPredictor(entry.getKey(), allConditions, extractor, true)){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -118,6 +152,40 @@ public class SuspiciousFixer {
         }
         return false;
     }
+
+    private boolean fixInLineWithPredictor(int line, List<String> allConditions, ExceptionExtractor extractor, boolean onlyMethod2){
+        exceptionVariables = extractor.extract(suspicious,traceResults);
+        List<List<ExceptionVariable>> echelons = extractor.sort();
+        for (List<ExceptionVariable> echelon: echelons) {
+            Map<String, List<String>> boundarys = new HashMap<>();
+            for (Map.Entry<String, List<ExceptionVariable>> assertEchelon : classifyWithAssert(echelon).entrySet()) {
+                boundarys.put(assertEchelon.getKey(), allConditions);
+            }
+            if (!onlyMethod2){
+                if (timeLine.isTimeout()){
+                    return false;
+                }
+                //why copy ?
+                Map<String, List<String>> boundaryCopy = new HashMap<>();
+                for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
+                    boundaryCopy.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
+                }
+                String methodOneResult = fixMethodOne(suspicious, boundaryCopy, project, line, false);
+                RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
+                if (!methodOneResult.equals("")) {
+                    RecordUtils.printHistoryBoundary(boundarys, methodOneResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
+                    return true;
+                }
+            }
+        }//end for (List<ExceptionVariable> echelon: echelons)
+        if (timeLine.isTimeout()){
+            return false;
+        }
+
+
+        return false;
+    }
+
 
     private boolean fixInLineWithTraceResult(int line, List<TraceResult> traceResults, ExceptionExtractor extractor, boolean onlyMethod2){
         trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());
