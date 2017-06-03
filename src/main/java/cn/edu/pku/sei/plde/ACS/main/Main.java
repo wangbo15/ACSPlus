@@ -20,7 +20,7 @@ public class Main {
 
     public static void main(String[] args){
 
-        args = new String[]{"/home/nightwish/workspace/bug_repair/tmp/", "Math_1", "timeout:3600"};
+        args = new String[]{"/home/nightwish/workspace/bug_repair/tmp/", "Math_26", "timeout:3600"};
 
         ShellUtils.runCmd("defects4j test", new File(args[0] + args[1]));
 
