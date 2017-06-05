@@ -177,10 +177,25 @@ public class SuspiciousFixer {
                     return true;
                 }
             }
+
+
+            if (timeLine.isTimeout()){
+                return false;
+            }
+
+            AngelicFilter filter = new AngelicFilter(suspicious, project);
+            Map<String, List<String>> boundaryCopy = new HashMap<>();
+            for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
+                boundaryCopy.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
+            }
+            String methodTwoResult = fixMethodTwo(suspicious, filter.filter(line,boundaryCopy,traceResults), project, line, false);
+            RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
+            if (!methodTwoResult.equals("")) {
+                RecordUtils.printHistoryBoundary(boundarys, methodTwoResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
+                return true;
+            }
+
         }//end for (List<ExceptionVariable> echelon: echelons)
-        if (timeLine.isTimeout()){
-            return false;
-        }
 
 
         return false;

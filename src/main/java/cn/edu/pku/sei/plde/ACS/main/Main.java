@@ -20,9 +20,15 @@ public class Main {
 
     public static void main(String[] args){
 
-        args = new String[]{"/home/nightwish/workspace/bug_repair/tmp/", "Math_26", "timeout:3600"};
+        String chartBugs = "Chart_1;Chart_4;Chart_9;Chart_14;Chart_15;Chart_19;Chart_26";
+        String langBugs = "Lang_2;Lang_3;Lang_7;Lang_9;;Lang_16;Lang_24;Lang_35;Lang_39;Lang_44;Lang_47;Lang_55;Lang_58";
+        String timeBugs = "Time_3;Time_15;Time_19;Time_27";
+        String mathBugs = "Math_1;Math_3;Math_4;Math_5;Math_15;Math_25;Math_26;Math_28;Math_32;Math_33;Math_35;Math_48" +
+                            ";Math_53;Math_61;Math_73;Math_81;Math_82;Math_85;Math_89;Math_90;Math_93;Math_94;Math_97;Math_99;Math_101";
 
-        ShellUtils.runCmd("defects4j test", new File(args[0] + args[1]));
+        String bugs = mathBugs + ";" + chartBugs + ";" + timeBugs + ";" + langBugs;
+
+        args = new String[]{"/home/nightwish/workspace/bug_repair/tmp/", "Math_35", "timeout:1800"}; //, "Math_3", "timeout:172800"
 
         if (args.length == 0){
             System.out.println("Hello world");
@@ -102,6 +108,9 @@ public class Main {
         TimeLine timeLine = new TimeLine(Config.TOTAL_RUN_TIMEOUT);
         String projectType = project.split("_")[0];
         int projectNumber = Integer.valueOf(project.split("_")[1]);
+
+        ShellUtils.runCmd("defects4j compile", new File(path + project + "/"));
+
         MainProcess process = new MainProcess(path);
         boolean result;
         File main = new File(Config.FIX_RESULT_FILE_PATH);
