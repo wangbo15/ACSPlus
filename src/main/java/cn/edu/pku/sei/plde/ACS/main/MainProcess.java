@@ -62,6 +62,12 @@ public class MainProcess {
         PROJECT_NAME = project;
         Localization localization = new Localization(classpath, testClasspath, testClassSrc, classSrc,libPath);
         List<Suspicious> suspiciouses = localization.getSuspiciousLite();
+
+
+//        File locationDumpFile = new File(Config.LOCALIZATION_DUMP_PATH + "/" + project + ".loc");
+//        String locMsg = "TOTOAL HAS " + suspiciouses.size() + " SUSPICIOUSES\n";
+//        FileUtils.writeStringToFile(locationDumpFile, locMsg, true);
+
         if (timeLine.isTimeout()){
             return false;
         }
@@ -170,6 +176,11 @@ public class MainProcess {
                 successHalfFlag = true;
                 return false;
             }
+
+//            File locationDumpFile = new File(Config.LOCALIZATION_DUMP_PATH + "/" + project + ".loc");
+//            String locMsg = "STILL HAS " + suspiciouses.size() + " SUSPICIOUSES\n";
+//            FileUtils.writeStringToFile(locationDumpFile, locMsg, true);
+
             return suspiciousLoop(suspiciouses, project, timeLine);
         }
         else {

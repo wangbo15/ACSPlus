@@ -22,6 +22,7 @@ public class Config {
     public static final String PREDICATE_MESSAGE_PATH = RESULT_PATH + "/predicateMessage";
     public static final String FIX_RESULT_FILE_PATH = RESULT_PATH + "/fixResult.log";
 
+    public static final String LOCALIZATION_DUMP_PATH = RESULT_PATH + "/locationLog";
 
     //--------------Runtime Path Config--------------------
     public static final String TEMP_FILES_PATH = ".temp/";

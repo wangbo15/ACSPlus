@@ -404,4 +404,41 @@ public class FileUtils {
             //System.out.println("解压缩完成.");
         }
 	}
+
+	public static boolean writeStringToFile(File file, String string, boolean append) {
+		if (file == null || string == null) {
+			return false;
+		}
+		if (!file.exists()) {
+			try {
+				file.getParentFile().mkdirs();
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		BufferedWriter bufferedWriter = null;
+		try {
+			bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, append)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			bufferedWriter.write(string);
+			bufferedWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bufferedWriter != null) {
+				try {
+					bufferedWriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return true;
+	}
 }

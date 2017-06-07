@@ -3,6 +3,7 @@ package cn.edu.pku.sei.plde.ACS.fix;
 import cn.edu.pku.sei.plde.ACS.assertCollect.Asserts;
 import cn.edu.pku.sei.plde.ACS.boundary.BoundaryGenerator;
 import cn.edu.pku.sei.plde.ACS.localization.Suspicious;
+import cn.edu.pku.sei.plde.ACS.main.Config;
 import cn.edu.pku.sei.plde.ACS.main.TimeLine;
 import cn.edu.pku.sei.plde.ACS.trace.ExceptionExtractor;
 import cn.edu.pku.sei.plde.ACS.trace.ExceptionVariable;
@@ -11,6 +12,8 @@ import cn.edu.pku.sei.plde.ACS.trace.filter.AbandanTrueValueFilter;
 import cn.edu.pku.sei.plde.ACS.utils.*;
 import cn.edu.pku.sei.plde.ACS.visible.model.VariableInfo;
 import com.google.common.collect.Sets;
+
+import java.io.File;
 import java.util.*;
 
 import cn.edu.pku.sei.plde.ACS.utils.ShellUtils;
@@ -70,7 +73,10 @@ public class SuspiciousFixer {
         String filePath = suspicious._classname.replace(".", "/") + ".java";
         int line = suspicious.getDefaultErrorLine();
 
-//        Invocker.getExprs(this.project, srcRoot, filePath, line, this.ithSuspicous);
+        File locationDumpFile = new File(Config.LOCALIZATION_DUMP_PATH + "/" + this.project + ".loc");
+
+        String locMsg = this.ithSuspicous + ":\n" + filePath.trim() + "#" + line + "\n";
+        FileUtils.writeStringToFile(locationDumpFile, locMsg, true);
 
         String jdkEightPath = "/home/nightwish/program_files/jdk1.8.0_111/bin/java";
 

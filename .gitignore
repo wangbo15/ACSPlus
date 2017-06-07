@@ -6,4 +6,5 @@ RunTestAgent/target/**
 resultMessage/**
 src/test/**
 project/**
+backup/**
 
