@@ -2,6 +2,7 @@ package cn.edu.pku.sei.plde.ACS.fix;
 
 import cn.edu.pku.sei.plde.ACS.assertCollect.Asserts;
 import cn.edu.pku.sei.plde.ACS.boundary.BoundaryGenerator;
+import cn.edu.pku.sei.plde.ACS.jdtVisitor.LoopVisitor;
 import cn.edu.pku.sei.plde.ACS.localization.Suspicious;
 import cn.edu.pku.sei.plde.ACS.main.Config;
 import cn.edu.pku.sei.plde.ACS.main.TimeLine;
@@ -17,6 +18,8 @@ import java.io.File;
 import java.util.*;
 
 import cn.edu.pku.sei.plde.ACS.utils.ShellUtils;
+import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 //import edu.pku.sei.conditon.simple.Invocker;
 
 /**
@@ -372,6 +375,21 @@ public class SuspiciousFixer {
             List<String> ifStatement = entry.getValue();
             List<String> bannedStatement = new ArrayList<>();
 
+            /*
+            if(fixString.equals("")){
+                String srcRoot = suspicious._srcPath;
+                String filePath = srcRoot.trim() + suspicious._classname.replace(".", "/").trim() + ".java";
+
+                CompilationUnit cu = (CompilationUnit) JavaFile.genASTFromSource(JavaFile.readFileToString(filePath),
+                        ASTParser.K_COMPILATION_UNIT);
+                LoopVisitor loopVisitor = new LoopVisitor(cu, errorLine);
+                cu.accept(loopVisitor);
+
+                if(loopVisitor.isInDoStmt() || loopVisitor.isInWhileStmt()){
+                    fixString = "break;";
+                }
+            }
+            */
 
             for (String statemnt: ifStatement) {
                 if (ifStringFilter(statemnt,fixString, patchLine.get(0))) {

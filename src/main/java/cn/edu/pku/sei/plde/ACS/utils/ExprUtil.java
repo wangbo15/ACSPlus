@@ -27,6 +27,9 @@ public class ExprUtil {
 
         try {
             while ((line = bReader.readLine()) != null) {
+                if(line.contains(" & ") || line.contains(" | ")){
+                    continue;
+                }
                 res.add("if(" + line + ")");
             }
             bReader.close();

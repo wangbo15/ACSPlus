@@ -23,7 +23,9 @@ public class Main {
         String chartBugs = "Chart_1;Chart_4;Chart_9;Chart_14;Chart_15;Chart_19;Chart_26";
         String langBugs = "Lang_2;Lang_3;Lang_7;Lang_9;;Lang_16;Lang_24;Lang_35;Lang_39;Lang_44;Lang_47;Lang_55;Lang_58";
         String timeBugs = "Time_3;Time_15;Time_19;Time_27";
-        String mathBugs = "Math_1;Math_3;Math_4;Math_5;Math_15;Math_25;Math_26;Math_28;Math_32;Math_33;Math_35;Math_48" +
+
+        //Math_1;
+        String mathBugs = "Math_3;Math_4;Math_5;Math_15;Math_25;Math_26;Math_28;Math_32;Math_33;Math_35;Math_48" +
                             ";Math_53;Math_61;Math_73;Math_81;Math_82;Math_85;Math_89;Math_90;Math_93;Math_94;Math_97;Math_99;Math_101";
 
         String bugs = mathBugs + ";" + chartBugs + ";" + timeBugs + ";" + langBugs;
