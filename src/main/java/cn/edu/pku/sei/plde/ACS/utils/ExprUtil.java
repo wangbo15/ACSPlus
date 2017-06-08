@@ -11,6 +11,8 @@ public class ExprUtil {
     public static List<String> loadConditions(String projectAndBug, int ith){
         List<String> res = new ArrayList<>();
         String project = projectAndBug.split("_")[0].toLowerCase();
+
+        List<String> thisExprs = new ArrayList<>();
 //        String bugID = projectAndBug.split("_")[1];
 
         String predictorOutRoot = "/home/nightwish/workspace/eclipse/StateCoverLocator/python/output/";
@@ -30,12 +32,18 @@ public class ExprUtil {
                 if(line.contains(" & ") || line.contains(" | ")){
                     continue;
                 }
-                res.add("if(" + line + ")");
+                if(line.contains("this.")){
+                    thisExprs.add("if(" + line + ")");
+                }else{
+                    res.add("if(" + line + ")");
+                }
             }
             bReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //add this exprs to the end
+        res.addAll(thisExprs);
         return res;
     }
 }

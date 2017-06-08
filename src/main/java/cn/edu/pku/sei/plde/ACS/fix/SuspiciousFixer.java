@@ -73,22 +73,36 @@ public class SuspiciousFixer {
 
     public boolean mainFixProcessByML(){
         String srcRoot = suspicious._srcPath;
-        String filePath = suspicious._classname.replace(".", "/") + ".java";
+        String filePath = suspicious._classname.replace(".", "/");
+
+        if(filePath.contains("$")){
+            int dolIdx = filePath.indexOf('$');
+            filePath = filePath.substring(0, dolIdx) + ".java";
+        }else{
+            filePath += ".java";
+        }
+
         int line = suspicious.getDefaultErrorLine();
-
-        File locationDumpFile = new File(Config.LOCALIZATION_DUMP_PATH + "/" + this.project + ".loc");
-
-        String locMsg = this.ithSuspicous + ":\n" + filePath.trim() + "#" + line + "\n";
-        FileUtils.writeStringToFile(locationDumpFile, locMsg, true);
 
         String jdkEightPath = "/home/nightwish/program_files/jdk1.8.0_111/bin/java";
 
         String predCmd = jdkEightPath + " -jar Condition.jar " + this.project +
                 " " + srcRoot + " " + filePath + " " + line + " " + this.ithSuspicous;
 
+
+        File locationDumpFile = new File(Config.LOCALIZATION_DUMP_PATH + "/" + this.project + ".loc");
+
+        String locMsg = this.ithSuspicous + "  :  " + predCmd + "\n" + filePath.trim() + " # " + line + "\n";
+        FileUtils.writeStringToFile(locationDumpFile, locMsg, true);
+
         ShellUtils.runCmd(predCmd, null);
 
         List<String> allConditions = ExprUtil.loadConditions(this.project, this.ithSuspicous);
+
+        if(allConditions.size() == 0){
+            System.out.println("NO COND PRED: " + predCmd);
+            return false;
+        }
 
         ExceptionExtractor extractor = new ExceptionExtractor(suspicious);
         Map<Integer, List<TraceResult>> traceResultWithLine = traceResultClassify(traceResults);
@@ -391,6 +405,7 @@ public class SuspiciousFixer {
             }
             */
 
+            /* why ban */
             for (String statemnt: ifStatement) {
                 if (ifStringFilter(statemnt,fixString, patchLine.get(0))) {
                     bannedStatement.add(statemnt);
