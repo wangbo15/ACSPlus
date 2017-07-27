@@ -35,7 +35,9 @@ public class Main {
 
         String bugs = mathBugs + ";" + chartBugs + ";" + timeBugs + ";" + langBugs;
 
-        args = new String[]{"/home/nightwish/workspace/bug_repair/tmp/", bugs, "timeout:1800"}; //, "Math_3", "timeout:172800"
+        bugs = "Math_1;Math_3;Math_4;Math_5;Math_15;Math_25;Math_26;Math_28;Math_32;Math_33;Math_35";
+
+        args = new String[]{"/home/nightwish/workspace/bug_repair/tmp/", "Math_33", "timeout:1800"}; //, "Math_3", "timeout:172800"
 
         if (args.length == 0){
             System.out.println("Hello world");

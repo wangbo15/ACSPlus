@@ -73,6 +73,7 @@ public class SuspiciousFixer {
 
     public boolean mainFixProcessByML(){
         String srcRoot = suspicious._srcPath;
+        String testSrcRoot = suspicious._testSrcPath;
         String filePath = suspicious._classname.replace(".", "/");
 
         if(filePath.contains("$")){
@@ -87,7 +88,7 @@ public class SuspiciousFixer {
         String jdkEightPath = "/home/nightwish/program_files/jdk1.8.0_111/bin/java";
 
         String predCmd = jdkEightPath + " -jar Condition.jar " + this.project +
-                " " + srcRoot + " " + filePath + " " + line + " " + this.ithSuspicous;
+                " " + srcRoot + " " + testSrcRoot + " " + filePath + " " + line + " " + this.ithSuspicous;
 
 
         File locationDumpFile = new File(Config.LOCALIZATION_DUMP_PATH + "/" + this.project + ".loc");

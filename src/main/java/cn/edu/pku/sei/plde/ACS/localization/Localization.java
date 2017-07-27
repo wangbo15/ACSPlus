@@ -123,7 +123,11 @@ public class Localization  {
             if (getClassAddressFromStatement(statement).equals(getClassAddressFromStatement(firstline)) && getTargetFunctionFromStatement(statement).equals(getTargetFunctionFromStatement(firstline))){
                 lineNumbers.add(String.valueOf(statement.getLineNumber()));
             }else {
-                result.add(new Suspicious(classpath, testClassPath,srcPath,testSrcPath, getClassAddressFromStatement(firstline), getTargetFunctionFromStatement(firstline), firstline.getSuspiciousness(), firstline.getTests(),firstline.getFailTests(), new ArrayList<String>(lineNumbers),libPaths));
+                String clzAdd = getClassAddressFromStatement(firstline);
+                String tagFun = getTargetFunctionFromStatement(firstline);
+                double score = firstline.getSuspiciousness();
+                result.add(new Suspicious(classpath, testClassPath,srcPath,testSrcPath, clzAdd, tagFun,
+                        score, firstline.getTests(),firstline.getFailTests(), new ArrayList<String>(lineNumbers),libPaths));
                 firstline = statement;
                 lineNumbers.clear();
                 if (!lineNumbers.contains(String.valueOf(statement.getLineNumber()))){

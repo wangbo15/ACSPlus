@@ -15,7 +15,7 @@ public class ExprUtil {
         List<String> thisExprs = new ArrayList<>();
 //        String bugID = projectAndBug.split("_")[1];
 
-        String predictorOutRoot = "/home/nightwish/workspace/eclipse/StateCoverLocator/python/output/";
+        String predictorOutRoot = "/home/nightwish/workspace/eclipse/Condition/python/output/";
         String filePath = predictorOutRoot + project + "/res/" + projectAndBug.toLowerCase() + "_" + ith + ".res.csv";
 
         File rslFile = new File(filePath);
