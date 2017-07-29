@@ -56,7 +56,7 @@ public class Suspicious implements Serializable{
                 new ArrayList<String>());
     }
 
-    public Suspicious(String classpath,
+    private Suspicious(String classpath,
                       String testClasspath,
                       String srcPath,
                       String testSrcPath,

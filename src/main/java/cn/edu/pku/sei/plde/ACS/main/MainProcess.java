@@ -61,7 +61,7 @@ public class MainProcess {
         }
         PROJECT_NAME = project;
         Localization localization = new Localization(classpath, testClasspath, testClassSrc, classSrc,libPath);
-        List<Suspicious> suspiciouses = localization.getSuspiciousLite();
+        List<Suspicious> suspiciouses = localization.getSuspiciousLite(true);
 
 
 //        File locationDumpFile = new File(Config.LOCALIZATION_DUMP_PATH + "/" + project + ".loc");

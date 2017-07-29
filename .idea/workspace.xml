@@ -2,12 +2,367 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce520c33-815c-4ca6-b133-303e85b77790" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Condition.jar" afterPath="$PROJECT_DIR$/Condition.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/10.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/11.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/12.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/13.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/14.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/15.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/16.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/17.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/18.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/19.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/2.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/20.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/21.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/22.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/23.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/24.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/25.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/26.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/3.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/4.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/5.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/6.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/7.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/8.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Chart/9.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/10.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/100.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/101.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/102.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/103.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/104.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/105.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/106.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/107.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/108.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/109.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/11.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/110.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/111.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/112.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/113.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/114.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/115.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/116.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/117.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/118.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/119.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/12.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/120.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/121.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/122.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/123.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/124.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/125.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/126.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/127.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/128.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/129.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/13.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/130.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/131.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/132.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/133.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/14.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/15.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/16.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/17.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/18.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/19.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/2.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/20.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/21.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/22.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/23.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/24.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/25.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/26.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/27.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/28.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/29.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/3.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/30.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/31.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/32.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/33.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/34.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/35.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/36.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/37.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/38.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/39.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/4.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/40.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/41.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/42.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/43.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/44.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/45.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/46.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/47.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/48.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/49.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/5.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/50.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/51.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/52.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/53.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/54.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/55.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/56.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/57.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/58.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/59.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/6.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/60.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/61.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/62.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/63.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/64.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/65.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/66.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/67.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/68.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/69.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/7.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/70.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/71.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/72.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/73.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/74.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/75.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/76.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/77.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/78.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/79.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/8.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/80.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/81.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/82.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/83.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/84.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/85.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/86.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/87.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/88.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/89.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/9.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/90.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/91.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/92.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/93.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/94.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/95.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/96.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/97.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/98.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Closure/99.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/10.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/11.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/12.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/13.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/14.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/15.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/16.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/17.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/18.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/19.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/2.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/20.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/21.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/22.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/23.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/24.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/25.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/26.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/27.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/28.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/29.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/3.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/30.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/31.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/32.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/33.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/34.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/35.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/36.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/37.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/38.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/39.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/4.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/40.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/41.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/42.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/43.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/44.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/45.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/46.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/47.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/48.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/49.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/5.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/50.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/51.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/52.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/53.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/54.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/55.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/56.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/57.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/58.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/59.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/6.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/60.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/61.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/62.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/63.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/64.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/65.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/7.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/8.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Lang/9.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/10.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/100.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/101.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/102.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/103.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/104.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/105.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/106.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/11.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/12.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/13.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/14.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/15.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/16.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/17.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/18.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/19.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/2.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/20.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/21.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/22.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/23.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/24.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/25.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/26.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/27.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/28.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/29.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/3.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/30.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/31.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/32.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/33.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/34.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/35.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/36.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/37.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/38.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/39.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/4.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/40.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/41.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/42.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/43.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/44.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/45.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/46.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/47.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/48.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/49.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/5.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/50.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/51.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/52.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/53.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/54.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/55.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/56.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/57.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/58.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/59.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/6.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/60.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/61.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/62.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/63.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/64.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/65.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/66.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/67.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/68.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/69.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/7.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/70.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/71.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/72.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/73.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/74.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/75.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/76.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/77.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/78.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/79.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/8.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/80.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/81.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/82.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/83.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/84.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/85.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/86.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/87.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/88.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/89.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/9.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/90.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/91.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/92.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/93.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/94.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/95.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/96.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/97.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/98.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Math/99.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/10.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/11.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/12.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/13.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/14.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/15.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/16.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/17.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/18.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/19.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/2.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/20.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/21.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/22.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/23.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/24.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/25.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/26.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/27.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/3.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/4.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/5.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/6.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/7.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/8.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ochiai/Time/9.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/ExprUtil.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/ExprUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/RunTestAgent/target/" />
@@ -24,101 +379,134 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="137" column="0" lean-forward="false" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SuspiciousFixer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="85" column="49" lean-forward="false" selection-start-line="85" selection-start-column="30" selection-end-line="85" selection-end-column="49" />
-              <folding>
-                <element signature="e#4501#4529#0" expanded="true" />
-                <element signature="e#4530#4711#0" expanded="true" />
-                <element signature="e#4710#4711#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Suspicious.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="859">
-              <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+            <state relative-caret-position="431">
+              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding>
-                <element signature="e#6521#6522#0" expanded="true" />
-                <element signature="e#6550#6551#0" expanded="true" />
+                <element signature="e#6522#6523#0" expanded="true" />
+                <element signature="e#6551#6552#0" expanded="true" />
+                <marker date="1501315434841" expanded="false" signature="3865:3875" ph=" { " />
+                <marker date="1501315434841" expanded="false" signature="3908:3914" ph=" }" />
+                <marker date="1501315434841" expanded="false" signature="3945:3955" ph=" { " />
+                <marker date="1501315434841" expanded="false" signature="3996:4002" ph=" }" />
+                <marker date="1501315434841" expanded="false" signature="6400:6410" ph=" { " />
+                <marker date="1501315434841" expanded="false" signature="6464:6470" ph=" }" />
+                <marker date="1501315434841" expanded="false" signature="6593:6603" ph=" { " />
+                <marker date="1501315434841" expanded="false" signature="6621:6627" ph=" }" />
+                <marker date="1501315434841" expanded="false" signature="6715:6723" ph="&lt;~&gt;" />
+                <marker date="1501315434841" expanded="false" signature="7843:7854" ph=" { " />
+                <marker date="1501315434841" expanded="false" signature="7898:7904" ph=" }" />
+                <marker date="1501315434841" expanded="false" signature="8130:8144" ph="&lt;~&gt;" />
+                <marker date="1501315434841" expanded="false" signature="15014:15024" ph=" { " />
+                <marker date="1501315434841" expanded="false" signature="15079:15085" ph=" }" />
+                <marker date="1501315434841" expanded="false" signature="15313:15326" ph="&lt;~&gt;" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BoundarySorter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/boundary/BoundarySorter.java">
+      <file leaf-file-name="empricalStudy.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/cn/edu/pku/sei/plde/ACS/empricalStudy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="31" column="105" lean-forward="false" selection-start-line="31" selection-start-column="105" selection-end-line="31" selection-end-column="105" />
+            <state relative-caret-position="199">
+              <caret line="269" column="46" lean-forward="false" selection-start-line="269" selection-start-column="46" selection-end-line="269" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Localization.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="VariableTracer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/VariableTracer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="600">
+              <caret line="43" column="35" lean-forward="false" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MethodTwoFixer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodTwoFixer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="329">
+              <caret line="214" column="5" lean-forward="false" selection-start-line="214" selection-start-column="5" selection-end-line="214" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Localization.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="228" column="13" lean-forward="true" selection-start-line="228" selection-start-column="13" selection-end-line="228" selection-end-column="13" />
+            <state relative-caret-position="451">
+              <caret line="192" column="21" lean-forward="true" selection-start-line="192" selection-start-column="21" selection-end-line="192" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2141#2142#0" expanded="true" />
-                <element signature="e#2210#2211#0" expanded="true" />
-                <element signature="e#4332#4333#0" expanded="true" />
-                <element signature="e#4378#4379#0" expanded="true" />
-                <element signature="e#5256#5268#0" expanded="true" />
-                <element signature="e#5446#5454#0" expanded="true" />
-                <element signature="e#6938#7156#0" expanded="true" />
-                <element signature="e#7155#7156#0" expanded="true" />
+                <element signature="e#2120#2121#0" expanded="true" />
+                <element signature="e#2189#2190#0" expanded="true" />
+                <element signature="e#2391#2405#0" expanded="true" />
+                <element signature="e#5030#5042#0" expanded="true" />
+                <element signature="e#7232#7244#0" expanded="true" />
+                <element signature="e#7422#7430#0" expanded="true" />
+                <element signature="e#9151#9152#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Statement.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/gzoltar/core/components/Statement.class">
+      <file leaf-file-name="CodeUtils.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/CodeUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="13" column="16" lean-forward="true" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+            <state relative-caret-position="990">
+              <caret line="72" column="0" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
               <folding>
-                <element signature="e#907#908#0" expanded="true" />
-                <element signature="e#976#977#0" expanded="true" />
+                <element signature="e#13575#13576#0" expanded="true" />
+                <element signature="e#13623#13624#0" expanded="true" />
+                <element signature="e#16015#16016#0" expanded="true" />
+                <element signature="e#16075#16076#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Component.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/gzoltar/core/components/Component.class">
+      <file leaf-file-name="StatementExt.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementExt.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="23" column="20" lean-forward="false" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="20" />
-              <folding />
+            <state relative-caret-position="282">
+              <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+              <folding>
+                <element signature="e#1213#1214#0" expanded="true" />
+                <element signature="e#1248#1249#0" expanded="true" />
+                <element signature="e#1317#1318#0" expanded="true" />
+                <element signature="e#1422#1423#0" expanded="true" />
+                <element signature="e#1454#1455#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RecordUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RecordUtils.java">
+      <file leaf-file-name="WGzoltar.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/WGzoltar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="29" column="34" lean-forward="false" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="34" />
+            <state relative-caret-position="191">
+              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding>
+                <element signature="e#1623#1624#0" expanded="true" />
+                <element signature="e#1677#1678#0" expanded="true" />
+                <element signature="e#4309#4774#0" expanded="true" />
+                <element signature="e#4773#4774#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Ochiai.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/metric/Ochiai.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -127,25 +515,9 @@
       <file leaf-file-name="MainProcess.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="571">
-              <caret line="62" column="47" lean-forward="false" selection-start-line="62" selection-start-column="47" selection-end-line="62" selection-end-column="47" />
+            <state relative-caret-position="351">
+              <caret line="93" column="8" lean-forward="false" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="8" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StatementExt.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementExt.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="46" column="24" lean-forward="false" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#833#834#0" expanded="true" />
-                <element signature="e#870#871#0" expanded="true" />
-                <element signature="e#1354#1355#0" expanded="true" />
-                <element signature="e#1382#1383#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -170,6 +542,7 @@
       <find>String line</find>
       <find>_defaultErrorLine</find>
       <find>Fix Success One Place</find>
+      <find>DummyVisitor</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -191,13 +564,16 @@
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/jdtVisitor/StatisticVisitor.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/jdtVisitor/LoopVisitor.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/JavaFile.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/ExprUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java" />
         <option value="$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/gzoltar/core/components/Statement.class" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java" />
         <option value="$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/gzoltar/core/components/Component.class" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodTwoFixer.java" />
+        <option value="$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/gzoltar/core/GZoltar.class" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java" />
       </list>
     </option>
   </component>
@@ -225,6 +601,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -339,15 +717,13 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
-    <property name="SearchEverywhereHistoryKey" value="RecordUtils&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RecordUtils.java&#10;suspiciousl&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.main.MainProcess#suspiciousLoop&#10;mainpro&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java&#10;delete&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.localization.common.library.FileLibrary#deleteFile&#10;RuntimeUtils&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.utils.RuntimeUtils&#10;mainprocess&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java&#10;asserts&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.assertCollect.Asserts" />
+    <property name="SearchEverywhereHistoryKey" value="CodeUtils&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/utils/CodeUtils.java&#10;RecordUtils&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RecordUtils.java&#10;suspiciousl&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.main.MainProcess#suspiciousLoop&#10;mainpro&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java&#10;delete&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.localization.common.library.FileLibrary#deleteFile&#10;RuntimeUtils&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.utils.RuntimeUtils&#10;mainprocess&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java&#10;asserts&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.assertCollect.Asserts" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -602,7 +978,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -615,9 +991,9 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19513543" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06191266" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14262024" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23770039" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23770039" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -654,11 +1030,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java</url>
-          <line>100</line>
+          <line>150</line>
           <properties class="cn.edu.pku.sei.plde.ACS.localization.Localization" method="getSuspiciousLite">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java</url>
+          <line>72</line>
+          <properties class="cn.edu.pku.sei.plde.ACS.localization.Suspicious" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java</url>
+          <line>45</line>
+          <properties class="cn.edu.pku.sei.plde.ACS.localization.Suspicious" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java</url>
@@ -688,7 +1080,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="28" />
+      <option name="time" value="38" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -697,27 +1089,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ExceptionExtractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1800">
-          <caret line="99" column="23" lean-forward="false" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/program_files/jdk1.7.0_79/src.zip!/java/util/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="383" column="10" lean-forward="false" selection-start-line="383" selection-start-column="10" selection-end-line="383" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/MathUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5280">
-          <caret line="271" column="0" lean-forward="false" selection-start-line="271" selection-start-column="0" selection-end-line="271" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/SourceUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="580">
@@ -736,13 +1107,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
           <caret line="194" column="0" lean-forward="false" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodTwoFixer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="37" column="14" lean-forward="false" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -800,13 +1164,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4461">
           <caret line="97" column="35" lean-forward="false" selection-start-line="97" selection-start-column="11" selection-end-line="97" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/CodeUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15480">
-          <caret line="261" column="21" lean-forward="true" selection-start-line="261" selection-start-column="21" selection-end-line="261" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -952,47 +1309,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/metric/Ochiai.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/WGzoltar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="50" column="76" lean-forward="false" selection-start-line="50" selection-start-column="53" selection-end-line="50" selection-end-column="76" />
-          <folding>
-            <element signature="e#1623#1624#0" expanded="true" />
-            <element signature="e#1677#1678#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/GZoltarSuspiciousProgramStatements.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="130" column="40" lean-forward="false" selection-start-line="130" selection-start-column="40" selection-end-line="130" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementExt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="46" column="24" lean-forward="false" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#870#871#0" expanded="true" />
-            <element signature="e#1354#1355#0" expanded="true" />
-            <element signature="e#1382#1383#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
@@ -1021,29 +1337,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="859">
-          <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
-          <folding>
-            <element signature="e#6521#6522#0" expanded="true" />
-            <element signature="e#6550#6551#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="137" column="0" lean-forward="false" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
-          <caret line="62" column="47" lean-forward="false" selection-start-line="62" selection-start-column="47" selection-end-line="62" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -1056,10 +1353,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/gzoltar/core/GZoltar.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="e#2348#2349#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/GZoltarSuspiciousProgramStatements.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding>
+            <element signature="e#3536#3544#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodTwoFixer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="214" column="5" lean-forward="false" selection-start-line="214" selection-start-column="5" selection-end-line="214" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/VariableTracer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="43" column="35" lean-forward="false" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/gzoltar/core/components/Statement.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
-          <caret line="13" column="16" lean-forward="true" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+          <caret line="13" column="16" lean-forward="false" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
           <folding>
             <element signature="e#907#908#0" expanded="true" />
             <element signature="e#976#977#0" expanded="true" />
@@ -1067,20 +1400,109 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/metric/Ochiai.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/cn/edu/pku/sei/plde/ACS/empricalStudy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="269" column="46" lean-forward="false" selection-start-line="269" selection-start-column="46" selection-end-line="269" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="93" column="8" lean-forward="false" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/WGzoltar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="e#1623#1624#0" expanded="true" />
+            <element signature="e#1677#1678#0" expanded="true" />
+            <element signature="e#4309#4774#0" expanded="true" />
+            <element signature="e#4773#4774#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementExt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding>
+            <element signature="e#1213#1214#0" expanded="true" />
+            <element signature="e#1248#1249#0" expanded="true" />
+            <element signature="e#1317#1318#0" expanded="true" />
+            <element signature="e#1422#1423#0" expanded="true" />
+            <element signature="e#1454#1455#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding>
+            <element signature="e#6522#6523#0" expanded="true" />
+            <element signature="e#6551#6552#0" expanded="true" />
+            <marker date="1501315434841" expanded="false" signature="3865:3875" ph=" { " />
+            <marker date="1501315434841" expanded="false" signature="3908:3914" ph=" }" />
+            <marker date="1501315434841" expanded="false" signature="3945:3955" ph=" { " />
+            <marker date="1501315434841" expanded="false" signature="3996:4002" ph=" }" />
+            <marker date="1501315434841" expanded="false" signature="6400:6410" ph=" { " />
+            <marker date="1501315434841" expanded="false" signature="6464:6470" ph=" }" />
+            <marker date="1501315434841" expanded="false" signature="6593:6603" ph=" { " />
+            <marker date="1501315434841" expanded="false" signature="6621:6627" ph=" }" />
+            <marker date="1501315434841" expanded="false" signature="6715:6723" ph="&lt;~&gt;" />
+            <marker date="1501315434841" expanded="false" signature="7843:7854" ph=" { " />
+            <marker date="1501315434841" expanded="false" signature="7898:7904" ph=" }" />
+            <marker date="1501315434841" expanded="false" signature="8130:8144" ph="&lt;~&gt;" />
+            <marker date="1501315434841" expanded="false" signature="15014:15024" ph=" { " />
+            <marker date="1501315434841" expanded="false" signature="15079:15085" ph=" }" />
+            <marker date="1501315434841" expanded="false" signature="15313:15326" ph="&lt;~&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="228" column="13" lean-forward="true" selection-start-line="228" selection-start-column="13" selection-end-line="228" selection-end-column="13" />
+        <state relative-caret-position="451">
+          <caret line="192" column="21" lean-forward="true" selection-start-line="192" selection-start-column="21" selection-end-line="192" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2141#2142#0" expanded="true" />
-            <element signature="e#2210#2211#0" expanded="true" />
-            <element signature="e#4332#4333#0" expanded="true" />
-            <element signature="e#4378#4379#0" expanded="true" />
-            <element signature="e#5256#5268#0" expanded="true" />
-            <element signature="e#5446#5454#0" expanded="true" />
-            <element signature="e#6938#7156#0" expanded="true" />
-            <element signature="e#7155#7156#0" expanded="true" />
+            <element signature="e#2120#2121#0" expanded="true" />
+            <element signature="e#2189#2190#0" expanded="true" />
+            <element signature="e#2391#2405#0" expanded="true" />
+            <element signature="e#5030#5042#0" expanded="true" />
+            <element signature="e#7232#7244#0" expanded="true" />
+            <element signature="e#7422#7430#0" expanded="true" />
+            <element signature="e#9151#9152#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/CodeUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="72" column="0" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+          <folding>
+            <element signature="e#13575#13576#0" expanded="true" />
+            <element signature="e#13623#13624#0" expanded="true" />
+            <element signature="e#16015#16016#0" expanded="true" />
+            <element signature="e#16075#16076#0" expanded="true" />
           </folding>
         </state>
       </provider>

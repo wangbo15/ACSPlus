@@ -22,13 +22,12 @@ import java.util.*;
  */
 
 public class Localization  {
-    public String classpath;
-    public String testClassPath;
-    public String[] testClasses;
-    public String testSrcPath;
-    public String srcPath;
-    public String project;
-    public List<String> libPaths = new ArrayList<>();
+    private String classpath;
+    private String testClassPath;
+    private String[] testClasses;
+    private String testSrcPath;
+    private String srcPath;
+    private List<String> libPaths = new ArrayList<>();
 
 
     public Localization(String classPath, String testClassPath, String testSrcPath, String srcPath, List<String> libPaths) {
@@ -94,8 +93,59 @@ public class Localization  {
         return result;
     }
 
-    public List<Suspicious> getSuspiciousLite(){
-        return getSuspiciousLite(true);
+    public List<Suspicious> getNewSuspicious(String subject, String bugid){
+        File suspicousFile = new File(Config.LOCALIZATION_RESULT_CACHE+ FileUtils.getMD5(StringUtils.join(testClasses,"")+classpath+testClassPath+srcPath+testSrcPath)+".sps");
+
+        if (suspicousFile.exists()){
+            try {
+                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(suspicousFile));
+                List<Suspicious> result = (List<Suspicious>) objectInputStream.readObject();
+                objectInputStream.close();
+                return result;
+            }catch (Exception e){
+                System.out.println("Reloading Localization Result...");
+            }
+        }
+
+        List<Suspicious> result = new ArrayList<Suspicious>();
+
+        String proj = subject.toLowerCase().substring(1);
+        proj = Character.toUpperCase(subject.charAt(0)) + proj;
+        String locPath = "localization/ochiai/" + proj + "/" + bugid + ".txt";
+        File locFile = new File(locPath);
+        BufferedReader bReader = null;
+        FileReader fReader = null;
+        try {
+            fReader = new FileReader(locFile);
+            bReader = new BufferedReader(fReader);
+            String line = null;
+            while ((line = bReader.readLine()) != null) {
+                String[] columns = line.split("#");
+                String clsName = columns[0];
+                int lineNum = new Integer(columns[1].split(",")[0]);
+                double score = new Double(columns[1].split(",")[1]);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally{
+            if(bReader != null){
+                try {
+                    bReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(fReader != null){
+                try {
+                    fReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return result;
     }
 
     public List<Suspicious> getSuspiciousLite(boolean jump){
@@ -120,7 +170,8 @@ public class Localization  {
         StatementExt firstline = statements.get(0);
         List<String> lineNumbers = new ArrayList<String>();
         for (StatementExt statement: statements){
-            if (getClassAddressFromStatement(statement).equals(getClassAddressFromStatement(firstline)) && getTargetFunctionFromStatement(statement).equals(getTargetFunctionFromStatement(firstline))){
+            if (getClassAddressFromStatement(statement).equals(getClassAddressFromStatement(firstline)) &&
+                    getTargetFunctionFromStatement(statement).equals(getTargetFunctionFromStatement(firstline))){
                 lineNumbers.add(String.valueOf(statement.getLineNumber()));
             }else {
                 String clzAdd = getClassAddressFromStatement(firstline);
