@@ -1,5 +1,7 @@
 package cn.edu.pku.sei.plde.ACS.utils;
 
+import cn.edu.pku.sei.plde.ACS.main.Config;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +17,7 @@ public class ExprUtil {
         List<String> thisExprs = new ArrayList<>();
 //        String bugID = projectAndBug.split("_")[1];
 
-        String predictorOutRoot = "/home/nightwish/workspace/eclipse/Condition/python/output/";
-        String filePath = predictorOutRoot + project + "/res/" + projectAndBug.toLowerCase() + "_" + ith + ".res.csv";
+        String filePath = Config.PREDICTOR_OUT_ROOT + project + "/res/" + projectAndBug.toLowerCase() + "_" + ith + ".res.csv";
 
         File rslFile = new File(filePath);
         BufferedReader bReader = null;

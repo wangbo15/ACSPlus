@@ -61,8 +61,12 @@ public class MainProcess {
         }
         PROJECT_NAME = project;
         Localization localization = new Localization(classpath, testClasspath, testClassSrc, classSrc,libPath);
-        List<Suspicious> suspiciouses = localization.getSuspiciousLite(true);
-
+        List<Suspicious> suspiciouses;
+        if(Config.USING_UW_FL_DATA){
+            suspiciouses = localization.getSuspiciousLiteOfUW(projectType.toLowerCase(), "" + projectNumber);
+        }else{
+            suspiciouses = localization.getSuspiciousLite(true);
+        }
 
 //        File locationDumpFile = new File(Config.LOCALIZATION_DUMP_PATH + "/" + project + ".loc");
 //        String locMsg = "TOTOAL HAS " + suspiciouses.size() + " SUSPICIOUSES\n";

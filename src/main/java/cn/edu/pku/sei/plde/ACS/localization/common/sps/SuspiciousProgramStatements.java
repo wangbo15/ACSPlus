@@ -16,6 +16,7 @@
 package cn.edu.pku.sei.plde.ACS.localization.common.sps;
 
 import cn.edu.pku.sei.plde.ACS.localization.gzoltar.StatementExt;
+import com.gzoltar.core.components.Statement;
 
 import java.util.List;
 
@@ -29,5 +30,5 @@ public interface SuspiciousProgramStatements {
     /**
      * @return a ranked list of potential bug root-cause.
      */
-    List<StatementExt> sortBySuspiciousness(final String... testClasses);
+    List<Statement> sortBySuspiciousness(final String... testClasses);
 }

@@ -90,13 +90,17 @@ public class SuspiciousFixer {
         String predCmd = jdkEightPath + " -jar Condition.jar " + this.project +
                 " " + srcRoot + " " + testSrcRoot + " " + filePath + " " + line + " " + this.ithSuspicous;
 
-
         File locationDumpFile = new File(Config.LOCALIZATION_DUMP_PATH + "/" + this.project + ".loc");
 
         String locMsg = this.ithSuspicous + "  :  " + predCmd + "\n" + filePath.trim() + " # " + line + "\n";
         FileUtils.writeStringToFile(locationDumpFile, locMsg, true);
 
-        ShellUtils.runCmd(predCmd, null);
+        List<String> errMsgs = ShellUtils.runCmd(predCmd, null);
+        for(String s : errMsgs){
+            if(s.startsWith("PREDICTOR ERROR!")){
+                return false;
+            }
+        }
 
         List<String> allConditions = ExprUtil.loadConditions(this.project, this.ithSuspicous);
 
@@ -194,14 +198,13 @@ public class SuspiciousFixer {
                 for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
                     boundaryCopy.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
                 }
-                String methodOneResult = fixMethodOne(suspicious, boundaryCopy, project, line, false);
+                String methodOneResult = fixMethodOne(suspicious, boundaryCopy, project, line);
                 RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
                 if (!methodOneResult.equals("")) {
                     RecordUtils.printHistoryBoundary(boundarys, methodOneResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
                     return true;
                 }
             }
-
 
             if (timeLine.isTimeout()){
                 return false;
@@ -249,7 +252,7 @@ public class SuspiciousFixer {
                 for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
                     boundaryCopy.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
                 }
-                String methodOneResult = fixMethodOne(suspicious,boundaryCopy, project, line, false);
+                String methodOneResult = fixMethodOne(suspicious,boundaryCopy, project, line);
                 RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
                 if (!methodOneResult.equals("")) {
                     RecordUtils.printHistoryBoundary(boundarys, methodOneResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
@@ -349,6 +352,10 @@ public class SuspiciousFixer {
 
 
     public String fixMethodTwo(Suspicious suspicious, Map<String, List<String>> ifStrings, String project, int errorLine, boolean debug){
+        return "";
+
+        /*
+        // need to be rewrote !!!
         if (ifStrings.size() == 0){
             return "";
         }
@@ -358,10 +365,11 @@ public class SuspiciousFixer {
         }
         methodTwoHistory  = fixer.triedPatch;
         return "";
+        */
     }
 
 
-    public String fixMethodOne(Suspicious suspicious,Map<String, List<String>> ifStrings, String project, int errorLine, boolean debug) {
+    public String fixMethodOne(Suspicious suspicious,Map<String, List<String>> ifStrings, String project, int errorLine) {
         if (ifStrings.size() == 0){
             return "";
         }
@@ -391,6 +399,7 @@ public class SuspiciousFixer {
             List<String> bannedStatement = new ArrayList<>();
 
             /*
+            //add break or continue in for-stmt
             if(fixString.equals("")){
                 String srcRoot = suspicious._srcPath;
                 String filePath = srcRoot.trim() + suspicious._classname.replace(".", "/").trim() + ".java";
@@ -406,7 +415,8 @@ public class SuspiciousFixer {
             }
             */
 
-            /* why ban */
+            /* why ban,run too slowly!!! */
+            /*
             for (String statemnt: ifStatement) {
                 if (ifStringFilter(statemnt,fixString, patchLine.get(0))) {
                     bannedStatement.add(statemnt);
@@ -414,7 +424,7 @@ public class SuspiciousFixer {
             }
             ifStatement.removeAll(bannedStatement);
             bannedHistory.addAll(bannedStatement);
-
+            */
 
             if (ifStatement.size() == 0){
                 return "";

@@ -57,14 +57,13 @@ public class MethodTwoFixer {
         _errorTestNum = SuspiciousFixer.FAILED_TEST_NUM;
     }
 
-    public boolean fix(Map<String, List<String>> ifStrings, String project, boolean debug){
-        return fix(ifStrings, _errorLines, project, debug);
-    }
 
     public boolean fix(Map<String, List<String>> boundarys, Set<Integer> errorLines, String project, boolean debug){
+        final int MAX_TRIED = 10;
+
         for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
             List<String> ifStrings = entry.getValue();
-            ifStrings = TypeUtils.arrayDup(ifStrings);
+            ifStrings = TypeUtils.arrayDup(ifStrings).subList(0, MAX_TRIED);
             for (int errorLine: errorLines){
                 List<Integer> ifLines = getIfLine(errorLine);
                 if (ifLines.size()!=2){
@@ -74,12 +73,12 @@ public class MethodTwoFixer {
                     if (ifString.equals("")){
                         continue;
                     }
-                    if (ifString.contains(">") && ifString.contains("<") && !ifString.contains("<?>")){
+                    if (ifString.contains(">") && ifString.contains("<") && !ifString.contains("<?>")){//why jump comparetion?
                         continue;
                     }
                     int blockStartLine = ifLines.get(0);
                     int blockEndLine = ifLines.get(1);
-                    String ifStatement="";
+                    String ifStatement = "";
                     for (int endLine: getLinesCanAdd(blockStartLine, blockEndLine,_code)) {
                         String lastLineString = CodeUtils.getLineFromCode(_code, blockStartLine-1);
                         String wholeLineString = CodeUtils.getWholeLineFromCodeReverse(_code, blockStartLine-1);
@@ -107,7 +106,7 @@ public class MethodTwoFixer {
                             if (!ifFilter(lastLineString, ifString)){
                                 continue;
                             }
-                            ifStatement =lastLineString+ "&&" + getIfStringFromStatement(getIfStatementFromString(ifString)) + ifEnd;
+                            ifStatement =lastLineString+ " && " + getIfStringFromStatement(getIfStatementFromString(ifString)) + ifEnd;
                             try {
                                 result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
                             } catch (TimeoutException e){
@@ -120,7 +119,7 @@ public class MethodTwoFixer {
                                 triedPatch.add(ifStatement);
                                 return true;
                             }else{
-                                ifStatement =lastLineString+ "||" +getIfStringFromStatement(ifString) + ifEnd;
+                                ifStatement =lastLineString+ " || " +getIfStringFromStatement(ifString) + ifEnd;
                                 try {
                                     result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
                                 } catch (TimeoutException e){

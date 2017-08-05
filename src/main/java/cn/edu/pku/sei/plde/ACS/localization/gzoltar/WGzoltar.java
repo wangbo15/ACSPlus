@@ -1,5 +1,6 @@
 package cn.edu.pku.sei.plde.ACS.localization.gzoltar;
 
+import cn.edu.pku.sei.plde.ACS.localization.metric.NoMetric;
 import cn.edu.pku.sei.plde.ACS.localizationInConstructor.LocalizationInConstructor;
 import cn.edu.pku.sei.plde.ACS.localizationInConstructor.model.ConstructorDeclarationInfo;
 import cn.edu.pku.sei.plde.ACS.utils.CodeUtils;
@@ -25,6 +26,11 @@ public class WGzoltar extends GZoltar {
     private String srcPath;
     private List<String> libPath;
 
+    private Map<String, Double> scoreMapOfUW;
+
+    public void setScoreMapOfUW(Map<String, Double> map){
+        this.scoreMapOfUW = map;
+    }
 
     public WGzoltar(String wD, Metric metric, String testSrcPath, String srcPath, List<String> libPath) throws IOException {
         super(wD);
@@ -37,19 +43,19 @@ public class WGzoltar extends GZoltar {
     @Override
     public List<Statement> getSuspiciousStatements() {
         List<Statement> statements = new ArrayList<Statement>();
-        for (StatementExt statementExt: getSuspiciousStatements(metric)){
-            statements.add(statementExt);
+        for (Statement stmt: getSuspiciousStatements(metric)){
+            statements.add(stmt);
         }
         return statements;
     }
 
-    public List<StatementExt> getSuspiciousStatementExts() {
+    public List<Statement> getSuspiciousStatementExts() {
         return getSuspiciousStatements(metric);
     }
 
-    private List<StatementExt> getSuspiciousStatements(Metric metric) {
+    private List<Statement> getSuspiciousStatements(Metric metric) {
         List<Statement> suspiciousStatements = super.getSuspiciousStatements();
-        List<StatementExt> result = new ArrayList<StatementExt>(suspiciousStatements.size());
+        List<Statement> result = new ArrayList<>(suspiciousStatements.size());
         List<Statement> constructors = new ArrayList<>();
         int successfulTests;
         int nbFailingTest = 0;
@@ -78,28 +84,43 @@ public class WGzoltar extends GZoltar {
             int executedAndPassedCount = 0;
             int executedAndFailedCount = 0;
             int nextTest = coverage.nextSetBit(0);
-            StatementExt s = new StatementExt(statement, metric);
 
-            while(nextTest != -1) {
-                TestResult testResult = this.getTestResults().get(nextTest);
-                if(testResult.wasSuccessful()) {
-                    executedAndPassedCount++;
-                } else {
-                    executedAndFailedCount++;
-                }
-                s.addTest(testResult.getName());
-                if (!testResult.wasSuccessful()){
-                    s.addFailTest(testResult.getName());
-                }
-                nextTest = coverage.nextSetBit(nextTest + 1);
-            }
-            s.setEf(executedAndFailedCount);
-            s.setEp(executedAndPassedCount);
-            s.setNp(successfulTests - executedAndPassedCount);
-            s.setNf(nbFailingTest - executedAndFailedCount);
-            //recordTestResults(s,outputStream);
-            result.add(s);
-        }
+            if(metric instanceof NoMetric){
+                //loading data of UW
+                StatementByUW s = new StatementByUW(statement, scoreMapOfUW);
+                while(nextTest != -1) {
+                    TestResult testResult = this.getTestResults().get(nextTest);
+                    s.addTest(testResult.getName());
+                    s.addTest(testResult.getName());
+                    if (!testResult.wasSuccessful()){
+                        s.addFailTest(testResult.getName());
+                    }
+                    nextTest = coverage.nextSetBit(nextTest + 1);
+                }//end while
+                result.add(s);
+            }else{
+                StatementExt s = new StatementExt(statement, metric);
+                while(nextTest != -1) {
+                    TestResult testResult = this.getTestResults().get(nextTest);
+                    if(testResult.wasSuccessful()) {
+                        executedAndPassedCount++;
+                    } else {
+                        executedAndFailedCount++;
+                    }
+                    s.addTest(testResult.getName());
+                    if (!testResult.wasSuccessful()){
+                        s.addFailTest(testResult.getName());
+                    }
+                    nextTest = coverage.nextSetBit(nextTest + 1);
+                }//end while
+                s.setEf(executedAndFailedCount);
+                s.setEp(executedAndPassedCount);
+                s.setNp(successfulTests - executedAndPassedCount);
+                s.setNf(nbFailingTest - executedAndFailedCount);
+                //recordTestResults(s,outputStream);
+                result.add(s);
+            }//end if
+        }//end for
         Collections.sort(result, new Comparator<Statement>() {
 
             public int compare(final Statement o1, final Statement o2) {
@@ -185,8 +206,5 @@ public class WGzoltar extends GZoltar {
         histories.addAll(result);
         return result;
     }
-
-
-
 
 }

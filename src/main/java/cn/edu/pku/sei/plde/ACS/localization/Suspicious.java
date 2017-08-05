@@ -411,7 +411,14 @@ public class Suspicious implements Serializable{
         }
         for (String testclass: _failTests){
             try{
-                traceResults.addAll(tracer.trace(classname(), functionname(), testclass.split("#")[0], testclass.split("#")[1], getDefaultErrorLine(), false));
+                int line = getDefaultErrorLine();
+                assert line > 0;
+
+                List<TraceResult> tr = tracer.trace(classname(), functionname(),
+                        testclass.split("#")[0], testclass.split("#")[1],
+                        line, false);
+
+                traceResults.addAll(tr);
             } catch (IOException e){
                 e.printStackTrace();
             }

@@ -174,7 +174,6 @@ public class ErrorLineTracer {
         return defaultErrorLine;
     }
 
-
     private int errorLineOutOfElse(int defaultErrorLine, String code){
         String errorLineString = CodeUtils.getLineFromCode(code, defaultErrorLine);
         int braceCount = CodeUtils.countChar(errorLineString, '}');

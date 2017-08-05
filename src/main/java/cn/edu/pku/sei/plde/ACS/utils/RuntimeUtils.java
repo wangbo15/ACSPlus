@@ -23,7 +23,8 @@ public class RuntimeUtils {
 
     public static void killProcess(){
         try {
-            String[] args = {"python","kill_process.py",String.valueOf(RuntimeUtils.getPid())};
+            String pid = String.valueOf(RuntimeUtils.getPid());
+            String[] args = {"python","kill_process.py", pid};
             System.out.println(ShellUtils.shellRun(Arrays.asList(StringUtils.join(args," "))));
         } catch (IOException e){
             e.printStackTrace();

@@ -27,4 +27,8 @@ public class Config {
     //--------------Runtime Path Config--------------------
     public static final String TEMP_FILES_PATH = ".temp/";
     public static final String LOCALIZATION_RESULT_CACHE = ".suspicious/";
+
+
+    public static final boolean USING_UW_FL_DATA = true;
+    public static final String PREDICTOR_OUT_ROOT = "/home/nightwish/workspace/eclipse/Condition/python/output/";
 }

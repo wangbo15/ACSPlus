@@ -44,6 +44,7 @@ public class DocumentBaseFilter {
             if (annotation.equals("")){
                 return false;
             }
+            // TIME COMFUSING !!
             if (!exceptionPatchFilter(annotation, getParamFromIfStatement(ifStatement), variableNames)){
                 return false;
             }
@@ -96,7 +97,7 @@ public class DocumentBaseFilter {
     }
 
     public static boolean exceptionPatchFilter(String annotation, List<String> ifParam, List<String> variableNames){
-        List<String> subjects = AnnotationUtils.Parse(annotation);
+        List<String> subjects = AnnotationUtils.Parse(annotation); // Extremely slow !!!
         int count = 0;
         for (String param: ifParam){
             if (param.equals("")){

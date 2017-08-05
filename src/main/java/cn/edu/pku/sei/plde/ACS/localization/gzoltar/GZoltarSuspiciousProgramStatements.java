@@ -15,16 +15,18 @@
  */
 package cn.edu.pku.sei.plde.ACS.localization.gzoltar;
 
+import cn.edu.pku.sei.plde.ACS.localization.common.sps.SuspiciousProgramStatements;
+import cn.edu.pku.sei.plde.ACS.localization.metric.Metric;
 import com.google.common.base.Predicate;
 import com.gzoltar.core.GZoltar;
 import com.gzoltar.core.components.Statement;
-import cn.edu.pku.sei.plde.ACS.localization.metric.Metric;
-import cn.edu.pku.sei.plde.ACS.localization.common.sps.SuspiciousProgramStatements;
-import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -112,13 +114,9 @@ public final class GZoltarSuspiciousProgramStatements implements SuspiciousProgr
         }
     }
 
-    /**
-     * @param testClasses
-     * @return a ranked list of potential bug root-cause.
-     * @see cn.edu.pku.sei.plde.ACS.localization.common.sps.SuspiciousProgramStatements#sortBySuspiciousness(String...)
-     */
 
-    public List<StatementExt> sortBySuspiciousness(final String... testClasses) {
+
+    public List<Statement> sortBySuspiciousness(final String... testClasses) {
         for (String className : checkNotNull(testClasses)) {
             gzoltar.addTestToExecute(className); // we want to execute the test
             gzoltar.addClassNotToInstrument(className); // we don't want to include the test as root-cause
@@ -126,9 +124,7 @@ public final class GZoltarSuspiciousProgramStatements implements SuspiciousProgr
         }
         gzoltar.run();
 
-
-
-        List<StatementExt> statements = gzoltar.getSuspiciousStatementExts();
+        List<Statement> statements = gzoltar.getSuspiciousStatementExts();
 
 		/*Logger logger = LoggerFactory.getLogger(this.getClass());
 		if (logger.isDebugEnabled()) {
@@ -138,7 +134,7 @@ public final class GZoltarSuspiciousProgramStatements implements SuspiciousProgr
         return statements;
     }
 
-    public GZoltar getGzoltar() {
+    public WGzoltar getGzoltar() {
         return gzoltar;
     }
 

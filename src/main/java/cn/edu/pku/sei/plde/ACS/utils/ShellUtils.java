@@ -3,6 +3,7 @@ package cn.edu.pku.sei.plde.ACS.utils;
 import cn.edu.pku.sei.plde.ACS.main.Config;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -88,7 +89,8 @@ public class ShellUtils {
         return ShellUtils.getShellOut(process);
     }
 
-    public static void runCmd(String cmd, File dir) {
+    public static List<String> runCmd(String cmd, File dir) {
+        final List<String> stdErr = new ArrayList<>();
         try {
             final Process process = Runtime.getRuntime().exec(cmd, null, dir);
 
@@ -101,6 +103,7 @@ public class ShellUtils {
                         while ((num = errorInStream.read(bs)) != -1) {
                             String str = new String(bs, 0, num, "UTF-8");
                             System.err.println(str);
+                            stdErr.add(str);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -135,12 +138,12 @@ public class ShellUtils {
             }.start();
 
             process.waitFor();
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return stdErr;
     }
 
 }
