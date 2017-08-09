@@ -16,6 +16,8 @@ public class ExceptionExtractor {
     private Suspicious suspicious;
     private List<TraceResult> traceResults;
     private List<ExceptionVariable> exceptionVariables;
+
+
     public ExceptionExtractor(Suspicious suspicious){
         this.suspicious = suspicious;
     }

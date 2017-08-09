@@ -40,5 +40,5 @@ if '__main__' == __name__:
     ban.append(int(baned_pid))
     ps = getAllProcessInfo("java")
     for p in ps:
-        # kill_proc(get_pip(p))
+        #kill_proc(get_pip(p))
 

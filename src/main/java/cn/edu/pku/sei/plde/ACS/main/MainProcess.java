@@ -141,7 +141,7 @@ public class MainProcess {
         successHalfFlag = false;
 //        SuspiciousFixer fixer = new SuspiciousFixer(suspicious, project, timeLine);
 
-        boolean usingML = true;
+        boolean usingML = Config.USING_ML;
         SuspiciousFixer fixer = new SuspiciousFixer(i, suspicious, project, timeLine, usingML);
         if (timeLine.isTimeout()){
             return false;

@@ -305,7 +305,7 @@ public class Suspicious implements Serializable{
                 variableInfos.add(info);
             }
         }
-        _variableInfo.removeAll(variableInfos);
+        _variableInfo.removeAll(variableInfos);//??
         _variableInfo.addAll(variableInfos);
         _variableInfo = InfoUtils.filterBannedVariable(_variableInfo);
         return InfoUtils.filterBannedVariable(variableInfos);
@@ -382,10 +382,6 @@ public class Suspicious implements Serializable{
         return _methodInfo;
     }
 
-    public List<TraceResult> getTraceResult(String project){
-        return getTraceResult(project, TimeLine.NEVER_TIMEOUT);
-    }
-
     public List<TraceResult> getTraceResult(String project, TimeLine timeLine) {
         VariableTracer tracer = new VariableTracer(_srcPath, _testSrcPath, this, project);
         List<TraceResult> traceResults = new ArrayList<TraceResult>();
@@ -414,9 +410,7 @@ public class Suspicious implements Serializable{
                 int line = getDefaultErrorLine();
                 assert line > 0;
 
-                List<TraceResult> tr = tracer.trace(classname(), functionname(),
-                        testclass.split("#")[0], testclass.split("#")[1],
-                        line, false);
+                List<TraceResult> tr = tracer.trace(classname(), functionname(),testclass.split("#")[0], testclass.split("#")[1],line,false);
 
                 traceResults.addAll(tr);
             } catch (IOException e){

@@ -53,6 +53,12 @@ public class AngelicFilter {
         return result;
     }
 
+    /**
+     * @param targetLine: error line in score code
+     * @param assertMessage: TestClass#TestMtd#FailedLine
+     * @param traceResults: set of values
+     * @return
+     */
     public boolean filterSingle(int targetLine, String assertMessage,List<TraceResult> traceResults){
         String targetLineString = CodeUtils.getLineFromCode(code, targetLine-1);
         if (!LineUtils.isIfLine(targetLineString)){
@@ -67,7 +73,7 @@ public class AngelicFilter {
         }
         String newIfString;
         if (value.equals("true")){
-            newIfString = getNewIfString(targetLineString, true);
+            newIfString = getNewIfString(targetLineString, true);   // why if (fa * fb >= 0.0 && false ) { ?
         }
         else {
             newIfString = getNewIfString(targetLineString, false);
@@ -75,7 +81,7 @@ public class AngelicFilter {
         backup();
         SourceUtils.insertIfStatementToSourceFile(targetFile, newIfString,targetLine-1,-1,true);
         make();
-        Asserts asserts = new Asserts(classPath,srcPath, testClassName, testSrcPath, testClassName, testMethodName, project);
+        Asserts asserts = new Asserts(classPath,srcPath, testClassName, testSrcPath, testClassName, testMethodName, project);//run trace, slow!
         recovery();
         int errAssertAfterFix = asserts.errorNum();
         if (errAssertAfterFix != 0){

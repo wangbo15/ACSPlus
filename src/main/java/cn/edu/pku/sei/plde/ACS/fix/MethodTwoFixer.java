@@ -103,7 +103,7 @@ public class MethodTwoFixer {
                         else {
                             String ifEnd = lastLineString.substring(lastLineString.lastIndexOf(')'));
                             lastLineString = lastLineString.substring(0, lastLineString.lastIndexOf(')'));
-                            if (!ifFilter(lastLineString, ifString)){
+                            if (!ifFilter(lastLineString, ifString)){// filt what ??
                                 continue;
                             }
                             ifStatement =lastLineString+ " && " + getIfStringFromStatement(getIfStatementFromString(ifString)) + ifEnd;

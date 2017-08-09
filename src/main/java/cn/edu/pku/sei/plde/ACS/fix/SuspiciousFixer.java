@@ -42,29 +42,18 @@ public class SuspiciousFixer {
     private List<String> methodTwoHistory = new ArrayList<>();
     private List<String> bannedHistory = new ArrayList<>();
 
-    public SuspiciousFixer(Suspicious suspicious, String project, TimeLine timeLine){
-        this.suspicious = suspicious;
-        this.project = project;
-        this.timeLine = timeLine;
-        traceResults = suspicious.getTraceResult(project, timeLine);
-        trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());
-        falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());
-        if (FAILED_TEST_NUM == 0){
-            FAILED_TEST_NUM = TestUtils.getFailTestNumInProject(project);
-        }
-    }
-
     public SuspiciousFixer(int ithSuspicous, Suspicious suspicious, String project, TimeLine timeLine, boolean usingML){
         this.ithSuspicous = ithSuspicous;
         this.suspicious = suspicious;
         this.project = project;
         this.timeLine = timeLine;
 
+        //TODO: trace of predictor
+
         traceResults = suspicious.getTraceResult(project, timeLine);
-        if(!usingML){
-            trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());
-            falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());
-        }
+
+        trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());//belongs to succ test
+        falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());//belongs to fail test
 
         if (FAILED_TEST_NUM == 0){
             FAILED_TEST_NUM = TestUtils.getFailTestNumInProject(project);
@@ -95,12 +84,12 @@ public class SuspiciousFixer {
         String locMsg = this.ithSuspicous + "  :  " + predCmd + "\n" + filePath.trim() + " # " + line + "\n";
         FileUtils.writeStringToFile(locationDumpFile, locMsg, true);
 
-        List<String> errMsgs = ShellUtils.runCmd(predCmd, null);
-        for(String s : errMsgs){
-            if(s.startsWith("PREDICTOR ERROR!")){
-                return false;
-            }
-        }
+//        List<String> errMsgs = ShellUtils.runCmd(predCmd, null);
+//        for(String s : errMsgs){
+//            if(s.startsWith("PREDICTOR ERROR!")){
+//                return false;
+//            }
+//        }
 
         List<String> allConditions = ExprUtil.loadConditions(this.project, this.ithSuspicous);
 
@@ -148,12 +137,13 @@ public class SuspiciousFixer {
     public boolean mainFixProcess(){
         ExceptionExtractor extractor = new ExceptionExtractor(suspicious);
         Map<Integer, List<TraceResult>> traceResultWithLine = traceResultClassify(traceResults);
-        Map<Integer, List<TraceResult>> firstToGo = new TreeMap<Integer, List<TraceResult>>(new Comparator<Integer>() {
+        Map<Integer, List<TraceResult>> firstToGo = new TreeMap<Integer, List<TraceResult>>(new Comparator<Integer>() {//why sort again? Did it have been sorted in traceResultClassify()?
             @Override
             public int compare(Integer integer, Integer t1) {
                 return integer.compareTo(t1);
             }
         });
+
         for (Map.Entry<Integer, List<TraceResult>> entry: traceResultWithLine.entrySet()){
             if (suspicious.tracedErrorLine.contains(entry.getKey())){
                 firstToGo.put(entry.getKey(), entry.getValue());
@@ -231,7 +221,7 @@ public class SuspiciousFixer {
 
     private boolean fixInLineWithTraceResult(int line, List<TraceResult> traceResults, ExceptionExtractor extractor, boolean onlyMethod2){
         trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());
-        falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());
+        falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());//values of failed test-case
         exceptionVariables = extractor.extract(suspicious,traceResults);
 
         List<List<ExceptionVariable>> echelons = extractor.sort();
@@ -352,20 +342,21 @@ public class SuspiciousFixer {
 
 
     public String fixMethodTwo(Suspicious suspicious, Map<String, List<String>> ifStrings, String project, int errorLine, boolean debug){
-        return "";
+        if(Config.USING_ML) {
+            //TODO:
 
-        /*
-        // need to be rewrote !!!
-        if (ifStrings.size() == 0){
-            return "";
+        }else {
+            // need to be rewrote !!!
+            if (ifStrings.size() == 0) {
+                return "";
+            }
+            MethodTwoFixer fixer = new MethodTwoFixer(suspicious);
+            if (fixer.fix(ifStrings, Sets.newHashSet(errorLine), project, debug)) {
+                return fixer.correctPatch + "[" + fixer.correctStartLine + "," + fixer.correctEndLine + "]";
+            }
+            methodTwoHistory = fixer.triedPatch;
         }
-        MethodTwoFixer fixer = new MethodTwoFixer(suspicious);
-        if (fixer.fix(ifStrings, Sets.newHashSet(errorLine), project, debug)){
-            return fixer.correctPatch+"["+fixer.correctStartLine+","+fixer.correctEndLine+"]";
-        }
-        methodTwoHistory  = fixer.triedPatch;
         return "";
-        */
     }
 
 
@@ -416,15 +407,15 @@ public class SuspiciousFixer {
             */
 
             /* why ban,run too slowly!!! */
-            /*
-            for (String statemnt: ifStatement) {
-                if (ifStringFilter(statemnt,fixString, patchLine.get(0))) {
-                    bannedStatement.add(statemnt);
+            if(Config.USING_ML == false) {
+                for (String statemnt : ifStatement) {
+                    if (ifStringFilter(statemnt, fixString, patchLine.get(0))) {
+                        bannedStatement.add(statemnt);
+                    }
                 }
+                ifStatement.removeAll(bannedStatement);
+                bannedHistory.addAll(bannedStatement);
             }
-            ifStatement.removeAll(bannedStatement);
-            bannedHistory.addAll(bannedStatement);
-            */
 
             if (ifStatement.size() == 0){
                 return "";

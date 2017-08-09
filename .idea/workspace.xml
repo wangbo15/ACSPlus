@@ -2,26 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce520c33-815c-4ca6-b133-303e85b77790" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementByUW.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/metric/NoMetric.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Condition.jar" afterPath="$PROJECT_DIR$/Condition.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/runConfigurations/run_ACSPlus.xml" afterPath="$PROJECT_DIR$/.idea/runConfigurations/run_ACSPlus.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/DocumentBaseFilter.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/DocumentBaseFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kill_process.py" afterPath="$PROJECT_DIR$/kill_process.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/assertCollect/Asserts.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/assertCollect/Asserts.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/AngelicFilter.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/AngelicFilter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodTwoFixer.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodTwoFixer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/common/sps/SuspiciousProgramStatements.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/common/sps/SuspiciousProgramStatements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/GZoltarSuspiciousProgramStatements.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/GZoltarSuspiciousProgramStatements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/WGzoltar.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/WGzoltar.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Config.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Config.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ErrorLineTracer.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ErrorLineTracer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/ExprUtil.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/ExprUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RuntimeUtils.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RuntimeUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/ShellUtils.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/ShellUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ExceptionExtractor.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ExceptionExtractor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/VariableTracer.java" afterPath="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/VariableTracer.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/RunTestAgent/target/" />
@@ -39,27 +32,24 @@
     <window id="1">
       <content type="file-editors">
         <state>
-          <leaf>
-            <file leaf-file-name="Localization.java" pinned="false" current-in-tab="false">
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+            <file leaf-file-name="Localization.java" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="130">
-                    <caret line="192" column="36" lean-forward="false" selection-start-line="192" selection-start-column="36" selection-end-line="192" selection-end-column="36" />
+                  <state relative-caret-position="770">
+                    <caret line="155" column="68" lean-forward="false" selection-start-line="155" selection-start-column="56" selection-end-line="155" selection-end-column="68" />
                     <folding>
                       <element signature="imports" expanded="true" />
-                      <element signature="e#5846#5854#0" expanded="true" />
-                      <element signature="e#7788#7800#0" expanded="true" />
-                      <element signature="e#7993#8001#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="SuspiciousFixer.java" pinned="false" current-in-tab="true">
+            <file leaf-file-name="SuspiciousFixer.java" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="231">
-                    <caret line="231" column="38" lean-forward="false" selection-start-line="231" selection-start-column="38" selection-end-line="231" selection-end-column="38" />
+                  <state relative-caret-position="290">
+                    <caret line="220" column="0" lean-forward="false" selection-start-line="220" selection-start-column="0" selection-end-line="220" selection-end-column="0" />
                     <folding />
                   </state>
                 </provider>
@@ -68,10 +58,19 @@
             <file leaf-file-name="StatementByUW.java" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementByUW.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="560">
+                  <state relative-caret-position="460">
                     <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
                     <folding>
-                      <element signature="imports" expanded="true" />
+                      <element signature="e#825#826#0" expanded="false" />
+                      <element signature="e#860#861#0" expanded="false" />
+                      <element signature="e#898#899#0" expanded="false" />
+                      <element signature="e#929#930#0" expanded="false" />
+                      <element signature="e#966#967#0" expanded="false" />
+                      <element signature="e#994#995#0" expanded="false" />
+                      <element signature="e#1034#1035#0" expanded="false" />
+                      <element signature="e#1066#1067#0" expanded="false" />
+                      <element signature="e#1120#1121#0" expanded="false" />
+                      <element signature="e#1162#1163#0" expanded="false" />
                     </folding>
                   </state>
                 </provider>
@@ -80,11 +79,41 @@
             <file leaf-file-name="StatementExt.java" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementExt.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="730">
+                  <state relative-caret-position="1040">
                     <caret line="87" column="18" lean-forward="false" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
                     <folding>
-                      <element signature="imports" expanded="true" />
-                      <element signature="e#652#660#0" expanded="true" />
+                      <element signature="e#766#767#0" expanded="false" />
+                      <element signature="e#794#795#0" expanded="false" />
+                      <element signature="e#833#834#0" expanded="false" />
+                      <element signature="e#870#871#0" expanded="false" />
+                      <element signature="e#1213#1214#0" expanded="false" />
+                      <element signature="e#1248#1249#0" expanded="false" />
+                      <element signature="e#1286#1287#0" expanded="false" />
+                      <element signature="e#1317#1318#0" expanded="false" />
+                      <element signature="e#1354#1355#0" expanded="false" />
+                      <element signature="e#1382#1383#0" expanded="false" />
+                      <element signature="e#1422#1423#0" expanded="false" />
+                      <element signature="e#1454#1455#0" expanded="false" />
+                      <element signature="e#1481#1482#0" expanded="false" />
+                      <element signature="e#1506#1507#0" expanded="false" />
+                      <element signature="e#1532#1533#0" expanded="false" />
+                      <element signature="e#1557#1558#0" expanded="false" />
+                      <element signature="e#1583#1584#0" expanded="false" />
+                      <element signature="e#1608#1609#0" expanded="false" />
+                      <element signature="e#1634#1635#0" expanded="false" />
+                      <element signature="e#1659#1660#0" expanded="false" />
+                      <element signature="e#1692#1693#0" expanded="false" />
+                      <element signature="e#1720#1721#0" expanded="false" />
+                      <element signature="e#1753#1754#0" expanded="false" />
+                      <element signature="e#1781#1782#0" expanded="false" />
+                      <element signature="e#1814#1815#0" expanded="false" />
+                      <element signature="e#1842#1843#0" expanded="false" />
+                      <element signature="e#1875#1876#0" expanded="false" />
+                      <element signature="e#1903#1904#0" expanded="false" />
+                      <element signature="e#2202#2203#0" expanded="false" />
+                      <element signature="e#2243#2244#0" expanded="false" />
+                      <element signature="e#2925#2926#0" expanded="false" />
+                      <element signature="e#3015#3016#0" expanded="false" />
                     </folding>
                   </state>
                 </provider>
@@ -93,9 +122,17 @@
             <file leaf-file-name="TraceResult.java" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/TraceResult.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="20">
+                  <state relative-caret-position="140">
                     <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-                    <folding />
+                    <folding>
+                      <element signature="imports" expanded="false" />
+                      <element signature="e#623#624#0" expanded="false" />
+                      <element signature="e#663#664#0" expanded="false" />
+                      <element signature="e#700#701#0" expanded="false" />
+                      <element signature="e#734#735#0" expanded="false" />
+                      <element signature="e#788#789#0" expanded="false" />
+                      <element signature="e#817#818#0" expanded="false" />
+                    </folding>
                   </state>
                 </provider>
               </entry>
@@ -111,28 +148,56 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+            <state relative-caret-position="211">
+              <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SuspiciousFixer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="156" column="0" lean-forward="false" selection-start-line="156" selection-start-column="0" selection-end-line="156" selection-end-column="0" />
+              <folding>
+                <element signature="e#5646#5674#0" expanded="true" />
+                <element signature="e#5675#5923#0" expanded="true" />
+                <element signature="e#5922#5923#0" expanded="true" />
+                <element signature="e#12360#12541#0" expanded="true" />
+                <element signature="e#12540#12541#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MethodTwoFixer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodTwoFixer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="371">
+              <caret line="119" column="0" lean-forward="false" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RuntimeUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RuntimeUtils.java">
+      <file leaf-file-name="AssertComment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/AssertComment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+            <state relative-caret-position="280">
+              <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Object.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/program_files/jdk1.7.0_79/src.zip!/java/lang/Object.java">
+      <file leaf-file-name="ReturnCapturer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/ReturnCapturer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="382" column="29" lean-forward="false" selection-start-line="382" selection-start-column="29" selection-end-line="382" selection-end-column="29" />
+            <state relative-caret-position="131">
+              <caret line="91" column="25" lean-forward="false" selection-start-line="91" selection-start-column="25" selection-end-line="91" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -141,8 +206,18 @@
       <file leaf-file-name="TestUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/TestUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+            <state relative-caret-position="200">
+              <caret line="26" column="25" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExceptionExtractor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ExceptionExtractor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="131">
+              <caret line="30" column="14" lean-forward="false" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -151,9 +226,12 @@
       <file leaf-file-name="Asserts.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/assertCollect/Asserts.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="271">
+              <caret line="74" column="5" lean-forward="false" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
+              <folding>
+                <element signature="e#11127#11128#0" expanded="true" />
+                <element signature="e#11198#11199#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -162,31 +240,17 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/AngelicFilter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="191">
-              <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SuspiciousFixer.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java">
+      <file leaf-file-name="MainProcess.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="96" column="0" lean-forward="true" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
-              <folding>
-                <element signature="e#4660#4688#0" expanded="true" />
-                <element signature="e#4689#4870#0" expanded="true" />
-                <element signature="e#4869#4870#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DocumentBaseFilter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/DocumentBaseFilter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="37" column="24" lean-forward="false" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
+            <state relative-caret-position="290">
+              <caret line="159" column="13" lean-forward="true" selection-start-line="159" selection-start-column="13" selection-end-line="159" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -221,6 +285,7 @@
       <find>if(true)</find>
       <find>new ArrayList&lt;String&gt;</find>
       <find>_lines</find>
+      <find>shellRun</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -251,18 +316,24 @@
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/GZoltarSuspiciousProgramStatements.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/WGzoltar.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementByUW.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ErrorLineTracer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Config.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/ExprUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/ShellUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodTwoFixer.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RuntimeUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/DocumentBaseFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Config.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java" />
+        <option value="$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/google/common/collect/Sets.class" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ExceptionExtractor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/assertCollect/Asserts.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ErrorLineTracer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/VariableTracer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/InfoUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/AngelicFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodTwoFixer.java" />
       </list>
     </option>
   </component>
@@ -506,7 +577,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
-    <property name="SearchEverywhereHistoryKey" value="RuntimeUtils&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RuntimeUtils.java&#10;kill_process&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/kill_process.py&#10;Sus&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.fix.SuspiciousFixer&#10;main&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.main.Main&#10;config&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.main.Config&#10;Confi&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.localization.common.config.Config&#10;ErrorLineTracer&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ErrorLineTracer.java&#10;RogersTanimoto.java&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/localization/metric/RogersTanimoto.java&#10;CodeUtils&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/utils/CodeUtils.java&#10;RecordUtils&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RecordUtils.java&#10;suspiciousl&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.main.MainProcess#suspiciousLoop&#10;mainpro&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java&#10;delete&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.localization.common.library.FileLibrary#deleteFile&#10;mainprocess&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java&#10;asserts&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.assertCollect.Asserts" />
+    <property name="SearchEverywhereHistoryKey" value="Main&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java&#10;RuntimeUtils&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RuntimeUtils.java&#10;kill_process&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/kill_process.py&#10;Sus&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.fix.SuspiciousFixer&#10;main&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.main.Main&#10;config&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.main.Config&#10;Confi&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.localization.common.config.Config&#10;ErrorLineTracer&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ErrorLineTracer.java&#10;RogersTanimoto.java&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/localization/metric/RogersTanimoto.java&#10;CodeUtils&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/utils/CodeUtils.java&#10;RecordUtils&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RecordUtils.java&#10;suspiciousl&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.main.MainProcess#suspiciousLoop&#10;mainpro&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java&#10;delete&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.localization.common.library.FileLibrary#deleteFile&#10;mainprocess&#9;FILE&#9;file:///home/nightwish/workspace/bug_repair/ACSPlus/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java&#10;asserts&#9;PSI&#9;JAVA://cn.edu.pku.sei.plde.ACS.assertCollect.Asserts" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -759,34 +830,34 @@
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.50193477" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13045882" sideWeight="0.4944356" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23770039" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3236559" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.50193477" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18709677" sideWeight="0.49806523" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13045882" sideWeight="0.5055644" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19513543" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27526882" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23770039" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3236559" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13045882" sideWeight="0.4944356" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13045882" sideWeight="0.5055644" order="9" side_tool="true" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -836,7 +907,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java</url>
-          <line>183</line>
+          <line>173</line>
           <properties class="cn.edu.pku.sei.plde.ACS.fix.SuspiciousFixer" method="fixInLineWithPredictor">
             <option name="EMULATED" value="true" />
           </properties>
@@ -867,30 +938,30 @@
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/DocumentBaseFilter.java</url>
-          <line>37</line>
-          <properties class="cn.edu.pku.sei.plde.ACS.fix.DocumentBaseFilter" method="filterWithAnnotation">
+          <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java</url>
+          <line>221</line>
+          <properties class="cn.edu.pku.sei.plde.ACS.fix.SuspiciousFixer" method="fixInLineWithTraceResult">
             <option name="EMULATED" value="true" />
           </properties>
-          <option name="timeStamp" value="68" />
+          <option name="timeStamp" value="89" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RuntimeUtils.java</url>
-          <line>23</line>
-          <properties class="cn.edu.pku.sei.plde.ACS.utils.RuntimeUtils" method="killProcess">
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ExceptionExtractor.java</url>
+          <line>30</line>
+          <properties class="cn.edu.pku.sei.plde.ACS.trace.ExceptionExtractor" method="sort">
             <option name="EMULATED" value="true" />
           </properties>
-          <option name="timeStamp" value="70" />
+          <option name="timeStamp" value="90" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java</url>
-          <line>437</line>
+          <line>428</line>
           <properties />
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java</url>
-          <line>89</line>
+          <line>78</line>
           <properties />
           <option name="timeStamp" value="20" />
         </line-breakpoint>
@@ -902,13 +973,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java</url>
-          <line>97</line>
+          <line>86</line>
           <properties />
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java</url>
-          <line>217</line>
+          <line>207</line>
           <properties />
           <option name="timeStamp" value="63" />
         </line-breakpoint>
@@ -918,17 +989,35 @@
           <properties />
           <option name="timeStamp" value="65" />
         </line-breakpoint>
-        <line-breakpoint type="java-line">
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java</url>
-          <line>375</line>
+          <line>54</line>
           <properties />
-          <option name="timeStamp" value="66" />
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ExceptionExtractor.java</url>
+          <line>37</line>
+          <properties />
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/AngelicFilter.java</url>
+          <line>46</line>
+          <properties />
+          <option name="timeStamp" value="93" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/AngelicFilter.java</url>
+          <line>62</line>
+          <properties />
+          <option name="timeStamp" value="96" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.AssertionError" package="java.lang" />
           <option name="timeStamp" value="55" />
         </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
+        <breakpoint type="java-exception">
           <properties class="java.io.FileNotFoundException" package="java.io" />
           <option name="timeStamp" value="71" />
         </breakpoint>
@@ -936,7 +1025,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="72" />
+      <option name="time" value="97" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -945,141 +1034,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/cn/edu/pku/sei/plde/ACS/empricalStudy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="269" column="46" lean-forward="false" selection-start-line="269" selection-start-column="46" selection-end-line="269" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/gzoltar/core/instr/testing/TestResult.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="31" column="19" lean-forward="false" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
-          <folding>
-            <element signature="e#796#797#0" expanded="true" />
-            <element signature="e#834#835#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/CodeUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2751">
-          <caret line="489" column="47" lean-forward="false" selection-start-line="489" selection-start-column="31" selection-end-line="489" selection-end-column="47" />
-          <folding>
-            <element signature="e#13575#13576#0" expanded="false" />
-            <element signature="e#13623#13624#0" expanded="false" />
-            <element signature="e#16015#16016#0" expanded="false" />
-            <element signature="e#16075#16076#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/program_files/jdk1.7.0_79/src.zip!/java/util/BitSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="62" column="13" lean-forward="false" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/google/common/base/Preconditions.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="51" column="24" lean-forward="false" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/common/sps/SuspiciousStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="23" column="17" lean-forward="false" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/GZoltarStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="26" column="46" lean-forward="false" selection-start-line="26" selection-start-column="46" selection-end-line="26" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/metric/Metric.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/metric/RogersTanimoto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="47" lean-forward="false" selection-start-line="0" selection-start-column="47" selection-end-line="0" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/metric/Kulczynski1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="42" lean-forward="false" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/common/sps/SuspiciousProgramStatements.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="27" column="17" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/gzoltar/core/GZoltar.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="126" column="27" lean-forward="false" selection-start-line="126" selection-start-column="27" selection-end-line="126" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/GZoltarStatementWrapperFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="29" column="19" lean-forward="false" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/metric/Anderberg.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/program_files/jdk1.7.0_79/src.zip!/java/net/URLClassLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="365" column="0" lean-forward="false" selection-start-line="365" selection-start-column="0" selection-end-line="365" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/gzoltar/core/components/Statement.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1087,21 +1045,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="33" column="18" lean-forward="false" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
-          <folding>
-            <element signature="e#953#954#0" expanded="true" />
-            <element signature="e#995#996#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementExt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="730">
-          <caret line="87" column="18" lean-forward="false" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#652#660#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1109,25 +1052,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementByUW.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/VariableTracer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="57" column="21" lean-forward="false" selection-start-line="57" selection-start-column="21" selection-end-line="57" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1136,22 +1060,14 @@
         <state relative-caret-position="240">
           <caret line="89" column="77" lean-forward="false" selection-start-line="89" selection-start-column="77" selection-end-line="89" selection-end-column="77" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1148#1149#0" expanded="true" />
-            <element signature="e#1187#1188#0" expanded="true" />
-            <element signature="e#1806#1807#0" expanded="true" />
-            <element signature="e#1860#1861#0" expanded="true" />
-            <element signature="e#5264#5729#0" expanded="true" />
-            <element signature="e#5728#5729#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1148#1149#0" expanded="false" />
+            <element signature="e#1187#1188#0" expanded="false" />
+            <element signature="e#1806#1807#0" expanded="false" />
+            <element signature="e#1860#1861#0" expanded="false" />
+            <element signature="e#5264#5729#0" expanded="false" />
+            <element signature="e#5728#5729#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ErrorLineTracer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="252" column="78" lean-forward="false" selection-start-line="252" selection-start-column="78" selection-end-line="252" selection-end-column="78" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1159,7 +1075,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1167,23 +1082,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="436" column="0" lean-forward="false" selection-start-line="436" selection-start-column="0" selection-end-line="436" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/TraceResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1191,15 +1089,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="32" column="49" lean-forward="false" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1208,10 +1097,10 @@
         <state relative-caret-position="534">
           <caret line="118" column="27" lean-forward="false" selection-start-line="118" selection-start-column="27" selection-end-line="118" selection-end-column="27" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3577#3585#0" expanded="true" />
-            <element signature="e#5180#5181#0" expanded="true" />
-            <element signature="e#5210#5211#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3577#3585#0" expanded="false" />
+            <element signature="e#5180#5181#0" expanded="false" />
+            <element signature="e#5210#5211#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1230,9 +1119,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="237">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1241,27 +1127,6 @@
         <state relative-caret-position="442">
           <caret line="134" column="5" lean-forward="false" selection-start-line="134" selection-start-column="5" selection-end-line="134" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="192" column="36" lean-forward="false" selection-start-line="192" selection-start-column="36" selection-end-line="192" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5846#5854#0" expanded="true" />
-            <element signature="e#7788#7800#0" expanded="true" />
-            <element signature="e#7993#8001#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1277,7 +1142,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
           <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1285,23 +1149,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
           <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodTwoFixer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="60" column="20" lean-forward="false" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/ReturnCapturer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="91" column="18" lean-forward="false" selection-start-line="91" selection-start-column="18" selection-end-line="91" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1309,47 +1156,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="77" column="31" lean-forward="false" selection-start-line="77" selection-start-column="31" selection-end-line="77" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/DocumentBaseFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="37" column="24" lean-forward="false" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/TestUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/assertCollect/Asserts.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/AngelicFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1361,39 +1167,376 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RuntimeUtils.java">
+    <entry file="jar://$USER_HOME$/program_files/jdk1.7.0_79/src.zip!/java/lang/Object.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="7100">
+          <caret line="382" column="29" lean-forward="false" selection-start-line="382" selection-start-column="29" selection-end-line="382" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#25910#0" expanded="false" />
+            <element signature="e#5860#5861#0" expanded="false" />
+            <element signature="e#5896#5897#0" expanded="false" />
+            <element signature="e#10180#10181#0" expanded="false" />
+            <element signature="e#10263#10264#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/program_files/jdk1.7.0_79/jre/lib/rt.jar!/sun/misc/URLClassPath.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="284" column="0" lean-forward="false" selection-start-line="284" selection-start-column="0" selection-end-line="284" selection-end-column="0" />
+        <state relative-caret-position="200">
+          <caret line="549" column="0" lean-forward="false" selection-start-line="549" selection-start-column="0" selection-end-line="549" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="32" column="48" lean-forward="false" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/program_files/jdk1.7.0_79/src.zip!/java/lang/Object.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementByUW.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
+          <folding>
+            <element signature="e#825#826#0" expanded="false" />
+            <element signature="e#860#861#0" expanded="false" />
+            <element signature="e#898#899#0" expanded="false" />
+            <element signature="e#929#930#0" expanded="false" />
+            <element signature="e#966#967#0" expanded="false" />
+            <element signature="e#994#995#0" expanded="false" />
+            <element signature="e#1034#1035#0" expanded="false" />
+            <element signature="e#1066#1067#0" expanded="false" />
+            <element signature="e#1120#1121#0" expanded="false" />
+            <element signature="e#1162#1163#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/gzoltar/StatementExt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1040">
+          <caret line="87" column="18" lean-forward="false" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
+          <folding>
+            <element signature="e#766#767#0" expanded="false" />
+            <element signature="e#794#795#0" expanded="false" />
+            <element signature="e#833#834#0" expanded="false" />
+            <element signature="e#870#871#0" expanded="false" />
+            <element signature="e#1213#1214#0" expanded="false" />
+            <element signature="e#1248#1249#0" expanded="false" />
+            <element signature="e#1286#1287#0" expanded="false" />
+            <element signature="e#1317#1318#0" expanded="false" />
+            <element signature="e#1354#1355#0" expanded="false" />
+            <element signature="e#1382#1383#0" expanded="false" />
+            <element signature="e#1422#1423#0" expanded="false" />
+            <element signature="e#1454#1455#0" expanded="false" />
+            <element signature="e#1481#1482#0" expanded="false" />
+            <element signature="e#1506#1507#0" expanded="false" />
+            <element signature="e#1532#1533#0" expanded="false" />
+            <element signature="e#1557#1558#0" expanded="false" />
+            <element signature="e#1583#1584#0" expanded="false" />
+            <element signature="e#1608#1609#0" expanded="false" />
+            <element signature="e#1634#1635#0" expanded="false" />
+            <element signature="e#1659#1660#0" expanded="false" />
+            <element signature="e#1692#1693#0" expanded="false" />
+            <element signature="e#1720#1721#0" expanded="false" />
+            <element signature="e#1753#1754#0" expanded="false" />
+            <element signature="e#1781#1782#0" expanded="false" />
+            <element signature="e#1814#1815#0" expanded="false" />
+            <element signature="e#1842#1843#0" expanded="false" />
+            <element signature="e#1875#1876#0" expanded="false" />
+            <element signature="e#1903#1904#0" expanded="false" />
+            <element signature="e#2202#2203#0" expanded="false" />
+            <element signature="e#2243#2244#0" expanded="false" />
+            <element signature="e#2925#2926#0" expanded="false" />
+            <element signature="e#3015#3016#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/TraceResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#623#624#0" expanded="false" />
+            <element signature="e#663#664#0" expanded="false" />
+            <element signature="e#700#701#0" expanded="false" />
+            <element signature="e#734#735#0" expanded="false" />
+            <element signature="e#788#789#0" expanded="false" />
+            <element signature="e#817#818#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/program_files/jdk1.7.0_79/src.zip!/java/lang/management/ManagementFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="345" column="32" lean-forward="false" selection-start-line="345" selection-start-column="32" selection-end-line="345" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#32291#0" expanded="false" />
+            <element signature="e#11438#11439#0" expanded="false" />
+            <element signature="e#11503#11504#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/RuntimeUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/DocumentBaseFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-709">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Localization.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="770">
+          <caret line="155" column="68" lean-forward="false" selection-start-line="155" selection-start-column="56" selection-end-line="155" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/FileUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-40">
+          <caret line="310" column="23" lean-forward="false" selection-start-line="310" selection-start-column="23" selection-end-line="310" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/program_files/jdk1.7.0_79/src.zip!/java/util/concurrent/Future.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="40" column="55" lean-forward="false" selection-start-line="40" selection-start-column="55" selection-end-line="40" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/program_files/jdk1.7.0_79/src.zip!/java/util/concurrent/ExecutorService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2080">
+          <caret line="140" column="17" lean-forward="false" selection-start-line="140" selection-start-column="17" selection-end-line="140" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/gzoltar/core/instr/testing/TestResult.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/LineUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ErrorLineTracer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="40" column="28" lean-forward="false" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/visible/VariableCollect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1387">
+          <caret line="41" column="44" lean-forward="false" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/VariableTracer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding>
+            <element signature="e#12361#12362#0" expanded="true" />
+            <element signature="e#12438#12439#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/localization/Suspicious.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="222" column="0" lean-forward="false" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+          <folding>
+            <element signature="e#7843#7844#0" expanded="true" />
+            <element signature="e#7903#7904#0" expanded="true" />
+            <element signature="e#8130#8144#0" expanded="true" />
+            <element signature="e#15185#15198#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/filter/AbandanTrueValueFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="56" column="42" lean-forward="false" selection-start-line="56" selection-start-column="42" selection-end-line="56" selection-end-column="42" />
+          <folding>
+            <element signature="e#10717#10745#0" expanded="false" />
+            <element signature="e#11597#11625#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ExceptionVariable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="30" column="31" lean-forward="false" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/InfoUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="133" column="46" lean-forward="false" selection-start-line="133" selection-start-column="46" selection-end-line="133" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/visible/model/VariableInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="9" column="32" lean-forward="false" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodOneFixer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/ReturnCapturer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="91" column="25" lean-forward="false" selection-start-line="91" selection-start-column="25" selection-end-line="91" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/trace/ExceptionExtractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="30" column="14" lean-forward="false" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/utils/TestUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
-          <caret line="382" column="29" lean-forward="false" selection-start-line="382" selection-start-column="29" selection-end-line="382" selection-end-column="29" />
+          <caret line="26" column="25" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/assertCollect/Asserts.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="74" column="5" lean-forward="false" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
+          <folding>
+            <element signature="e#11127#11128#0" expanded="true" />
+            <element signature="e#11198#11199#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/AngelicFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/com.gzoltar-0.1.1.jar!/com/google/common/collect/Sets.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/AssertComment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/MethodTwoFixer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="119" column="0" lean-forward="false" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/fix/SuspiciousFixer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="96" column="0" lean-forward="true" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+        <state relative-caret-position="211">
+          <caret line="156" column="0" lean-forward="false" selection-start-line="156" selection-start-column="0" selection-end-line="156" selection-end-column="0" />
           <folding>
-            <element signature="e#4660#4688#0" expanded="true" />
-            <element signature="e#4689#4870#0" expanded="true" />
-            <element signature="e#4869#4870#0" expanded="true" />
+            <element signature="e#5646#5674#0" expanded="true" />
+            <element signature="e#5675#5923#0" expanded="true" />
+            <element signature="e#5922#5923#0" expanded="true" />
+            <element signature="e#12360#12541#0" expanded="true" />
+            <element signature="e#12540#12541#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/edu/pku/sei/plde/ACS/main/MainProcess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="159" column="13" lean-forward="true" selection-start-line="159" selection-start-column="13" selection-end-line="159" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>

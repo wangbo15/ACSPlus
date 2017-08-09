@@ -30,5 +30,6 @@ public class Config {
 
 
     public static final boolean USING_UW_FL_DATA = true;
+    public static final boolean USING_ML = false;
     public static final String PREDICTOR_OUT_ROOT = "/home/nightwish/workspace/eclipse/Condition/python/output/";
 }

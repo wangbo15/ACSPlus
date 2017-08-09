@@ -44,7 +44,7 @@ public class Asserts {
         _testSrcPath = testSrcPath;
         _testMethodName = testMethodName;
         _project = project;
-        _code = FileUtils.getCodeFromFile(_testSrcPath, _testClassname);
+        _code = FileUtils.getCodeFromFile(_testSrcPath, _testClassname);//test class code
 
 
         if (!_code.contains(_testMethodName) && _code.contains(" extends ")){
@@ -59,7 +59,7 @@ public class Asserts {
             }
         }
         _methodCode = FileUtils.getTestFunctionCodeFromCode(_code,_testMethodName, _testSrcPath);
-        List<Integer> methodLines = CodeUtils.getSingleMethodLine(_code,_testMethodName);
+        List<Integer> methodLines = CodeUtils.getSingleMethodLine(_code,_testMethodName);   //test mtd begin and end
         if (methodLines.size() == 2){
             _methodStartLine =methodLines.get(0);
             _methodEndLine = methodLines.get(1);
@@ -68,7 +68,7 @@ public class Asserts {
             _methodStartLine = 0;
             _methodEndLine = 0;
         }
-        _assertLineMap = CodeUtils.getAssertInTest(_code, testMethodName, _methodStartLine);
+        _assertLineMap = CodeUtils.getAssertInTest(_code, testMethodName, _methodStartLine);// assert line str -> line num
         _asserts = new ArrayList<>(_assertLineMap.keySet());
         _assertNums = _asserts.size();
         _errorAssertLines = getErrorAssertLine();

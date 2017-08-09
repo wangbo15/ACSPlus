@@ -39,16 +39,16 @@ public class ErrorLineTracer {
     }
 
     public List<Integer> trace(int defaultErrorLine, boolean isSuccess){
-        List<Integer> methodLine =  CodeUtils.getSingleMethodLine(code, methodName, defaultErrorLine);
+        List<Integer> methodLine =  CodeUtils.getSingleMethodLine(code, methodName, defaultErrorLine);//the begin lind and end line of this method
         if (methodLine.size() != 2){
             return Arrays.asList(defaultErrorLine);
         }
         methodStartLine = methodLine.get(0);
         methodEndLine = methodLine.get(1);
 
-        List<Integer> result = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();// should use Set, not List
         if (!isSuccess){
-            List<Integer> tracedErrorLine = getErrorLine(defaultErrorLine);
+            Set<Integer> tracedErrorLine = getErrorLine(defaultErrorLine);
             for (int line: tracedErrorLine){
                 if (!suspicious.tracedErrorLine.contains(line)){
                     suspicious.tracedErrorLine.add(line);
@@ -64,7 +64,7 @@ public class ErrorLineTracer {
             //line = errorLineOutOfSwitch(line, code);
             line = errorLineOutOfElse(line, code);
             String lineString = CodeUtils.getLineFromCode(code, line);
-            if (!LineUtils.isIndependentLine(lineString)){
+            if (!LineUtils.isIndependentLine(lineString)){// why ????   'lineString' is broken by '/n'
                 for (int i= line-1; i > 0; i--){
                     String lineIString = CodeUtils.getLineFromCode(code, i);
                     if (lineIString.contains(";") || LineUtils.isIndependentLine(lineIString)){
@@ -85,22 +85,22 @@ public class ErrorLineTracer {
             String lineString = CodeUtils.getLineFromCode(code, i);
             if (LineUtils.isIfAndElseIfLine(lineString)){
                 if (!returnList.contains(i+1)){
-                    returnList.add(i+1);
+                    returnList.add(i+1);    //why put (i+1) ??
                 }
             }
         }
         return returnList;
     }
 
-    private List<Integer> getErrorLine(int defaultErrorLine){
-        List<Integer> result = new ArrayList<>();
+    private Set<Integer> getErrorLine(int defaultErrorLine){
+        Set<Integer> result = new HashSet<>();
         result.addAll(errorLineInConstructor(code, defaultErrorLine));
         result.addAll(errorLineInForLoop(code, methodName));
 
-        List<Integer> lines = getErrorLineFromAssert(asserts);
+        List<Integer> lines = getErrorLineFromAssert(asserts);// ??
         if (lines.size() == 0){
             try {
-                String trace = TestUtils.getTestTrace(asserts._classpath, asserts._testClasspath, asserts._testClassname, asserts._testMethodName);
+                String trace = TestUtils.getTestTrace(asserts._classpath, asserts._testClasspath, asserts._testClassname, asserts._testMethodName);// dup code! get the same trace two times!!!
                 if (trace != null){
                     for (String line: trace.split("\n")){
                         if (line.contains(classname+"."+methodName)){

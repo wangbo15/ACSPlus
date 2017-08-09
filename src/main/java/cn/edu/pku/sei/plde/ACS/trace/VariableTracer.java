@@ -76,7 +76,7 @@ public class VariableTracer {
             Map<String, Integer> commentedTestClasses = tracer._commentedTestClass;
             if (commentedTestClasses.size() < 1){
                 if (_asserts.errorLines().size()>0){
-                    commentedTestClasses.put("", _asserts.errorLines().get(0));
+                    commentedTestClasses.put("", _asserts.errorLines().get(0));// what is this?
                 }
                 else {
                     commentedTestClasses.put("",-1);
