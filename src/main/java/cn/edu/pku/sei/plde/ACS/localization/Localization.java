@@ -88,15 +88,19 @@ public class Localization  {
             fReader = new FileReader(locFile);
             bReader = new BufferedReader(fReader);
             String line = null;
+            String preKey = "";
             while ((line = bReader.readLine()) != null) {
                 String[] columns = line.split(",");
                 //sth like 'org.apache.commons.math3.optimization.linear.Relationship#59'
                 String key = columns[0];
                 String val = columns[1];
                 Double score = Double.valueOf(val);
-
                 assert result.containsKey(key) == false;
                 if(score > 0.0D){
+                    if(inSameBlock(preKey, key)){
+                        continue;
+                    }
+                    preKey = key;
                     result.put(key, score);
                 }
             }
@@ -121,21 +125,37 @@ public class Localization  {
         return result;
     }
 
+    private boolean inSameBlock(String key0, String key1) {
+        String cls0 = key0.split("#")[0];
+        String cls1 = key1.split("#")[0];
+        if(cls0.equals(cls1) == false){
+            return false;
+        }
+        int line0 = new Integer(key0.split("#")[1]);
+        int line1 = new Integer(key1.split("#")[1]);
+        if(Math.abs(line0 - line1) <= 5){
+            return true;
+        }
+        return false;
+    }
+
 
     public List<Suspicious> getSuspiciousLiteOfUW(String subject, String bugid){
         File suspicousFile = new File(Config.LOCALIZATION_RESULT_CACHE +
                 FileUtils.getMD5(StringUtils.join(testClasses,"")+classpath+testClassPath+srcPath+testSrcPath)+".sps");
 
-        if (suspicousFile.exists()){
-            try {
-                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(suspicousFile));
-                List<Suspicious> result = (List<Suspicious>) objectInputStream.readObject();
-                objectInputStream.close();
-                return result;
-            }catch (Exception e){
-                System.out.println("Reloading Localization Result...");
-            }
-        }
+            //ERROR! defaultErrorLine is not set before save!!
+//        if (suspicousFile.exists()){
+//            try {
+//                System.out.println("LOADING EXISTING LOCATION DATA");
+//                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(suspicousFile));
+//                List<Suspicious> result = (List<Suspicious>) objectInputStream.readObject();
+//                objectInputStream.close();
+//                return result;
+//            }catch (Exception e){
+//                System.out.println("Reloading Localization Result...");
+//            }
+//        }
 
         List<Suspicious> result = new ArrayList<>();
 
@@ -166,7 +186,7 @@ public class Localization  {
             e.printStackTrace();
             return new ArrayList<Suspicious>();
         }
-        RecordUtils recordUtils = new RecordUtils("localization");
+        RecordUtils recordUtils = new RecordUtils("locationLog");
         for (Suspicious suspicious: result){
             recordUtils.write(suspicious.classname()+"#"+suspicious.functionnameWithoutParam()+"#"+suspicious.getDefaultErrorLine()+"\n");
         }

@@ -1,5 +1,7 @@
 package cn.edu.pku.sei.plde.ACS.fix;
 
+import cn.edu.pku.sei.plde.ACS.main.Config;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,8 @@ public class Patch {
             _addonImport = fixString.split("///")[0];
             fixString = fixString.split("///")[1];
         }
+        //add to judge the fixString is legal statement
+        _patchString.add(generatePatchString("if(false)", fixString));
         for (String ifString: ifStrings){
             _patchString.add(generatePatchString(ifString, fixString));
         }

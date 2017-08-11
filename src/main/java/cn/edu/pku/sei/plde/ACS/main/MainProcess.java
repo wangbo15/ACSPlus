@@ -63,7 +63,7 @@ public class MainProcess {
         Localization localization = new Localization(classpath, testClasspath, testClassSrc, classSrc,libPath);
         List<Suspicious> suspiciouses;
         if(Config.USING_UW_FL_DATA){
-            suspiciouses = localization.getSuspiciousLiteOfUW(projectType.toLowerCase(), "" + projectNumber);
+            suspiciouses = localization.getSuspiciousLiteOfUW(projectType.toLowerCase(), "" + projectNumber);   // will call gzoltar.run()
         }else{
             suspiciouses = localization.getSuspiciousLite(true);
         }
@@ -142,7 +142,7 @@ public class MainProcess {
 //        SuspiciousFixer fixer = new SuspiciousFixer(suspicious, project, timeLine);
 
         boolean usingML = Config.USING_ML;
-        SuspiciousFixer fixer = new SuspiciousFixer(i, suspicious, project, timeLine, usingML);
+        SuspiciousFixer fixer = new SuspiciousFixer(i, suspicious, project, timeLine, usingML);// get trace
         if (timeLine.isTimeout()){
             return false;
         }

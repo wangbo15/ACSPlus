@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by yanrunfa on 16/2/21.
  */
 public class TraceResult implements Serializable {
-    private Map<String, List<String>> result = new HashMap<String, List<String>>();
+    private Map<String, List<String>> result = new HashMap<String, List<String>>(); //variable_str => value list
     private final boolean _testResult;
     public int _assertLine;
     public int _traceLine;

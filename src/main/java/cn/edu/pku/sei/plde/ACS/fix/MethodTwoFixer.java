@@ -3,6 +3,7 @@ package cn.edu.pku.sei.plde.ACS.fix;
 import cn.edu.pku.sei.plde.ACS.assertCollect.Asserts;
 import cn.edu.pku.sei.plde.ACS.junit.JunitRunner;
 import cn.edu.pku.sei.plde.ACS.localization.Suspicious;
+import cn.edu.pku.sei.plde.ACS.main.Config;
 import cn.edu.pku.sei.plde.ACS.type.TypeUtils;
 import cn.edu.pku.sei.plde.ACS.utils.*;
 import org.apache.commons.lang.StringUtils;
@@ -57,19 +58,23 @@ public class MethodTwoFixer {
         _errorTestNum = SuspiciousFixer.FAILED_TEST_NUM;
     }
 
-
+    //boundarys: org.apache.commons.math.distribution.NormalDistributionTest#testMath280#169 -> if conds
     public boolean fix(Map<String, List<String>> boundarys, Set<Integer> errorLines, String project, boolean debug){
-        final int MAX_TRIED = 10;
 
         for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
             List<String> ifStrings = entry.getValue();
-            ifStrings = TypeUtils.arrayDup(ifStrings).subList(0, MAX_TRIED);
+            ifStrings = TypeUtils.arrayDup(ifStrings);
             for (int errorLine: errorLines){
-                List<Integer> ifLines = getIfLine(errorLine);
+                List<Integer> ifLines = getIfLine(errorLine);//get the if stmt being modified
                 if (ifLines.size()!=2){
                     continue;
                 }
+                int tried = 0;
+                END:
                 for (String ifString: ifStrings){
+                    if(tried > Config.MAX_TRIED_COND){
+                        break END;
+                    }
                     if (ifString.equals("")){
                         continue;
                     }
@@ -77,7 +82,7 @@ public class MethodTwoFixer {
                         continue;
                     }
                     int blockStartLine = ifLines.get(0);
-                    int blockEndLine = ifLines.get(1);
+                    int blockEndLine = ifLines.get(1);//seems to be wrong
                     String ifStatement = "";
                     for (int endLine: getLinesCanAdd(blockStartLine, blockEndLine,_code)) {
                         String lastLineString = CodeUtils.getLineFromCode(_code, blockStartLine-1);
@@ -106,8 +111,10 @@ public class MethodTwoFixer {
                             if (!ifFilter(lastLineString, ifString)){// filt what ??
                                 continue;
                             }
-                            ifStatement =lastLineString+ " && " + getIfStringFromStatement(getIfStatementFromString(ifString)) + ifEnd;
+//                            ifStatement =lastLineString+ " && " + getIfStringFromStatement(getIfStatementFromString(ifString)) + ifEnd;
+                            ifStatement = ifString + "{";
                             try {
+                                tried++;
                                 result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
                             } catch (TimeoutException e){
                                 return false;
@@ -118,20 +125,6 @@ public class MethodTwoFixer {
                                 correctPatch = ifStatement;
                                 triedPatch.add(ifStatement);
                                 return true;
-                            }else{
-                                ifStatement =lastLineString+ " || " +getIfStringFromStatement(ifString) + ifEnd;
-                                try {
-                                    result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
-                                } catch (TimeoutException e){
-                                    return false;
-                                }
-                                if (result){
-                                    correctStartLine = blockStartLine-1;
-                                    correctEndLine = endLine;
-                                    correctPatch = ifStatement;
-                                    triedPatch.add(ifStatement);
-                                    return true;
-                                }
                             }
                         }
                     }
@@ -205,6 +198,7 @@ public class MethodTwoFixer {
 
     private String getIfStatementFromString(String ifString){
         String statement =  ifString.replace("if (","if (!(");
+        statement =  ifString.replace("if(","if (!(");
         statement += "){";
         return statement;
     }

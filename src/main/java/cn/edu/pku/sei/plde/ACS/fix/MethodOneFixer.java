@@ -3,6 +3,7 @@ package cn.edu.pku.sei.plde.ACS.fix;
 import cn.edu.pku.sei.plde.ACS.assertCollect.Asserts;
 import cn.edu.pku.sei.plde.ACS.junit.JunitRunner;
 import cn.edu.pku.sei.plde.ACS.localization.Suspicious;
+import cn.edu.pku.sei.plde.ACS.main.Config;
 import cn.edu.pku.sei.plde.ACS.type.TypeUtils;
 import cn.edu.pku.sei.plde.ACS.utils.*;
 import org.apache.commons.lang.StringUtils;
@@ -49,14 +50,25 @@ public class MethodOneFixer {
         String code = FileUtils.getCodeFromFile(javaBackup);
         patch._patchString = TypeUtils.arrayDup(patch._patchString);
         boolean fixedFlag = false;
+
+        int tried = 0;
+
+        END_FOREACH_PATCH_STR:
         for (String patchString: patch._patchString){
+            if(tried > Config.MAX_TRIED_COND){
+                break;
+            }
+            tried++;
+
             if (patchString.equals("")){
                 continue;
             }
             if (fixedFlag){
                 break;
             }
+
             for (int patchLine: patch._patchLines){
+
                 if (CodeUtils.getLineFromCode(code,patchLine).contains("else")){
                     while (CodeUtils.getLineFromCode(code, --patchLine).contains("if"));
                 }
@@ -80,7 +92,12 @@ public class MethodOneFixer {
                 }
                 if (!targetClassFile.exists()){ //编译不成功
                     System.out.println("MethodOneFixer: fix fail because of compile fail");
-                    continue;
+                    if(patchString.startsWith("if(false){")){
+                        System.out.println("MethodOneFixer: fix string is illegal, jump out of MethodOneFixer");
+                        break END_FOREACH_PATCH_STR;//break the outer for-stmt
+                    }else{
+                        continue;
+                    }
                 }
                 Asserts asserts = new Asserts(_classpath,_classSrcPath, _testClassPath, _testSrcPath, patch._testClassName, patch._testMethodName, _project);
                 int errAssertNumAfterFix = asserts.errorNum();
@@ -108,7 +125,7 @@ public class MethodOneFixer {
                 FileUtils.copyFile(classBackup, targetClassFile);
                 FileUtils.copyFile(javaBackup, targetJavaFile);
             }
-        }
+        }//END  for (String patchString: patch._patchString){
         if (minErrorTest < _errorTestNum){
             patch._patchString.clear();
             patch._patchString.add(truePatchString);

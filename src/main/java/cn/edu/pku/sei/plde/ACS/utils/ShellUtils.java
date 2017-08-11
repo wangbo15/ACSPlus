@@ -102,7 +102,7 @@ public class ShellUtils {
                     try {
                         while ((num = errorInStream.read(bs)) != -1) {
                             String str = new String(bs, 0, num, "UTF-8");
-                            System.err.println(str);
+                            System.err.print(str);
                             stdErr.add(str);
                         }
                     } catch (IOException e) {
@@ -124,7 +124,7 @@ public class ShellUtils {
                     try {
                         while ((num = processInStream.read(bs)) != -1) {
                             String str = new String(bs, 0, num, "UTF-8");
-                            System.out.println(str);
+                            System.out.print(str);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

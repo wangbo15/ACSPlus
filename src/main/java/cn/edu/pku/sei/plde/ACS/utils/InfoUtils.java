@@ -86,7 +86,11 @@ public class InfoUtils {
         return Arrays.asList(info1, info2);
     }
 
-
+    /**
+     * remove varible occurred in BANNED_VAR_NAME, for example: 'serialVersionUID'
+     * @param infos
+     * @return
+     */
     public static List<VariableInfo> filterBannedVariable(List<VariableInfo> infos){
         List<VariableInfo> result = new ArrayList<>();
         for (VariableInfo info: infos){

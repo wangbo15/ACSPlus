@@ -28,7 +28,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 public class SuspiciousFixer {
     public static int FAILED_TEST_NUM = 0;
 
-    public Map<ExceptionVariable, List<String>> boundarysMap = new HashMap<>();
+    public Map<ExceptionVariable, List<String>> boundarysMap = new HashMap<>(); // exceptionVariable to ifStrings
     private Map<VariableInfo, List<String>> trueValues;
     private Map<VariableInfo, List<String>> falseValues;
     private List<TraceResult> traceResults;
@@ -49,7 +49,6 @@ public class SuspiciousFixer {
         this.timeLine = timeLine;
 
         //TODO: trace of predictor
-
         traceResults = suspicious.getTraceResult(project, timeLine);
 
         trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());//belongs to succ test
@@ -66,8 +65,8 @@ public class SuspiciousFixer {
         String filePath = suspicious._classname.replace(".", "/");
 
         if(filePath.contains("$")){
-            int dolIdx = filePath.indexOf('$');
-            filePath = filePath.substring(0, dolIdx) + ".java";
+            int dolarIdx = filePath.indexOf('$');
+            filePath = filePath.substring(0, dolarIdx) + ".java";
         }else{
             filePath += ".java";
         }
@@ -79,17 +78,9 @@ public class SuspiciousFixer {
         String predCmd = jdkEightPath + " -jar Condition.jar " + this.project +
                 " " + srcRoot + " " + testSrcRoot + " " + filePath + " " + line + " " + this.ithSuspicous;
 
-        File locationDumpFile = new File(Config.LOCALIZATION_DUMP_PATH + "/" + this.project + ".loc");
-
-        String locMsg = this.ithSuspicous + "  :  " + predCmd + "\n" + filePath.trim() + " # " + line + "\n";
-        FileUtils.writeStringToFile(locationDumpFile, locMsg, true);
-
-//        List<String> errMsgs = ShellUtils.runCmd(predCmd, null);
-//        for(String s : errMsgs){
-//            if(s.startsWith("PREDICTOR ERROR!")){
-//                return false;
-//            }
-//        }
+        if(runPredictor(predCmd) == false){
+            return false;
+        }
 
         List<String> allConditions = ExprUtil.loadConditions(this.project, this.ithSuspicous);
 
@@ -136,7 +127,7 @@ public class SuspiciousFixer {
 
     public boolean mainFixProcess(){
         ExceptionExtractor extractor = new ExceptionExtractor(suspicious);
-        Map<Integer, List<TraceResult>> traceResultWithLine = traceResultClassify(traceResults);
+        Map<Integer, List<TraceResult>> traceResultWithLine = traceResultClassify(traceResults);// line => its trace
         Map<Integer, List<TraceResult>> firstToGo = new TreeMap<Integer, List<TraceResult>>(new Comparator<Integer>() {//why sort again? Did it have been sorted in traceResultClassify()?
             @Override
             public int compare(Integer integer, Integer t1) {
@@ -171,49 +162,36 @@ public class SuspiciousFixer {
         return false;
     }
 
-    private boolean fixInLineWithPredictor(int line, List<String> allConditions, ExceptionExtractor extractor, boolean onlyMethod2){
+    private boolean fixInLineWithPredictor(int line, List<String> allConditions, ExceptionExtractor extractor, boolean onlyMethod2) {
         exceptionVariables = extractor.extract(suspicious,traceResults);
-        List<List<ExceptionVariable>> echelons = extractor.sort();
-        for (List<ExceptionVariable> echelon: echelons) {
-            Map<String, List<String>> boundarys = new HashMap<>();
-            for (Map.Entry<String, List<ExceptionVariable>> assertEchelon : classifyWithAssert(echelon).entrySet()) {
-                boundarys.put(assertEchelon.getKey(), allConditions);
-            }
-            if (!onlyMethod2){
-                if (timeLine.isTimeout()){
+        List<List<ExceptionVariable>> echelons = extractor.sort();// it seems sort by topological, select top 2 level ?
+        Set<String> assertMsgSet = new HashSet<>();
+        for (List<ExceptionVariable> echelon: echelons) {// so this loop only process topological top 2 level
+            assertMsgSet.addAll(classifyWithAssert(echelon).keySet());
+        }
+
+        for(String assertStr: assertMsgSet){
+            if (!onlyMethod2) {
+                if (timeLine.isTimeout()) {
                     return false;
                 }
-                //why copy ?
-                Map<String, List<String>> boundaryCopy = new HashMap<>();
-                for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
-                    boundaryCopy.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
-                }
-                String methodOneResult = fixMethodOne(suspicious, boundaryCopy, project, line);
-                RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
+                String methodOneResult = fixMethodOneML(suspicious, assertStr, allConditions, project, line);
+                RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, new ArrayList<List<ExceptionVariable>>(), line);
                 if (!methodOneResult.equals("")) {
-                    RecordUtils.printHistoryBoundary(boundarys, methodOneResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
+                    RecordUtils.printHistoryBoundary(new HashMap<String, List<String>>(), methodOneResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
                     return true;
                 }
             }
-
-            if (timeLine.isTimeout()){
+            if (timeLine.isTimeout()) {
                 return false;
             }
-
-            AngelicFilter filter = new AngelicFilter(suspicious, project);
-            Map<String, List<String>> boundaryCopy = new HashMap<>();
-            for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
-                boundaryCopy.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
-            }
-            String methodTwoResult = fixMethodTwo(suspicious, filter.filter(line,boundaryCopy,traceResults), project, line, false);
+            String methodTwoResult = fixMethodTwoML(suspicious, assertStr, allConditions, project, line);
             RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
             if (!methodTwoResult.equals("")) {
-                RecordUtils.printHistoryBoundary(boundarys, methodTwoResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
+                RecordUtils.printHistoryBoundary(new HashMap<String, List<String>>(), methodTwoResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
                 return true;
             }
-
-        }//end for (List<ExceptionVariable> echelon: echelons)
-
+        }
 
         return false;
     }
@@ -224,11 +202,11 @@ public class SuspiciousFixer {
         falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());//values of failed test-case
         exceptionVariables = extractor.extract(suspicious,traceResults);
 
-        List<List<ExceptionVariable>> echelons = extractor.sort();
-        for (List<ExceptionVariable> echelon: echelons) {
+        List<List<ExceptionVariable>> echelons = extractor.sort();// it seems sort by topological, select top 2 level ?
+        for (List<ExceptionVariable> echelon: echelons) {// so this loop only process topological top 2 level
             Map<String, List<String>> boundarys = new HashMap<>();
             for (Map.Entry<String, List<ExceptionVariable>> assertEchelon : classifyWithAssert(echelon).entrySet()) {
-                List<String> ifStrings = getIfStrings(assertEchelon.getValue());
+                List<String> ifStrings = getIfStrings(assertEchelon.getValue());//run slow, maybe search in github
                 if (ifStrings.size()<= 0){
                     continue;
                 }
@@ -252,7 +230,7 @@ public class SuspiciousFixer {
             if (timeLine.isTimeout()){
                 return false;
             }
-            AngelicFilter filter = new AngelicFilter(suspicious, project);
+            AngelicFilter filter = new AngelicFilter(suspicious, project); // filt what?
             Map<String, List<String>> boundaryCopy = new HashMap<>();
             for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
                 boundaryCopy.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
@@ -291,10 +269,10 @@ public class SuspiciousFixer {
     }
 
 
-    private Map<String, List<ExceptionVariable>> classifyWithAssert(List<ExceptionVariable> exceptionVariables){
+    private Map<String, List<ExceptionVariable>> classifyWithAssert(List<ExceptionVariable> exceptionVariables){//divide exceVaris into exceptionVariable.getAssertMessage()
         Map<String, List<ExceptionVariable>> result = new HashMap<>();
         for (ExceptionVariable exceptionVariable: exceptionVariables){
-            if (!result.containsKey(exceptionVariable.getAssertMessage())){
+            if (!result.containsKey(exceptionVariable.getAssertMessage())){//exceptionVariable.getAssertMessage() : org.apache.commons.math.distribution.NormalDistributionTest#testMath280#169
                 List<ExceptionVariable> variables = new ArrayList<>();
                 variables.add(exceptionVariable);
                 result.put(exceptionVariable.getAssertMessage(),variables);
@@ -310,7 +288,7 @@ public class SuspiciousFixer {
     private List<String> getIfStrings(List<ExceptionVariable> exceptionVariables){
         List<String> returnList = new ArrayList<>();
 
-        Map<ExceptionVariable, ArrayList<String>> result = new HashMap<>();
+//        Map<ExceptionVariable, ArrayList<String>> result = new HashMap<>();
         for (ExceptionVariable exceptionVariable: exceptionVariables){
             ArrayList<String> boundarys = new ArrayList<>(getBoundary(exceptionVariable));
             for (String statement: boundarys){
@@ -342,23 +320,30 @@ public class SuspiciousFixer {
 
 
     public String fixMethodTwo(Suspicious suspicious, Map<String, List<String>> ifStrings, String project, int errorLine, boolean debug){
-        if(Config.USING_ML) {
-            //TODO:
-
-        }else {
-            // need to be rewrote !!!
-            if (ifStrings.size() == 0) {
-                return "";
-            }
-            MethodTwoFixer fixer = new MethodTwoFixer(suspicious);
-            if (fixer.fix(ifStrings, Sets.newHashSet(errorLine), project, debug)) {
-                return fixer.correctPatch + "[" + fixer.correctStartLine + "," + fixer.correctEndLine + "]";
-            }
-            methodTwoHistory = fixer.triedPatch;
+        if (ifStrings.size() == 0) {
+            return "";
         }
+        MethodTwoFixer fixer = new MethodTwoFixer(suspicious);
+        if (fixer.fix(ifStrings, Sets.newHashSet(errorLine), project, debug)) {
+            return fixer.correctPatch + "[" + fixer.correctStartLine + "," + fixer.correctEndLine + "]";
+        }
+        methodTwoHistory = fixer.triedPatch;
+
         return "";
     }
-
+    private String fixMethodTwoML(Suspicious suspicious, String assertMsg, List<String> allConditions, String project, int line) {
+        if (allConditions.size() == 0) {
+            return "";
+        }
+        MethodTwoFixer methodTwoFixer = new MethodTwoFixer(suspicious);
+        Map<String, List<String>> tmpMap = new HashMap<>();
+        tmpMap.put(assertMsg, allConditions);
+        if (methodTwoFixer.fix(tmpMap, Sets.newHashSet(line), project, false)) {
+            return methodTwoFixer.correctPatch + "[" + methodTwoFixer.correctStartLine + "," + methodTwoFixer.correctEndLine + "]";
+        }
+        methodTwoHistory = methodTwoFixer.triedPatch;
+        return "";
+    }
 
     public String fixMethodOne(Suspicious suspicious,Map<String, List<String>> ifStrings, String project, int errorLine) {
         if (ifStrings.size() == 0){
@@ -370,7 +355,7 @@ public class SuspiciousFixer {
             String testClassName = entry.getKey().split("#")[0];
             String testMethodName = entry.getKey().split("#")[1];
             int assertLine = Integer.valueOf(entry.getKey().split("#")[2]);
-            Asserts asserts = suspicious._assertsMap.get(testClassName+"#"+testMethodName);
+            Asserts asserts = suspicious._assertsMap.get(testClassName+"#"+testMethodName); // important! value been put in 'VariableTracer.trace()'
             AssertComment comment = new AssertComment(asserts, assertLine);
             if (assertLine == -1){
                 testClassName = suspicious._failTests.get(0).split("#")[0];
@@ -381,17 +366,17 @@ public class SuspiciousFixer {
                     }
                 }
             }
-            if (!CodeUtils.getLineFromCode(FileUtils.getCodeFromFile(suspicious._testSrcPath, testClassName),assertLine).contains("assert")){
+            if (!CodeUtils.getLineFromCode(FileUtils.getCodeFromFile(suspicious._testSrcPath, testClassName),assertLine).contains("assert")){// error test stmt is 'assert'?
                 assertLine = -1;
             }
-            String fixString = fixCapturer.getFixFrom(testClassName, testMethodName, assertLine, suspicious.classname(), suspicious.functionnameWithoutParam());
-            List<Integer> patchLine = errorLine != 0? Arrays.asList(errorLine) : suspicious._errorLineMap.get(testClassName+"#"+testMethodName);
+            String fixString = fixCapturer.getFixFrom(testClassName, testMethodName, assertLine, suspicious.classname(), suspicious.functionnameWithoutParam());//return or throw
+            List<Integer> patchLine = errorLine != 0? Arrays.asList(errorLine) : suspicious._errorLineMap.get(testClassName+"#"+testMethodName);    // insert line number?
             List<String> ifStatement = entry.getValue();
             List<String> bannedStatement = new ArrayList<>();
 
-            /*
-            //add break or continue in for-stmt
-            if(fixString.equals("")){
+            /**
+             * //add break or continue in for-stmt
+             if(fixString.equals("")){
                 String srcRoot = suspicious._srcPath;
                 String filePath = srcRoot.trim() + suspicious._classname.replace(".", "/").trim() + ".java";
 
@@ -407,15 +392,14 @@ public class SuspiciousFixer {
             */
 
             /* why ban,run too slowly!!! */
-            if(Config.USING_ML == false) {
-                for (String statemnt : ifStatement) {
-                    if (ifStringFilter(statemnt, fixString, patchLine.get(0))) {
-                        bannedStatement.add(statemnt);
-                    }
+            for (String statemnt : ifStatement) {
+                if (ifStringFilter(statemnt, fixString, patchLine.get(0))) {
+                    bannedStatement.add(statemnt);
                 }
-                ifStatement.removeAll(bannedStatement);
-                bannedHistory.addAll(bannedStatement);
             }
+            ifStatement.removeAll(bannedStatement);
+            bannedHistory.addAll(bannedStatement);
+
 
             if (ifStatement.size() == 0){
                 return "";
@@ -427,13 +411,55 @@ public class SuspiciousFixer {
                 continue;
             }
             Patch patch = new Patch(testClassName, testMethodName, suspicious.classname(), patchLine, entry.getValue(), fixString);
-            comment.comment();
+            comment.comment();//backup what?
             boolean result = methodOneFixer.addPatch(patch);
             comment.uncomment();
             if (result){
                 break;
             }
         }
+        int finalErrorNums = methodOneFixer.fix();
+        methodOneHistory = methodOneFixer.triedPatch;
+        if (finalErrorNums != -1){
+            return methodOneFixer._patches.get(0)._patchString.get(0);
+        }
+        return "";
+    }
+
+    private String fixMethodOneML(Suspicious suspicious, String assertStr, List<String> ifStrings, String project, int errorLine){
+        if (ifStrings.size() == 0){
+            return "";
+        }
+        ReturnCapturer fixCapturer = new ReturnCapturer(suspicious._classpath,suspicious._srcPath, suspicious._testClasspath, suspicious._testSrcPath);
+        MethodOneFixer methodOneFixer = new MethodOneFixer(suspicious, project);
+
+        String testClassName = assertStr.split("#")[0];
+        String testMethodName = assertStr.split("#")[1];
+        int assertLine = Integer.valueOf(assertStr.split("#")[2]);
+        Asserts asserts = suspicious._assertsMap.get(testClassName+"#"+testMethodName);
+        AssertComment comment = new AssertComment(asserts, assertLine);
+        if (assertLine == -1){
+            testClassName = suspicious._failTests.get(0).split("#")[0];
+            testMethodName = suspicious._failTests.get(0).split("#")[1];
+            if (suspicious._assertsMap.containsKey(suspicious._failTests.get(0))){
+                if (suspicious._assertsMap.get(suspicious._failTests.get(0))._errorAssertLines.size()>0){
+                    assertLine = suspicious._assertsMap.get(suspicious._failTests.get(0))._errorAssertLines.get(0);
+                }
+            }
+        }
+        if (!CodeUtils.getLineFromCode(FileUtils.getCodeFromFile(suspicious._testSrcPath, testClassName),assertLine).contains("assert")){// error test stmt is 'assert'?
+            assertLine = -1;
+        }
+        String fixString = fixCapturer.getFixFrom(testClassName, testMethodName, assertLine, suspicious.classname(), suspicious.functionnameWithoutParam());//return or throw
+        List<Integer> patchLine = errorLine != 0? Arrays.asList(errorLine) : suspicious._errorLineMap.get(testClassName+"#"+testMethodName);    // insert line number?
+        if (suspicious._isConstructor && fixString.contains("return") || fixString.equals("")){
+            return "";
+        }
+        Patch patch = new Patch(testClassName, testMethodName, suspicious.classname(), patchLine, ifStrings, fixString);
+        comment.comment();//backup what?
+        boolean result = methodOneFixer.addPatch(patch);
+        comment.uncomment();
+
         int finalErrorNums = methodOneFixer.fix();
         methodOneHistory = methodOneFixer.triedPatch;
         if (finalErrorNums != -1){
@@ -453,5 +479,15 @@ public class SuspiciousFixer {
             }
         }
         return false;
+    }
+
+    private boolean runPredictor(String predCmd){
+        List<String> errMsgs = ShellUtils.runCmd(predCmd, null);
+        for(String s : errMsgs){
+            if(s.startsWith("PREDICTOR ERROR!")){
+                return false;
+            }
+        }
+        return true;
     }
 }

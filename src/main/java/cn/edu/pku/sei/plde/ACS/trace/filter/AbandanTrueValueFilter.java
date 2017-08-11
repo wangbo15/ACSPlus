@@ -21,7 +21,7 @@ public class AbandanTrueValueFilter {
     public static List<ExceptionVariable> abandon(Suspicious suspicious, List<TraceResult> traceResults, List<VariableInfo> vars) {
         List<ExceptionVariable> exceptionValues = new ArrayList<>();
         Map<VariableInfo, List<String>> trueVariable = AbandanTrueValueFilter.getTrueValue(traceResults, vars);
-        Map<VariableInfo, List<String>> falseVariable = AbandanTrueValueFilter.getFalseValue(traceResults, vars);
+//        Map<VariableInfo, List<String>> falseVariable = AbandanTrueValueFilter.getFalseValue(traceResults, vars);
 
         List<ExceptionVariable> levelTwoCandidate = new ArrayList<>();
         for (TraceResult traceResult: traceResults){
@@ -30,7 +30,7 @@ public class AbandanTrueValueFilter {
                 continue;
             }
 
-            for (Map.Entry<String, List<String>> entry: traceResult.getResultMap().entrySet()){
+            for (Map.Entry<String, List<String>> entry: traceResult.getResultMap().entrySet()){//traceResult.getResultMap() : var_string => val list
                 // ban instanceof variable
                 //if (entry.getKey().contains(".Comparable")){
                 //    continue;

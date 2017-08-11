@@ -43,7 +43,7 @@ public class ExceptionExtractor {
         }
 
         result.addAll(sortWithMethodOne(sortList, traceResults, suspicious));
-        return result;
+        return result;// top 2 level of topological sort
     }
 
     private static boolean hasTrueTraceResult(List<TraceResult> traceResults){
@@ -76,8 +76,8 @@ public class ExceptionExtractor {
                 variables.add(variable.name);
             }
         }
-        VariableSort variableSort = new VariableSort(variables, statement);
-        List<List<String>> sortedVariable = variableSort.getSortVariable();
+        VariableSort variableSort = new VariableSort(variables, statement); // will call topological sort
+        List<List<String>> sortedVariable = variableSort.getSortVariable();// sort as topo?
         if (sortedVariable.size() == 0){
             return new ArrayList<>();
         }
