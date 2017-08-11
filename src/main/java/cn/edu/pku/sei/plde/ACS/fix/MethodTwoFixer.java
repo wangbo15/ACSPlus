@@ -251,7 +251,7 @@ public class MethodTwoFixer {
             comment.uncomment();
             return false;
         }
-
+        //Assert will call gzlotar to get trace
         Asserts assertsAfterFix = new Asserts(_classpath,_classSrcPath, _testClassPath, _testSrcPath, testClassName, testMethodName, project);
         if (assertsAfterFix.timeout){
             comment.uncomment();
@@ -261,7 +261,7 @@ public class MethodTwoFixer {
         int errAssertBeforeFix = asserts.errorNum();
         System.out.print("Method 2 try patch: "+ifStatement+" in line: "+ifStartLine);
         if (errAssertAfterFix < errAssertBeforeFix || errAssertAfterFix == 0) {
-            int errorTestNumAfterFix = TestUtils.getFailTestNumInProject(project);
+            int errorTestNumAfterFix = TestUtils.getFailTestNumInProject(project);  //will run 'defects4j test'
             if (errorTestNumAfterFix == Integer.MAX_VALUE){
                 comment.uncomment();
                 throw new TimeoutException();

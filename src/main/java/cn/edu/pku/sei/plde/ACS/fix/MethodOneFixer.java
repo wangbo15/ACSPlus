@@ -99,11 +99,12 @@ public class MethodOneFixer {
                         continue;
                     }
                 }
+                //Assert will call gzlotar to get trace
                 Asserts asserts = new Asserts(_classpath,_classSrcPath, _testClassPath, _testSrcPath, patch._testClassName, patch._testMethodName, _project);
                 int errAssertNumAfterFix = asserts.errorNum();
                 int errAssertBeforeFix = _suspicious._assertsMap.get(patch._testClassName+"#"+patch._testMethodName).errorNum();
                 if (errAssertNumAfterFix < errAssertBeforeFix){
-                    int errorTestAterFix = TestUtils.getFailTestNumInProject(_project);
+                    int errorTestAterFix = TestUtils.getFailTestNumInProject(_project);//will run 'defects4j test'
                     if (errorTestAterFix < minErrorTest){
                         minErrorTest = errorTestAterFix;
                         truePatchLine = patchLine;

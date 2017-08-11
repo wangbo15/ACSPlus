@@ -41,13 +41,13 @@ public class TestUtils {
             gzoltar.addTestToExecute(classname);
             gzoltar.addClassNotToInstrument(classname);
             ExecutorService service = Executors.newSingleThreadExecutor();
-            Future<Boolean> future = service.submit(new GzoltarRunProcess(gzoltar));
+            Future<Boolean> future = service.submit(new GzoltarRunProcess(gzoltar));//run gzoltar by multi-thread
             try {
                 future.get(Config.GZOLTAR_RUN_TIMEOUT, TimeUnit.SECONDS);
             } catch (InterruptedException e){
                 future.cancel(true);
                 service.shutdownNow();
-                RuntimeUtils.killProcess();
+                RuntimeUtils.killProcess();//the wrong python shell
                 e.printStackTrace();
                 return "timeout";
             } catch (TimeoutException e){

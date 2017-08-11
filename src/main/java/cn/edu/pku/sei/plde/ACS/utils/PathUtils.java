@@ -1,9 +1,5 @@
 package cn.edu.pku.sei.plde.ACS.utils;
 
-import cn.edu.pku.sei.plde.ACS.agent.RunTestAgent;
-import org.junit.runner.JUnitCore;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
