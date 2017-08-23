@@ -88,20 +88,27 @@ public class Localization  {
             fReader = new FileReader(locFile);
             bReader = new BufferedReader(fReader);
             String line = null;
-            String preKey = "";
+            List<String> lines = new ArrayList<>();
+            List<Double> vals = new ArrayList<>();
             while ((line = bReader.readLine()) != null) {
                 String[] columns = line.split(",");
                 //sth like 'org.apache.commons.math3.optimization.linear.Relationship#59'
                 String key = columns[0];
                 String val = columns[1];
                 Double score = Double.valueOf(val);
-                assert result.containsKey(key) == false;
-                if(score > 0.0D){
-                    if(inSameBlock(preKey, key)){
-                        continue;
-                    }
-                    preKey = key;
-                    result.put(key, score);
+                if(score > 0.0D) {
+                    lines.add(key);
+                    vals.add(score);
+                }
+            }//end while
+            assert lines.size() == vals.size();
+            for(int i = 0; i < lines.size() - 1 ;i++){
+                String curr = lines.get(i);
+                String next = lines.get(i+1);
+                if(inSameBlock(curr, next)){
+                    continue;
+                }else{
+                    result.put(curr, vals.get(i));
                 }
             }
         } catch (IOException e) {
@@ -125,15 +132,21 @@ public class Localization  {
         return result;
     }
 
+    //TODO: navive
     private boolean inSameBlock(String key0, String key1) {
+        if(key0 == null || key1 == null || key0.split("#").length < 2 ||  key1.split("#").length < 2){
+            return false;
+        }
+
         String cls0 = key0.split("#")[0];
         String cls1 = key1.split("#")[0];
+
         if(cls0.equals(cls1) == false){
             return false;
         }
         int line0 = new Integer(key0.split("#")[1]);
         int line1 = new Integer(key1.split("#")[1]);
-        if(Math.abs(line0 - line1) <= 5){
+        if(Math.abs(line0 - line1) <= 10){
             return true;
         }
         return false;
@@ -141,21 +154,6 @@ public class Localization  {
 
 
     public List<Suspicious> getSuspiciousLiteOfUW(String subject, String bugid){
-        File suspicousFile = new File(Config.LOCALIZATION_RESULT_CACHE +
-                FileUtils.getMD5(StringUtils.join(testClasses,"")+classpath+testClassPath+srcPath+testSrcPath)+".sps");
-
-            //ERROR! defaultErrorLine is not set before save!!
-//        if (suspicousFile.exists()){
-//            try {
-//                System.out.println("LOADING EXISTING LOCATION DATA");
-//                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(suspicousFile));
-//                List<Suspicious> result = (List<Suspicious>) objectInputStream.readObject();
-//                objectInputStream.close();
-//                return result;
-//            }catch (Exception e){
-//                System.out.println("Reloading Localization Result...");
-//            }
-//        }
 
         List<Suspicious> result = new ArrayList<>();
 
@@ -165,18 +163,41 @@ public class Localization  {
         if (statements.size() == 0){
             return result;
         }
+        StatementByUW firstline = (StatementByUW) statements.get(0);
+//        List<String> lineNumbers = new ArrayList<String>();
         for(Statement s: statements){
             StatementByUW currStmt = (StatementByUW) s;
-            String clzAddress = getClassAddressFromStatement(currStmt);
-            String tagFunction = getTargetFunctionFromStatement(currStmt);
-            double score = currStmt.getSuspiciousness();
-            List<String> lineList = new ArrayList<String>();
-            lineList.add("" + currStmt.getLineNumber());
-            Suspicious susp = new Suspicious(classpath, testClassPath,srcPath,testSrcPath, clzAddress, tagFunction,
-                    score, currStmt.getTests(),currStmt.getFailTests(), lineList,libPaths);
-//            susp.setErrorLines();
-            result.add(susp);
-        }
+            if (getClassAddressFromStatement(currStmt).equals(getClassAddressFromStatement(firstline)) &&
+                    getTargetFunctionFromStatement(currStmt).equals(getTargetFunctionFromStatement(firstline))){
+//                lineNumbers.add(String.valueOf(currStmt.getLineNumber()));
+
+            }else {
+                String clzAddress = getClassAddressFromStatement(currStmt);
+                String tagFunction = getTargetFunctionFromStatement(currStmt);
+                double score = currStmt.getSuspiciousness();
+                List<String> lineList = new ArrayList<String>();
+                lineList.add("" + currStmt.getLineNumber());
+                Suspicious susp = new Suspicious(classpath, testClassPath,srcPath,testSrcPath, clzAddress, tagFunction,
+                        score, currStmt.getTests(),currStmt.getFailTests(), lineList,libPaths);
+                result.add(susp);
+                firstline = currStmt;
+//                lineNumbers.clear();
+//                lineNumbers.add(String.valueOf(currStmt.getLineNumber()));
+            }
+//            if (lineNumbers.size() != 0 && firstline.getTests().size()< 30){
+//                result.add(new Suspicious(classpath, testClassPath,srcPath,testSrcPath, getClassAddressFromStatement(firstline), getTargetFunctionFromStatement(firstline), firstline.getSuspiciousness(), firstline.getTests(),firstline.getFailTests(), new ArrayList<String>(lineNumbers),libPaths));
+//            }
+
+        }//end for
+        Collections.reverse(result);
+        Collections.sort(result, new Comparator<Suspicious>() {
+            @Override
+            public int compare(Suspicious o1, Suspicious o2) {
+                return Double.compare(o2._suspiciousness, o1._suspiciousness);
+            }
+        });
+
+        /*
         try {
             suspicousFile.createNewFile();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(suspicousFile));
@@ -186,6 +207,7 @@ public class Localization  {
             e.printStackTrace();
             return new ArrayList<Suspicious>();
         }
+        */
         RecordUtils recordUtils = new RecordUtils("locationLog");
         for (Suspicious suspicious: result){
             recordUtils.write(suspicious.classname()+"#"+suspicious.functionnameWithoutParam()+"#"+suspicious.getDefaultErrorLine()+"\n");
@@ -197,6 +219,7 @@ public class Localization  {
     public List<Suspicious> getSuspiciousLite(boolean jump){
         File suspicousFile = new File(Config.LOCALIZATION_RESULT_CACHE+ FileUtils.getMD5(StringUtils.join(testClasses,"")+classpath+testClassPath+srcPath+testSrcPath)+".sps");
 
+        /*
         if (suspicousFile.exists() && jump){
             try {
                 ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(suspicousFile));
@@ -207,12 +230,14 @@ public class Localization  {
                 System.out.println("Reloading Localization Result...");
             }
         }
+        */
 
         List<Statement> statements = statementFilter(this.getSuspiciousListWithSuspiciousnessBiggerThanZero(new Ochiai()));
         List<Suspicious> result = new ArrayList<Suspicious>();
         if (statements.size() == 0){
             return result;
         }
+        //firstline and lineNumbers are used to make each func have only one stmt left?
         StatementExt firstline = (StatementExt) statements.get(0);
         List<String> lineNumbers = new ArrayList<String>();
         for (Statement stmt: statements){
@@ -229,6 +254,7 @@ public class Localization  {
                         new ArrayList<String>(lineNumbers),libPaths));
                 firstline = statement;
                 lineNumbers.clear();
+                //nann da ko no ba ka no codo??????? First clear(), then contains() ??
                 if (!lineNumbers.contains(String.valueOf(statement.getLineNumber()))){
                     lineNumbers.add(String.valueOf(statement.getLineNumber()));
                 }
@@ -303,7 +329,7 @@ public class Localization  {
             gZoltar.getGzoltar().setScoreMapOfUW(scoreMapOfUW);
         }
 
-        return gZoltar.sortBySuspiciousness(testClasses);
+        return gZoltar.sortBySuspiciousness(testClasses);//will call gzoltar.run
     }
 
     /**

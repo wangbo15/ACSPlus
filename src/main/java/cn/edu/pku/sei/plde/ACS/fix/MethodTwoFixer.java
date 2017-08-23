@@ -8,6 +8,7 @@ import cn.edu.pku.sei.plde.ACS.type.TypeUtils;
 import cn.edu.pku.sei.plde.ACS.utils.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
+import org.eclipse.jdt.core.dom.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class MethodTwoFixer {
     }
 
     //boundarys: org.apache.commons.math.distribution.NormalDistributionTest#testMath280#169 -> if conds
-    public boolean fix(Map<String, List<String>> boundarys, Set<Integer> errorLines, String project, boolean debug){
+    public boolean fixML(Map<String, List<String>> boundarys, Set<Integer> errorLines, String project, boolean debug){
 
         for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
             List<String> ifStrings = entry.getValue();
@@ -89,6 +90,118 @@ public class MethodTwoFixer {
                         String wholeLineString = CodeUtils.getWholeLineFromCodeReverse(_code, blockStartLine-1);
                         boolean result = false;
                         if (!LineUtils.isIfAndElseIfLine(wholeLineString)) {
+                            continue;
+                        }
+                        else {
+
+                            String ifEnd = lastLineString.substring(lastLineString.lastIndexOf(')'));
+                            lastLineString = lastLineString.substring(0, lastLineString.lastIndexOf(')'));
+
+                            String oriExpr = lastLineString.replace("if (", "");
+                            String fixExpr = "(" + getIfStringFromStatement(getIfStatementFromString(ifString));
+                            if (!ifFilterML(oriExpr, fixExpr)){//filter what ??
+                                continue;
+                            }
+                            /*
+                            ifStatement = ifString + "{";
+                            try {
+                                tried++;
+                                result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
+                            } catch (TimeoutException e){
+                                return false;
+                            }
+                            if (result){
+                                correctStartLine = blockStartLine-1;
+                                correctEndLine = endLine;
+                                correctPatch = ifStatement;
+                                triedPatch.add(ifStatement);
+                                return true;
+                            }else{*/
+                                ifStatement = lastLineString + " && " + fixExpr + ifEnd;
+                                try {
+                                    result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
+                                } catch (TimeoutException e){
+                                    return false;
+                                }
+                                if (result){
+                                    correctStartLine = blockStartLine-1;
+                                    correctEndLine = endLine;
+                                    correctPatch = ifStatement;
+                                    triedPatch.add(ifStatement);
+                                    return true;
+                                }
+//                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean ifFilterML(String oriExprStr, String fixExprStr) {
+        if(("(" + oriExprStr + ")").equals(fixExprStr)){
+            return false;
+        }
+        Expression ori = (Expression) JavaFile.genASTFromSource(oriExprStr, ASTParser.K_EXPRESSION);
+        Expression fix = (Expression) JavaFile.genASTFromSource(fixExprStr, ASTParser.K_EXPRESSION);
+
+        ExprVisitor visitor0 = new ExprVisitor();
+        ori.accept(visitor0);
+        ExprVisitor visitor1 = new ExprVisitor();
+        fix.accept(visitor1);
+        for(String oriVar : visitor0.vars){
+            if(visitor1.vars.contains(oriVar)){
+                if(fixExprStr.endsWith("== null)") || fixExprStr.endsWith("!= null)")){//no use to judge the null pointer
+                    if(visitor1.num > visitor1.vars.size()){
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private class ExprVisitor extends ASTVisitor {
+        public Set<String> vars = new HashSet<>();
+        public int num = 0;
+        @Override
+        public boolean visit(SimpleName node) {
+            num++;
+            if(Character.isUpperCase(node.toString().charAt(0)) || node.getLocationInParent() == MethodInvocation.NAME_PROPERTY || node.getLocationInParent() == FieldAccess.NAME_PROPERTY){
+                return false;
+            }
+            vars.add(node.toString());
+            return super.visit(node);
+        }
+    }
+
+    public boolean fix(Map<String, List<String>> boundarys, Set<Integer> errorLines, String project, boolean debug){
+        for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
+            List<String> ifStrings = entry.getValue();
+            ifStrings = TypeUtils.arrayDup(ifStrings);
+            for (int errorLine: errorLines){
+                List<Integer> ifLines = getIfLine(errorLine);
+                if (ifLines.size()!=2){
+                    continue;
+                }
+                for (String ifString: ifStrings){
+                    if (ifString.equals("")){
+                        continue;
+                    }
+                    if (ifString.contains(">") && ifString.contains("<") && !ifString.contains("<?>")){
+                        continue;
+                    }
+                    int blockStartLine = ifLines.get(0);
+                    int blockEndLine = ifLines.get(1);
+                    String ifStatement="";
+                    for (int endLine: getLinesCanAdd(blockStartLine, blockEndLine,_code)) {
+                        String lastLineString = CodeUtils.getLineFromCode(_code, blockStartLine-1);
+                        String wholeLineString = CodeUtils.getWholeLineFromCodeReverse(_code, blockStartLine-1);
+                        boolean result = false;
+                        if (!LineUtils.isIfAndElseIfLine(wholeLineString)) {
                             /*
                             ifStatement = getIfStatementFromString(ifString);
                             try {
@@ -108,13 +221,11 @@ public class MethodTwoFixer {
                         else {
                             String ifEnd = lastLineString.substring(lastLineString.lastIndexOf(')'));
                             lastLineString = lastLineString.substring(0, lastLineString.lastIndexOf(')'));
-                            if (!ifFilter(lastLineString, ifString)){// filt what ??
+                            if (!ifFilter(lastLineString, ifString)){//what is this??????
                                 continue;
                             }
-//                            ifStatement =lastLineString+ " && " + getIfStringFromStatement(getIfStatementFromString(ifString)) + ifEnd;
-                            ifStatement = ifString + "{";
+                            ifStatement =lastLineString+ "&&" + getIfStringFromStatement(getIfStatementFromString(ifString)) + ifEnd;
                             try {
-                                tried++;
                                 result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
                             } catch (TimeoutException e){
                                 return false;
@@ -125,6 +236,20 @@ public class MethodTwoFixer {
                                 correctPatch = ifStatement;
                                 triedPatch.add(ifStatement);
                                 return true;
+                            }else{
+                                ifStatement =lastLineString+ "||" +getIfStringFromStatement(ifString) + ifEnd;
+                                try {
+                                    result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
+                                } catch (TimeoutException e){
+                                    return false;
+                                }
+                                if (result){
+                                    correctStartLine = blockStartLine-1;
+                                    correctEndLine = endLine;
+                                    correctPatch = ifStatement;
+                                    triedPatch.add(ifStatement);
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -197,10 +322,13 @@ public class MethodTwoFixer {
     }
 
     private String getIfStatementFromString(String ifString){
+        /*
         String statement =  ifString.replace("if (","if (!(");
         statement =  ifString.replace("if(","if (!(");
         statement += "){";
         return statement;
+        */
+        return ifString + "){";
     }
 
     private String getIfStringFromStatement(String ifStatement){
@@ -312,7 +440,7 @@ public class MethodTwoFixer {
         }
         return area.get(0) > _methodStartLine && area.get(1) < _methodEndLine;
     }
-
+    //TODO: baka bug!!
     private List<Integer> getBraceArea(int errorLine){
         List<Integer> result = new ArrayList<>();
         int bracket = 0;

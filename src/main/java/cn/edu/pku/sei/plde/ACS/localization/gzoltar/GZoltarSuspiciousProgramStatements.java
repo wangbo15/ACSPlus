@@ -17,9 +17,12 @@ package cn.edu.pku.sei.plde.ACS.localization.gzoltar;
 
 import cn.edu.pku.sei.plde.ACS.localization.common.sps.SuspiciousProgramStatements;
 import cn.edu.pku.sei.plde.ACS.localization.metric.Metric;
+import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.gzoltar.core.GZoltar;
 import com.gzoltar.core.components.Statement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -126,10 +129,10 @@ public final class GZoltarSuspiciousProgramStatements implements SuspiciousProgr
 
         List<Statement> statements = gzoltar.getSuspiciousStatementExts();
 
-		/*Logger logger = LoggerFactory.getLogger(this.getClass());
+		Logger logger = LoggerFactory.getLogger(this.getClass());
 		if (logger.isDebugEnabled()) {
 			logger.debug("Suspicious statements:\n{}", Joiner.on('\n').join(statements));
-		}*/
+		}
 
         return statements;
     }

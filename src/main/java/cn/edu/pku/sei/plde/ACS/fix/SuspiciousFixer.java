@@ -338,7 +338,7 @@ public class SuspiciousFixer {
         MethodTwoFixer methodTwoFixer = new MethodTwoFixer(suspicious);
         Map<String, List<String>> tmpMap = new HashMap<>();
         tmpMap.put(assertMsg, allConditions);
-        if (methodTwoFixer.fix(tmpMap, Sets.newHashSet(line), project, false)) {
+        if (methodTwoFixer.fixML(tmpMap, Sets.newHashSet(line), project, false)) {
             return methodTwoFixer.correctPatch + "[" + methodTwoFixer.correctStartLine + "," + methodTwoFixer.correctEndLine + "]";
         }
         methodTwoHistory = methodTwoFixer.triedPatch;

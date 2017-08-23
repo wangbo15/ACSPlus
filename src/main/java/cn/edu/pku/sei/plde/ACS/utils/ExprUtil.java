@@ -30,6 +30,7 @@ public class ExprUtil {
 
         try {
             while ((line = bReader.readLine()) != null) {
+                line = line.split("\t")[0];
                 if(line.contains(" & ") || line.contains(" | ")){
                     continue;
                 }
