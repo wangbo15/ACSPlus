@@ -37,7 +37,7 @@ public class Main {
 
         bugs = "Math_1;Math_3;Math_4;Math_5;Math_15;Math_25;Math_26;Math_28;Math_32;Math_33;Math_35";
 
-        args = new String[]{"/home/nightwish/workspace/bug_repair/tmp/", "Math_32", "timeout:720000"}; //, "Math_3", "timeout:172800"
+        args = new String[]{"/home/nightwish/workspace/bug_repair/tmp/", "Math_82", "timeout:720000"}; //, "Math_3", "timeout:172800"
 
         if (args.length == 0){
             System.out.println("Hello world");
