@@ -1,4 +1,4 @@
-#.idea/**
+.idea/**
 target/**
 .suspicious/**
 .temp/**
@@ -8,4 +8,3 @@ src/test/**
 project/**
 backup/**
 
-.idea/workspace.xml
