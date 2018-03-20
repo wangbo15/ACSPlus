@@ -144,7 +144,7 @@ public class SuspiciousFixer {
             if (timeLine.isTimeout()){
                 return false;
             }
-            if (fixInLineWithTraceResult(entry.getKey(), entry.getValue(), extractor, false)){
+            if (fixInLineWithTraceResult(entry.getKey(), entry.getValue(), extractor, false)){//why call 'fixInLineWithTraceResult' twice ???
                 return true;
             }
         }
