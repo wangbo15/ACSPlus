@@ -58,7 +58,12 @@ public class BoundaryGenerator {
         return true;
     }
 
-
+    /**
+     * 生成 Patch 列表的方法
+     * @param variable
+     * @param intervals
+     * @return
+     */
     private static String generateWithSingleWord(ExceptionVariable variable, String intervals) {
         if (variable.variable.variableName.equals("this")){
             return intervals.equals("this")?"":"this.equals("+intervals+")";

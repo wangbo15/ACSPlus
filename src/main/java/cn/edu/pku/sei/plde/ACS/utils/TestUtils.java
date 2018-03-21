@@ -128,7 +128,6 @@ public class TestUtils {
     }
 
 
-
     private static String buildClasspath(String classpath, String testClasspath, List<String> libPaths, List<String> additionalPath){
         if (libPaths.size()!=0){
             additionalPath = new ArrayList<>(additionalPath);

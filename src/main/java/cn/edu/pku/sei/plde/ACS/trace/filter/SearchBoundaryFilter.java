@@ -19,18 +19,10 @@ import java.util.concurrent.*;
  */
 public class SearchBoundaryFilter {
 
-    public static List<Interval> getInterval(ExceptionVariable exceptionVariable, String project, List<String> keywords, Suspicious suspicious){
-        return getInterval(exceptionVariable.variable, project, keywords, suspicious);
-    }
-
-
     public static List<Interval> getInterval(ExceptionVariable exceptionVariable, String project, Suspicious suspicious) {
-        return getInterval(exceptionVariable, project, new ArrayList<String>(), suspicious);
-    }
+        VariableInfo info = exceptionVariable.variable;
+        List<String> addonKeywords = new ArrayList<>();
 
-
-
-    private static List<Interval> getInterval(VariableInfo info, String project, List<String> addonKeywords, Suspicious suspicious){
         String variableName = info.variableName;
         String valueType = info.isSimpleType?info.getStringType().toLowerCase():info.getStringType();
         if (variableName.endsWith("[i]")){
@@ -204,9 +196,10 @@ class SearchCodeProcess implements Callable<Boolean> {
     }
 
     public synchronized Boolean call() {
-        GathererJavaGithubCodeSnippet GathererJavaGithubCodeSnippet = new GathererJavaGithubCodeSnippet(keywords, StringUtils.join(keywords, "-"),getProjectFullName(project));
+        String projName = getProjectFullName(project);
+        GathererJavaGithubCodeSnippet GathererJavaGithubCodeSnippet = new GathererJavaGithubCodeSnippet(keywords, StringUtils.join(keywords, "-"), projName);
         try {
-            GathererJavaGithubCodeSnippet.searchCode();
+            GathererJavaGithubCodeSnippet.searchCode();//get code fragments from github
             if (Thread.interrupted()){
                 return false;
             }

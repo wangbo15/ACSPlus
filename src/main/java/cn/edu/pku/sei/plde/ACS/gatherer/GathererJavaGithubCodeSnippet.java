@@ -111,6 +111,10 @@ public class GathererJavaGithubCodeSnippet {
         return node_list;
     }
 
+    /**
+     * contains bug, only judged by the name of a project, despite some forked repos.
+     * @param url
+     */
     public void getCodeSnippets(String url) {
         String html = RequestUtils.getHtml(url, httpClient);
         try {

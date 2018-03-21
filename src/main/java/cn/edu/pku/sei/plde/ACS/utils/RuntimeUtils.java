@@ -22,6 +22,7 @@ public class RuntimeUtils {
     }
 
     public static void killProcess(){
+        /*
         try {
             String pid = String.valueOf(RuntimeUtils.getPid());
             String[] args = {"python","kill_process.py", pid};
@@ -29,5 +30,6 @@ public class RuntimeUtils {
         } catch (IOException e){
             e.printStackTrace();
         }
+        */
     }
 }
