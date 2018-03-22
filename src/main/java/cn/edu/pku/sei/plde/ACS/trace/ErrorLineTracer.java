@@ -33,7 +33,7 @@ public class ErrorLineTracer {
         this.classname = classname;
         this.suspicious = suspicious;
         this.methodName = methodName.substring(0, methodName.indexOf('('));
-        this.code = FileUtils.getCodeFromFile(asserts._srcPath, classname);
+        this.code = FileUtils.getCodeFromFile(asserts._srcPath, classname); //源文件，非测试
         this.methodNameWithParam = methodName;
 
     }
@@ -85,7 +85,7 @@ public class ErrorLineTracer {
             String lineString = CodeUtils.getLineFromCode(code, i);
             if (LineUtils.isIfAndElseIfLine(lineString)){
                 if (!returnList.contains(i+1)){
-                    returnList.add(i+1);    //why put (i+1) ??
+                    returnList.add(i+1);    // 这段看来是把定位之前的所有 if 紧邻的下一句行号加进来
                 }
             }
         }

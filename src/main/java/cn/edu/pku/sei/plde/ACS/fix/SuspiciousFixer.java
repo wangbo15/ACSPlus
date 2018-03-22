@@ -42,7 +42,7 @@ public class SuspiciousFixer {
     private List<String> methodTwoHistory = new ArrayList<>();
     private List<String> bannedHistory = new ArrayList<>();
 
-    public SuspiciousFixer(int ithSuspicous, Suspicious suspicious, String project, TimeLine timeLine, boolean usingML){
+    public SuspiciousFixer(int ithSuspicous, Suspicious suspicious, String project, TimeLine timeLine){
         this.ithSuspicous = ithSuspicous;
         this.suspicious = suspicious;
         this.project = project;
@@ -62,7 +62,7 @@ public class SuspiciousFixer {
     public boolean mainFixProcessByML(){
         String srcRoot = suspicious._srcPath;
         String testSrcRoot = suspicious._testSrcPath;
-        String filePath = suspicious._classname.replace(".", "/");
+        String filePath = suspicious.classname().replace(".", "/");
 
         if(filePath.contains("$")){
             int dolarIdx = filePath.indexOf('$');
@@ -134,7 +134,7 @@ public class SuspiciousFixer {
                 return integer.compareTo(t1);
             }
         });
-
+        //先处理有 trace 的 line
         for (Map.Entry<Integer, List<TraceResult>> entry: traceResultWithLine.entrySet()){
             if (suspicious.tracedErrorLine.contains(entry.getKey())){
                 firstToGo.put(entry.getKey(), entry.getValue());
@@ -144,7 +144,10 @@ public class SuspiciousFixer {
             if (timeLine.isTimeout()){
                 return false;
             }
-            if (fixInLineWithTraceResult(entry.getKey(), entry.getValue(), extractor, false)){//why call 'fixInLineWithTraceResult' twice ???
+            int line = entry.getKey();
+            List<TraceResult> traceResults = entry.getValue();
+            boolean onlyMethod2 = false;
+            if (fixInLineWithTraceResult(line, traceResults, extractor, onlyMethod2)){//why call 'fixInLineWithTraceResult' twice ???
                 return true;
             }
         }

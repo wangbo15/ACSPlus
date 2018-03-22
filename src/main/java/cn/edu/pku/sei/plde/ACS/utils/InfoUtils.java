@@ -47,23 +47,6 @@ public class InfoUtils {
         return variableInfos;
     }
 
-    /**
-     *
-     * @param variableInfos
-     * @param methodInfos
-     * @return
-     */
-    public static List<VariableInfo> AddMethodInfoListToVariableInfoList(List<VariableInfo> variableInfos, List<MethodInfo> methodInfos){
-        List<VariableInfo> result = new ArrayList<VariableInfo>();
-        if (variableInfos!= null){
-            result.addAll(variableInfos);
-        }
-        if (methodInfos!= null){
-            result.addAll(changeMethodInfoToVariableInfo(methodInfos));
-        }
-        return result;
-    }
-
 
     public static List<VariableInfo> changeObjectInfo(VariableInfo info){
         if (!TypeUtils.isComplexType(info.getStringType())){

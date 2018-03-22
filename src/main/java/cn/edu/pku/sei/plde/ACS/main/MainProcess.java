@@ -107,10 +107,15 @@ public class MainProcess {
 
         for (int i = 0; i < suspiciouses.size(); i++){
             Suspicious suspicious = suspiciouses.get(i);
+
+            if(suspicious.getDefaultErrorLine() != 327){
+                continue;
+            }
+
             suspicious._libPath = libPath;
             boolean tried = false;
             for (Suspicious _suspicious: triedSuspicious){
-                if (_suspicious._function.equals(suspicious._function) && _suspicious._classname.equals(suspicious._classname)){
+                if (_suspicious._function.equals(suspicious._function) && _suspicious.classname().equals(suspicious.classname())){
                     tried = true;
                 }
             }
@@ -142,7 +147,7 @@ public class MainProcess {
 //        SuspiciousFixer fixer = new SuspiciousFixer(suspicious, project, timeLine);
 
         boolean usingML = Config.USING_ML;
-        SuspiciousFixer fixer = new SuspiciousFixer(i, suspicious, project, timeLine, usingML);// get trace
+        SuspiciousFixer fixer = new SuspiciousFixer(i, suspicious, project, timeLine);// get trace
         if (timeLine.isTimeout()){
             return false;
         }

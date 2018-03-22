@@ -35,6 +35,10 @@ public class Asserts {
     public String _project;
     public boolean timeout = false;
 
+    /**
+     * 一个测试方法有一个 Asserts 对象，_assertLineMap 保存 assert 该行的代码对应的行号
+     * 内部会用 gzoltar
+     */
     public Asserts(String classpath, String srcPath, String testClasspath, String testSrcPath, String testClassname, String testMethodName, List<String> libPath, String project) {
         _libPath = libPath;
         _classpath = classpath;
@@ -59,7 +63,7 @@ public class Asserts {
             }
         }
         _methodCode = FileUtils.getTestFunctionCodeFromCode(_code,_testMethodName, _testSrcPath);
-        List<Integer> methodLines = CodeUtils.getSingleMethodLine(_code,_testMethodName);   //test mtd begin and end
+        List<Integer> methodLines = CodeUtils.getSingleMethodLine(_code,_testMethodName);   //test mtd begin-line and end-line
         if (methodLines.size() == 2){
             _methodStartLine =methodLines.get(0);
             _methodEndLine = methodLines.get(1);
@@ -71,9 +75,12 @@ public class Asserts {
         _assertLineMap = CodeUtils.getAssertInTest(_code, testMethodName, _methodStartLine);// assert line str -> line num
         _asserts = new ArrayList<>(_assertLineMap.keySet());
         _assertNums = _asserts.size();
-        _errorAssertLines = getErrorAssertLine();
+        _errorAssertLines = getErrorAssertLine();//有执行 gzoltar ！
     }
 
+    /**
+     * 会调用 gzoltar
+     */
     public Asserts(String classpath, String srcPath,  String testClasspath, String testSrcPath, String testClassname, String testMethodName, String project){
         this(classpath, srcPath, testClasspath, testSrcPath, testClassname, testMethodName, new ArrayList<String>(), project);
     }
@@ -82,8 +89,8 @@ public class Asserts {
         List<Integer> result = new ArrayList<>();
         File tempJavaFile = FileUtils.copyFile(
                 FileUtils.getFileAddressOfJava(_testSrcPath, _testClassname),
-                tempJavaPath(_testClassname));
-        File originClassFile = new File(FileUtils.getFileAddressOfClass(_testClasspath, _testClassname));
+                tempJavaPath(_testClassname));// backup the original java source file
+        File originClassFile = new File(FileUtils.getFileAddressOfClass(_testClasspath, _testClassname));//copy the original class file
         File backupClassFile = FileUtils.copyFile(originClassFile.getAbsolutePath(), originClassFile.getAbsolutePath()+".AssertsBackup");
         String oldTrace = "";
         while (true){
@@ -91,7 +98,7 @@ public class Asserts {
             try{
                 List<String> classpaths = new ArrayList<>(_libPath);
                 classpaths.add(_classpath);
-                String trace = TestUtils.getTestTrace(classpaths, _testClasspath, _testClassname, _testMethodName);//TestUtils.getTestTrace(java.util.List<java.lang.String>, java.lang.String, java.lang.String, java.lang.String)
+                String trace = TestUtils.getTestTrace(classpaths, _testClasspath, _testClassname, _testMethodName);// 有执行 gzoltar !!
                 if (trace == null || trace.equals(oldTrace) || trace.contains("NoClassDefFoundError") || trace.contains("NoSuchMethodError")){
                     break;
                 }

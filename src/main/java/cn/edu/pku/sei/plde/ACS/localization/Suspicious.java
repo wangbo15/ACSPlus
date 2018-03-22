@@ -26,7 +26,7 @@ public class Suspicious implements Serializable{
     public final String _classpath;
     public List<String> _libPath = new ArrayList<>();
     public final String _testClasspath;
-    public final String _classname;
+    private final String _classname;
     public final String _function;
     public final String _srcPath;
     public final String _testSrcPath;
@@ -36,7 +36,6 @@ public class Suspicious implements Serializable{
     public final List<String> _failTests;
     public final List<String> _lines;
     private List<VariableInfo> _variableInfo;
-    private List<MethodInfo> _methodInfo;
     public List<Integer> tracedErrorLine = new ArrayList<>();
     public Map<String, Asserts> _assertsMap = new HashMap<>();
     public Map<String, List<Integer>> _errorLineMap = new HashMap<>();
@@ -182,15 +181,6 @@ public class Suspicious implements Serializable{
         return _function.substring(0, _function.indexOf("("));
     }
 
-
-    public List<String> getTestClassAndFunction(){
-        return _tests;
-    }
-
-    public List<String> getFailedTest(){
-        return _failTests;
-    }
-
     public List<String> getTestClasses(){
         List<String> classes = new ArrayList<String>();
         for (String test: _tests){
@@ -202,57 +192,53 @@ public class Suspicious implements Serializable{
         return classes;
     }
 
-    public String getClassSrcPath(String classSrc){
+    private String getJavaSrcFilePath(String srcRootPath){
         String classname = classname();
         if (_classname.contains("$")){
             classname = _classname.substring(0, _classname.lastIndexOf('$'));
         }
-        String result =  classSrc + System.getProperty("file.separator") + classname.replace(".",System.getProperty("file.separator")) + ".java";
+        String result =  srcRootPath + System.getProperty("file.separator") + classname.replace(".",System.getProperty("file.separator")) + ".java";
         return result.replace(" ","").replace("//","/");
     }
 
 
-    public String getClassSrcIndex(String classSrc){
-        String classSrcPath = getClassSrcPath(classSrc);
+    private String getSrcPackagePath(String classSrcRootPath){
+        String classSrcPath = getJavaSrcFilePath(classSrcRootPath);
         return classSrcPath.substring(0,classSrcPath.lastIndexOf(System.getProperty("file.separator"))).replace(" ","").replace("//","/");
     }
 
 
-
     public List<VariableInfo> getAllInfo(){
-        return InfoUtils.filterBannedVariable(InfoUtils.AddMethodInfoListToVariableInfoList(_variableInfo, _methodInfo));
+        return InfoUtils.filterBannedVariable(_variableInfo);
     }
 
 
     public List<VariableInfo> getVariableInfo(int line){
-         return getVariableInfo(this._srcPath, line);
-    }
-
-    private List<VariableInfo> getVariableInfo(String classSrc, int line){
+        String srcRoot = this._srcPath;
         if (_variableInfo == null){
             _variableInfo = new ArrayList<>();
         }
         List<VariableInfo> variableInfos = new ArrayList<VariableInfo>();
-        String classSrcPath = getClassSrcPath(classSrc);
-        VariableCollect variableCollect = VariableCollect.GetInstance(getClassSrcIndex(classSrc));
+        String classSrcPath = getJavaSrcFilePath(srcRoot);
+        VariableCollect variableCollect = VariableCollect.GetInstance(getSrcPackagePath(srcRoot));
         List<VariableInfo> locals = variableCollect.getVisibleLocalInMethodList(classSrcPath, line);
         if (locals.size() == 0){
             locals = variableCollect.getVisibleLocalInMethodList(classSrcPath, line-1);
         }
         for (VariableInfo local: locals){
             local.isLocalVariable = true;
-            List<VariableInfo> subVariableInfo = InfoUtils.getSubInfoOfComplexVariable(local,classSrc, classSrcPath);
+            List<VariableInfo> subVariableInfo = InfoUtils.getSubInfoOfComplexVariable(local,srcRoot, classSrcPath);
             for (VariableInfo info: subVariableInfo){
                 info.isLocalVariable = true;
             }
             variableInfos.addAll(subVariableInfo);
         }
         variableInfos.addAll(locals);
-        variableCollect = VariableCollect.GetInstance(getClassSrcIndex(classSrc));
+        variableCollect = VariableCollect.GetInstance(getSrcPackagePath(srcRoot));
         List<VariableInfo> parameters = variableCollect.getVisibleParametersInMethodList(classSrcPath, line);
         for (VariableInfo param: parameters){
             param.isParameter = true;
-            List<VariableInfo> subVariableInfo = InfoUtils.getSubInfoOfComplexVariable(param,classSrc, classSrcPath);
+            List<VariableInfo> subVariableInfo = InfoUtils.getSubInfoOfComplexVariable(param,srcRoot, classSrcPath);
             for (VariableInfo info: subVariableInfo){
                 info.isParameter = true;
             }
@@ -261,13 +247,13 @@ public class Suspicious implements Serializable{
         variableInfos.addAll(parameters);
 
         if (!_isConstructor){
-            variableCollect = VariableCollect.GetInstance(getClassSrcIndex(classSrc));
+            variableCollect = VariableCollect.GetInstance(getSrcPackagePath(srcRoot));
             LinkedHashMap<String, ArrayList<VariableInfo>> classvars = variableCollect.getVisibleFieldInAllClassMap(classSrcPath);
             if (classvars.containsKey(classSrcPath)){
                 List<VariableInfo> fields = classvars.get(classSrcPath);
                 // remove the static variable when in a static method.
                 List<VariableInfo> staticVars = new ArrayList<>();
-                if (MethodCollect.checkIsStaticMethod(getClassSrcPath(classSrc),_function.substring(0, _function.indexOf("(")))){
+                if (MethodCollect.checkIsStaticMethod(getJavaSrcFilePath(srcRoot),_function.substring(0, _function.indexOf("(")))){
                     for (VariableInfo info: fields){
                         if (!info.isStatic){
                             staticVars.add(info);
@@ -334,54 +320,6 @@ public class Suspicious implements Serializable{
         return infos;
     }
 
-
-    public List<MethodInfo> getMethodInfo(String classSrc){
-        if (_methodInfo != null){
-            return _methodInfo;
-        }
-        if (_isConstructor){
-            _methodInfo = new ArrayList<>();
-            return _methodInfo;
-        }
-        MethodCollect methodCollect = MethodCollect.GetInstance(getClassSrcIndex(classSrc));
-        LinkedHashMap<String, ArrayList<MethodInfo>> methods = methodCollect.getVisibleMethodWithoutParametersInAllClassMap(getClassSrcPath(classSrc));
-        _methodInfo = methods.get(getClassSrcPath(classSrc));
-        if (_methodInfo == null){
-            _methodInfo = new ArrayList<>();
-        }
-        //remove static methods when the suspicious method is not static
-        List<MethodInfo> staticMethod = new ArrayList<>();
-        if (MethodCollect.checkIsStaticMethod(getClassSrcPath(classSrc),_function.substring(0, _function.indexOf("(")))){
-            for (MethodInfo info: _methodInfo){
-                if (!info.isStatic){
-                    staticMethod.add(info);
-                }
-            }
-        }
-
-        //remove inner class methods
-        List<MethodInfo> innerMethod = new ArrayList<>();
-        String code = FileUtils.getCodeFromFile(_srcPath, classname());
-        for (MethodInfo info: _methodInfo){
-            if (MethodUtils.isInnerMethod(code, info.methodName)){
-                innerMethod.add(info);
-            }
-        }
-
-        //remove methods would call suspicious method in its statement.
-        List<MethodInfo> loopCallMethod = new ArrayList<>();
-        for (MethodInfo info: _methodInfo){
-            if (MethodUtils.isLoopCall(functionnameWithoutParam(),info.methodName,code)){
-                loopCallMethod.add(info);
-            }
-        }
-        _methodInfo.removeAll(staticMethod);
-        _methodInfo.removeAll(innerMethod);
-        _methodInfo.removeAll(loopCallMethod);
-        _methodInfo = InfoUtils.filterBannedMethod(_methodInfo);
-        return _methodInfo;
-    }
-
     public List<TraceResult> getTraceResult(String project, TimeLine timeLine) {
         VariableTracer tracer = new VariableTracer(_srcPath, _testSrcPath, this, project);
         List<TraceResult> traceResults = new ArrayList<TraceResult>();
@@ -409,7 +347,7 @@ public class Suspicious implements Serializable{
             try{
                 int line = getDefaultErrorLine();
                 assert line > 0;
-
+                //这里 trace ！！
                 List<TraceResult> tr = tracer.trace(classname(), functionname(),testclass.split("#")[0], testclass.split("#")[1],line,false);
 
                 traceResults.addAll(tr);

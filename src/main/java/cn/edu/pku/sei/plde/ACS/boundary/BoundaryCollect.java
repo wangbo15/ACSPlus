@@ -138,12 +138,6 @@ public class BoundaryCollect {
         }
     }
 
-    public ArrayList<BoundaryInfo> getBoundaryList() {
-        generateBoundaryList();
-        return boundaryList;
-    }
-
-
     public List<Map.Entry<Interval, Integer>> getBoundaryIntervalMapList(){
         if (className.equalsIgnoreCase("boolean")){
             Map<Interval, Integer> resultMap = new HashMap<>();
@@ -229,7 +223,7 @@ public class BoundaryCollect {
             }
         });
         if (BoundaryGenerator.GENERATING_VARIABLE!=null){
-            RecordUtils.printBoundaryCollectMessage(entries);
+            RecordUtils.printBoundaryCollectMessage(entries);//在 runtimeMessage/ 中保存
         }
         return entries;
     }

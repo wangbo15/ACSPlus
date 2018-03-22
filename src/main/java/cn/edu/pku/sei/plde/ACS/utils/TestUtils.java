@@ -17,12 +17,15 @@ import java.util.concurrent.*;
  * Created by yanrunfa on 16/3/8.
  */
 public class TestUtils {
+
     /**
-     *
+     * 会跑 gzoltar
      * @param classpath
      * @param testPath
      * @param classname
+     * @param functionname
      * @return
+     * @throws NotFoundException
      */
     public static String getTestTrace(List<String> classpath, String testPath, String classname, String functionname) throws NotFoundException{
         ArrayList<String> classpaths = new ArrayList<String>();
@@ -38,7 +41,7 @@ public class TestUtils {
             gzoltar.addPackageNotToInstrument("junit.framework");
             gzoltar.addTestPackageNotToExecute("junit.framework");
             gzoltar.addTestPackageNotToExecute("org.junit");
-            gzoltar.addTestToExecute(classname);
+            gzoltar.addTestToExecute(classname);    //执行的测试class
             gzoltar.addClassNotToInstrument(classname);
             ExecutorService service = Executors.newSingleThreadExecutor();
             Future<Boolean> future = service.submit(new GzoltarRunProcess(gzoltar));//run gzoltar by multi-thread
