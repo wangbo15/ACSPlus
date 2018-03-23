@@ -8,7 +8,6 @@ import cn.edu.pku.sei.plde.ACS.file.ReadFile;
 import cn.edu.pku.sei.plde.ACS.jdtVisitor.BoundaryCollectVisitor;
 import cn.edu.pku.sei.plde.ACS.type.TypeEnum;
 import cn.edu.pku.sei.plde.ACS.utils.*;
-import org.easymock.cglib.transform.impl.InterceptFieldCallback;
 import org.eclipse.jdt.core.dom.*;
 
 import java.util.*;
@@ -18,30 +17,27 @@ import java.util.regex.Pattern;
 public class BoundaryCollect {
     private String rootPath;
     private ArrayList<String> filesPath;
-    private ArrayList<BoundaryInfo> boundaryList;
+    private ArrayList<BoundaryInfo> boundaryList = new ArrayList<BoundaryInfo>();;
 
-    private boolean isClass;
-    public String className;
+    private boolean isObject;
+    public String typeName = "";
     private String code;
 
-    public BoundaryCollect(String rootPath, boolean isClass, String className) {
+    public BoundaryCollect(String rootPath, boolean isObject, String typeName) {
         this.rootPath = rootPath;
-        boundaryList = new ArrayList<BoundaryInfo>();
-        this.isClass = isClass;
-        this.className = className;
-        // generateBoundaryList();
+        this.isObject = isObject;
+        this.typeName = typeName;//类型名
     }
 
-    public BoundaryCollect(String rootPath, boolean isClass, String className, String code) {
+    public BoundaryCollect(String rootPath, boolean isClass, String typeName, String code) {
         this.rootPath = rootPath;
-        boundaryList = new ArrayList<BoundaryInfo>();
-        this.isClass = isClass;
-        this.className = className;
+        this.isObject = isClass;
+        this.typeName = typeName;
         this.code = code;
     }
 
     private ArrayList<String> getBoundaryString(){
-        filesPath = FileUtils.getJavaFilesInProj(rootPath);
+        filesPath = FileUtils.getJavaFilesInProj(rootPath); // github 上准备好的 code fragments
         ArrayList<String> result = new ArrayList<String>();
         for (String filePath : filesPath) {
             try {
@@ -67,7 +63,7 @@ public class BoundaryCollect {
                         }
                     }
                 }
-                Pattern ifPattern = Pattern.compile("if\\s*\\(.*?\\)\\s*\\{");
+                Pattern ifPattern = Pattern.compile("if\\s*\\(.*?\\)\\s*\\{"); // 这里选的 if ，与变量并没有关系
                 Matcher ifMatcher = ifPattern.matcher(source);
                 while(ifMatcher.find()){
                     result.add(ifMatcher.group(0));
@@ -139,14 +135,14 @@ public class BoundaryCollect {
     }
 
     public List<Map.Entry<Interval, Integer>> getBoundaryIntervalMapList(){
-        if (className.equalsIgnoreCase("boolean")){
+        if (typeName.equalsIgnoreCase("boolean")){
             Map<Interval, Integer> resultMap = new HashMap<>();
             resultMap.put(new Interval(true),  1);
             resultMap.put(new Interval(false), 1);
             return new ArrayList<Map.Entry<Interval, Integer>>(resultMap.entrySet());
         }
         Map<Interval, Integer> intervalCountMap = new HashMap<>();
-        ArrayList<String> boundaryStrings = getBoundaryString();
+        ArrayList<String> boundaryStrings = getBoundaryString(); //TODO: 提取机制存疑！
         for (String boundary: boundaryStrings){
             while (CodeUtils.countChar(boundary, '(') > CodeUtils.countChar(boundary, ')')){
                 boundary += ")";
@@ -168,20 +164,20 @@ public class BoundaryCollect {
                             (StructuralPropertyDescriptor)root.structuralPropertiesForType().get(0))).get(0);
                     expression = whileStatement.getExpression();
                 } catch (Exception e){
-                    continue;
+                    continue;   //非法表达式在这里 continue
                 }
             }
             if (!(expression instanceof InfixExpression ||
                     expression instanceof InstanceofExpression)){
                 continue;
             }
-            List<Interval> intervals = getIntervalFromExpression(expression, className, isClass);
-            if (intervals != null){
+            List<Interval> intervals = getIntervalFromExpression(expression, typeName, isObject);
+            if (intervals != null){//没有 interval 就 continue
                 for (Interval interval: intervals){
                     boolean countedFlag = false;
                     for (Interval exist: intervalCountMap.keySet()){
                         if (exist.equals(interval)){
-                            intervalCountMap.put(exist, intervalCountMap.get(exist)+1);
+                            intervalCountMap.put(exist, intervalCountMap.get(exist)+1);//更新 interval 出现的次数
                             countedFlag = true;
                             break;
                         }
@@ -194,7 +190,7 @@ public class BoundaryCollect {
         }
         Map<Interval, Integer> reversedNewInterval = new HashMap<>();
         for (Map.Entry<Interval, Integer> entry: intervalCountMap.entrySet()){
-            List<Interval> reversedList = entry.getKey().reverse();
+            List<Interval> reversedList = entry.getKey().reverse(); //entry.getKey() -> Interval
             for (Interval reversed: reversedList){
                 if (reversed == null){
                     continue;
@@ -207,9 +203,9 @@ public class BoundaryCollect {
                 }
             }
         }
-        intervalCountMap.putAll(reversedNewInterval);
+        intervalCountMap.putAll(reversedNewInterval);//假设有 [0, DOUBLE_MAX)，则加入 (-DOUBLE_MAX, 0)
         List<Map.Entry<Interval, Integer>> entries = new ArrayList<Map.Entry<Interval, Integer>>(intervalCountMap.entrySet());
-        Collections.sort(entries, new Comparator<Map.Entry<Interval, Integer>>() {
+        Collections.sort(entries, new Comparator<Map.Entry<Interval, Integer>>() { //按 interval 的出现次数，从高到低排序
             public int compare(Map.Entry<Interval, Integer> obj1 , Map.Entry<Interval, Integer> obj2) {
                 if (obj1.getValue().equals(obj2.getValue())){
                     if (obj1.getKey().isValue() && ! obj2.getKey().isValue()){
@@ -232,7 +228,7 @@ public class BoundaryCollect {
     public ArrayList<Interval> getBoundaryInterval(){
         List<Map.Entry<Interval, Integer>> entries = getBoundaryIntervalMapList();
         ArrayList<Interval> result = new ArrayList<>();
-        for (int i=0; i< 20; i++){
+        for (int i = 0; i < 20; i++){
             if (i<entries.size()){
                 result.add(entries.get(i).getKey());
             }
@@ -401,11 +397,11 @@ public class BoundaryCollect {
             }
         }
 
-        if(isClass){
+        if(isObject){
             Iterator<BoundaryWithFreq> iterator = boundaryWithFreqs.iterator();
             while(iterator.hasNext()){
                 String value = iterator.next().value;
-                if(!value.contains(className) || value.contains("{")){
+                if(!value.contains(typeName) || value.contains("{")){
                     iterator.remove();
                 }
             }

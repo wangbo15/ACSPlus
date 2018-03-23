@@ -78,6 +78,10 @@ public class TestUtils {
         }
         throw new NotFoundException("No Test Named "+functionname + " Found in Test Class " + classname);
     }
+
+    /**
+     * 会运行 gzoltar
+     */
     public static String getTestTrace(String classpath, String testPath, String classname, String functionname) throws NotFoundException{
         return getTestTrace(Arrays.asList(classpath),testPath, classname, functionname);
     }
@@ -104,7 +108,7 @@ public class TestUtils {
     }
 
 
-    public static String getDefects4jTestResult(String projectName){
+    private static String getDefects4jTestResult(String projectName){
         try {
             String result = ShellUtils.shellRun(Arrays.asList("cd project\n","cd "+projectName+"\n","defects4j test"));
             return result;
@@ -114,7 +118,8 @@ public class TestUtils {
     }
 
     public static int getFailTestNumInProject(String projectName){
-        String testResult = getDefects4jTestResult(projectName);
+        System.out.println(">>>> Enter TestUtils.getFailTestNumInProject(), will call defects4j test");
+        String testResult = getDefects4jTestResult(projectName);// run defects4j test here
         if (testResult.equals("")){//error occurs in run
             return Integer.MAX_VALUE;
         }

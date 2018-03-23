@@ -175,7 +175,7 @@ public class MainProcess {
         }
         int failTest = SuspiciousFixer.FAILED_TEST_NUM;
         if (failTest == 0){
-            failTest = TestUtils.getFailTestNumInProject(project);
+            failTest = TestUtils.getFailTestNumInProject(project);//run defects4j test
         }
         if (failTest > 0){
             SuspiciousFixer.FAILED_TEST_NUM = failTest;

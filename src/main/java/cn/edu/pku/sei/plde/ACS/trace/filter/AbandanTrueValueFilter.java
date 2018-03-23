@@ -18,6 +18,18 @@ import java.util.*;
  * Created by yanrunfa on 16/3/4.
  */
 public class AbandanTrueValueFilter {
+
+    private static boolean omit(VariableInfo variableInfo){
+        if (variableInfo == null){
+            return true;
+        }
+        //ban field variable
+        if (variableInfo.isFieldVariable){
+            return true;
+        }
+        return false;
+    }
+
     public static List<ExceptionVariable> abandon(Suspicious suspicious, List<TraceResult> traceResults, List<VariableInfo> vars) {
         List<ExceptionVariable> exceptionValues = new ArrayList<>();
         Map<VariableInfo, List<String>> trueVariable = AbandanTrueValueFilter.getTrueValue(traceResults, vars);
@@ -30,27 +42,19 @@ public class AbandanTrueValueFilter {
                 continue;
             }
 
-            for (Map.Entry<String, List<String>> entry: traceResult.getResultMap().entrySet()){//traceResult.getResultMap() : var_string => val list
-                // ban instanceof variable
-                //if (entry.getKey().contains(".Comparable")){
-                //    continue;
-                //}
-
-                if (entry.getKey().contains(".null") && entry.getValue().contains("false") && entry.getValue().size() > 1){
-                    entry.getValue().remove("false");
-                }
-                else if (entry.getKey().contains(".null") && entry.getValue().contains("false")){
+            for (Map.Entry<String, List<String>> entry: traceResult.getResultMap().entrySet()){//traceResult.getResultMap() : var_string => var value list
+                String varname = entry.getKey();
+                List<String> results = entry.getValue();
+                if (varname.contains(".null") && results.contains("false") && results.size() > 1){
+                    results.remove("false");
+                } else if (varname.contains(".null") && results.contains("false")){
                     continue;
                 }
 
-                VariableInfo variableInfo = getVariableInfoWithName(vars, entry.getKey());
+                VariableInfo variableInfo = getVariableInfoWithName(vars, varname);
 
-                if (variableInfo == null){
-                    System.out.println("WARNING: AbandonTrueValueFilter#abandon: Connot Find VariableInfo With Variable Name "+entry.getKey());
-                    continue;
-                }
-                //ban field variable
-                if (variableInfo.isFieldVariable){
+                if (omit(variableInfo)){
+                    System.out.println("WARNING: Omit VariableInfo With Variable Name " + varname);
                     continue;
                 }
 
@@ -61,7 +65,7 @@ public class AbandanTrueValueFilter {
                     if (trueValues == null){
                         continue;
                     }
-                    for (String value: entry.getValue()){
+                    for (String value: results){
                         if (!trueValues.contains(value)){
                             falseValues.add(value);
                         }
@@ -77,7 +81,7 @@ public class AbandanTrueValueFilter {
                 //跳过与正确值有交集的variable,加入第二等级怀疑变量候选列表
                 if (trueVariable.containsKey(variableInfo)){
                     List<String> trueValues = trueVariable.get(variableInfo);
-                    if (MathUtils.hasInterSection(trueValues, entry.getValue())){
+                    if (MathUtils.hasInterSection(trueValues, results)){ // 两个 List 的交集
                         ExceptionVariable variable = new ExceptionVariable(variableInfo, traceResult);
                         if (!levelTwoCandidate.contains(variable)){
                             levelTwoCandidate.add(variable);
@@ -214,7 +218,7 @@ public class AbandanTrueValueFilter {
     }
 
 
-    public static Map<VariableInfo, List<String>> filterTrueValue(List<TraceResult> traceResults, List<VariableInfo> vars){
+    private static Map<VariableInfo, List<String>> filterTrueValue(List<TraceResult> traceResults, List<VariableInfo> vars){
         Map<VariableInfo, List<String>> trueValues = new HashMap<VariableInfo, List<String>>();
         for (TraceResult traceResult: traceResults){
             if (!traceResult.getTestResult()) {
@@ -274,7 +278,7 @@ public class AbandanTrueValueFilter {
         return falseValues;
     }
 
-    public static <T> List<T> appandList(List<T> aa, List<T> bb){
+    private static <T> List<T> appandList(List<T> aa, List<T> bb){
         List<T> result = new ArrayList<T>();
         result.addAll(aa);
         result.removeAll(bb);
@@ -282,14 +286,14 @@ public class AbandanTrueValueFilter {
         return result;
     }
 
-    public static String[] stringToArray(String value){
+    private static String[] stringToArray(String value){
         if (value.startsWith("[") && value.endsWith("]")){
             return value.substring(1,value.length()-1).split(",");
         }
         return new String[]{value};
     }
 
-    public static VariableInfo getVariableInfoWithName(List<VariableInfo> infos, String name){
+    private static VariableInfo getVariableInfoWithName(List<VariableInfo> infos, String name){
         Collections.sort(infos, new Comparator<VariableInfo>() {
             @Override
             public int compare(VariableInfo variableInfo, VariableInfo t1) {

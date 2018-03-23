@@ -35,7 +35,7 @@ public class DocumentBaseFilter {
     }
 
 
-    public boolean filterWithAnnotation(String ifStatement,String fixString, int patchLine){
+    public boolean filterWithAnnotation(String ifStatement, String fixString, int patchLine){
         String code = FileUtils.getCodeFromFile(srcPath,className);
         String annotation;
         if (fixString.contains("throw ")){
@@ -44,8 +44,9 @@ public class DocumentBaseFilter {
             if (annotation.equals("")){
                 return false;
             }
-            // TIME COMFUSING !!
-            if (!exceptionPatchFilter(annotation, getParamFromIfStatement(ifStatement), variableNames)){
+
+            List<String> params = getParamFromIfStatement(ifStatement);
+            if (!exceptionPatchFilter(annotation, params, variableNames)){ //分析变量有无对应 annotation 的主语（subject）
                 return false;
             }
             return true;
@@ -97,13 +98,13 @@ public class DocumentBaseFilter {
     }
 
     public static boolean exceptionPatchFilter(String annotation, List<String> ifParam, List<String> variableNames){
-        List<String> subjects = AnnotationUtils.Parse(annotation); // Extremely slow !!!
+        List<String> subjects = AnnotationUtils.Parse(annotation); // 调用了OpenNLP, 得到 annotation 主语，过程有点慢
         int count = 0;
         for (String param: ifParam){
             if (param.equals("")){
                 continue;
             }
-            List<String> paramNames = DocumentBaseFilter.splitVariableName(param);
+            List<String> paramNames = DocumentBaseFilter.splitVariableName(param);//驼峰分词
             String name = paramNames.get(paramNames.size()-1);
             for (String subject: subjects){
                 if ((" "+subject.replace("<"," ").replace(">"," ")+" ").contains(" "+name+" ")){
@@ -164,7 +165,7 @@ public class DocumentBaseFilter {
         return "";
     }
 
-    public static List<String> splitVariableName(String name){
+    public static List<String> splitVariableName(String name){//驼峰分词
         List<String> keywords = new ArrayList<>();
         String keyword ="";
         for (Character ch: name.toCharArray()){

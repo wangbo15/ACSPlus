@@ -201,8 +201,9 @@ public class VariableTracer {
         }
         List<TraceResult> results = new ArrayList<TraceResult>();
         for (String trace: traces){
-            TraceResult result = new TraceResult(!trace.endsWith("E"));
-            if (!trace.endsWith("E")){
+            boolean testResult = !trace.endsWith("E");
+            TraceResult result = new TraceResult(testResult);
+            if (testResult){
                 _suspicious.trueMethodCallNumFromTest += methodCallNum(shellResult);
             }
             result._assertLine = assertLine;

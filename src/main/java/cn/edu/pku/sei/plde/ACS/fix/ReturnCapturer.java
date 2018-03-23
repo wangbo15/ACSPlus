@@ -40,30 +40,6 @@ public class ReturnCapturer {
         _testsrcpath = testsrcpath;
         _classSrcPath = classSrcPath;
     }
-    /**
-     *
-     * @param testClassName The test's class name to be fixed
-     * @param testMethodName the name of test function
-     * @return the fix string
-     */
-    public String getFixFrom(String testClassName, String testMethodName, String classname, String methodName){
-        _testClassName = testClassName;
-        _testMethodName = testMethodName;
-        _classname = classname;
-        _methodName = methodName;
-        _fileaddress = _testsrcpath + System.getProperty("file.separator") + _testClassName.replace('.',System.getProperty("file.separator").charAt(0))+".java";
-
-        try {
-            String retrunString = run();
-            if (retrunString.contains("throw")){
-                return parseThrowException(retrunString);
-            }
-            return retrunString;
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return "";
-    }
 
     private String parseThrowException(String throwString){
         String code = FileUtils.getCodeFromFile(_classSrcPath, _classname);
@@ -78,7 +54,7 @@ public class ReturnCapturer {
         String exceptionCode = FileUtils.getCodeFromFile(_classSrcPath, exceptionClass);
         List<Integer> paramCount = CodeUtils.getMethodParamsCountInCode(exceptionCode, exception);
         int minParamCount = Collections.min(paramCount);
-        if (minParamCount < 1){
+        if (minParamCount < 1){// Exception 的构造函数，可以不需要参数
             return throwString;
         }
         String param = "null";
@@ -88,13 +64,35 @@ public class ReturnCapturer {
         return "import "+exceptionClass+";"+"///"+throwString.replace("()","("+param+")");
     }
 
-
+    /**
+     * 会运行 gzoltar
+     * @param testClassName The test's class name to be fixed
+     * @param testMethodName the name of test function
+     * @return the fix string
+     */
     public String getFixFrom(String testClassName, String testMethodName, int assertLine, String classname, String methodName){
         _assertLine = assertLine;
+        _testClassName = testClassName;
+        _testMethodName = testMethodName;
+        _classname = classname;
+        _methodName = methodName;
+        _fileaddress = _testsrcpath + System.getProperty("file.separator") + _testClassName.replace('.',System.getProperty("file.separator").charAt(0))+".java";
 
-        return getFixFrom(testClassName, testMethodName, classname, methodName);
+        try {
+            String retrunString = run(); //会运行 gzoltar，获得 traceResult, 例如 Math_25，得到对应的 throw
+            if (retrunString.contains("throw")){
+                return parseThrowException(retrunString);  //是否需要import
+            }
+            return retrunString;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
     }
 
+    /**
+     * 会运行 gzoltar, 获得 _testTrace
+     */
     private String run() throws Exception{
         _testTrace = TestUtils.getTestTrace(_classpath, _testclasspath,_testClassName,_testMethodName);
         if (_testTrace != null && _testTrace.equals("timeout")){

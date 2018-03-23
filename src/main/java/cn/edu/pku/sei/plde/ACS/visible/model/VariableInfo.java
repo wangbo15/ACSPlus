@@ -155,7 +155,7 @@ public class VariableInfo implements Comparable<VariableInfo>,Serializable{
 	}
 
 	public String getStringType(){
-		return isSimpleType?variableSimpleType.toString():otherType;
+		return isSimpleType ? variableSimpleType.toString() : otherType;
 	}
 
 

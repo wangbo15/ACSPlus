@@ -18,7 +18,7 @@ public class VariableSort {
     private List<String> statementList;
     private Map<String, Set<String>> dependencyMap;
     private Map<String, Integer> inDegree;
-    private List<List<String>> sortVariable;
+    private List<List<String>> sortVariable; //保存拓扑排序的结果，从近到远
 
     private Set<String> allVariableInMethod;
     public VariableSort(Set<String> suspiciousVariableSet, String statements) {
@@ -35,7 +35,7 @@ public class VariableSort {
             inDegree.put(variable, 0);
         }
 
-        preProcess();
+        preProcess();//将语句从近到远填入 statementList
         getDependency();
         topologicalSort();
         removeControlDependency();

@@ -24,11 +24,11 @@ public class SearchBoundaryFilter {
         List<String> addonKeywords = new ArrayList<>();
 
         String variableName = info.variableName;
-        String valueType = info.isSimpleType?info.getStringType().toLowerCase():info.getStringType();
+        String valueType = info.isSimpleType ? info.getStringType().toLowerCase() : info.getStringType();
         if (variableName.endsWith("[i]")){
             variableName = variableName.substring(0, variableName.indexOf("["));
         }
-        ArrayList<String> keywords = new ArrayList<String>();
+        ArrayList<String> keywords = new ArrayList<>();// github 的三个查询关键字
         keywords.add("if");
         keywords.addAll(addonKeywords);
         keywords.add(valueType);
@@ -98,22 +98,20 @@ public class SearchBoundaryFilter {
             keywords.remove(valueType);
 
         }
-        if (!variableName.equals("this") && !VariableUtils.isExpression(info) && variableName.length() > 1){
+        if (!variableName.equals("this") && !VariableUtils.isExpression(info) && variableName.length() > 1){// 论文里写的是大于 2 个字母，而非 1
             keywords.add(variableName.replace(" ",""));
         }
 
         File codePackage = new File("experiment/searchcode/" + StringUtils.join(keywords,"-"));
         if (!codePackage.exists()){
             searchCode(keywords, project);
-        }
-        if (codePackage.exists()) {
-            if (codePackage.list().length > 15|| VariableUtils.isExpression(info)){
+        } else {
+            if (codePackage.list().length > 15 || VariableUtils.isExpression(info)){
                 if (TypeUtils.isSimpleType(valueType)){
                     BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), false, valueType);
                     List<Interval> boundaryList = boundaryCollect.getBoundaryInterval();
                     return boundaryList;
-                }
-                else {
+                } else {
                     BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), true, valueType);
                     List<Interval> boundaryList = boundaryCollect.getBoundaryInterval();
                     return boundaryList;

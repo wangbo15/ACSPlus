@@ -22,14 +22,14 @@ public class BoundaryGenerator {
         List<Interval> intervals = new ArrayList<>();
         GENERATING_VARIABLE = exceptionVariable;
         List<Interval> variableBoundary = SearchBoundaryFilter.getInterval(exceptionVariable, project, suspicious);
-        for (String value: exceptionVariable.values){
+        for (String value : exceptionVariable.values){ // 变量在失败测试上的值
             try {
                 if (MathUtils.isMaxMinValue(value)){
                     Double doubleValue = MathUtils.parseStringValue(value);
                     intervals.add(new Interval(doubleValue, doubleValue, true, true));
                     continue;
                 }
-                for (Interval interval: variableBoundary){
+                for (Interval interval: variableBoundary){// 留下异常值所在的 interval
                     if ((interval.containsValue(value)
                             || !TypeUtils.isSimpleType(exceptionVariable.type)) && !intervals.contains(interval)){
                         intervals.add(interval);
@@ -71,7 +71,7 @@ public class BoundaryGenerator {
         if (variable.variable.variableName.equals("return")){
             return intervals;
         }
-        if (variable.variable.isAddon){
+        if (variable.variable.isAddon){// isAddon 是什么意思？
             if (variable.variable.variableName.endsWith(".Comparable")){
                 String variableName = variable.variable.variableName.substring(0,variable.variable.variableName.lastIndexOf("."));
                 switch (intervals){
@@ -104,7 +104,7 @@ public class BoundaryGenerator {
 
             boolean biggestClose = false;
             boolean smallestClose = false;
-            String biggest = intervals.split(", ")[0];
+            String biggest = intervals.split(", ")[0];  //为何数轴左边的是biggest，右边是smallest
             String smallest = intervals.split(", ")[1];
             String varType = MathUtils.getSimpleOfNumberType(variable.variable.getStringType());
             if (biggest.startsWith("[")){
