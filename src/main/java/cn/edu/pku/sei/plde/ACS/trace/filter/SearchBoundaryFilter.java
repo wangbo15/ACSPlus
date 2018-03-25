@@ -21,6 +21,52 @@ public class SearchBoundaryFilter {
 
     public static List<Interval> getInterval(ExceptionVariable exceptionVariable, String project, Suspicious suspicious) {
         VariableInfo info = exceptionVariable.variable;
+        String variableName = info.variableName;
+        String valueType = info.isSimpleType ? info.getStringType().toLowerCase() : info.getStringType();
+
+        //获得 3 个搜索关键字
+        ArrayList<String> keywords = getSerachKeyWord(exceptionVariable, suspicious);
+        File codePackage = new File("experiment/searchcode/" + StringUtils.join(keywords,"-"));
+        assert codePackage.exists();
+
+        List<Interval> boundaryList;   //getBoundaryInterval() 内有取 top 20
+        if (codePackage.list().length > 15 || VariableUtils.isExpression(info)){    // 为何限制 15 个 code file？？ 一般眼见的都是 80 个 file
+            if (TypeUtils.isSimpleType(valueType)){
+                BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), false, valueType);
+                boundaryList = boundaryCollect.getBoundaryInterval();
+            } else {
+                BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), true, valueType);
+                boundaryList = boundaryCollect.getBoundaryInterval();
+            }
+        } else if (TypeUtils.isSimpleType(valueType)) {
+            keywords.remove(variableName);
+            codePackage = new File("experiment/searchcode/" + StringUtils.join(keywords,"-"));
+            assert codePackage.exists();
+
+            BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), true, valueType);
+            boundaryList = boundaryCollect.getBoundaryInterval();
+        } else {
+            keywords.remove(valueType);
+            codePackage = new File("experiment/searchcode/" + StringUtils.join(keywords, "-"));
+            assert codePackage.exists();
+
+            BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), false, valueType);
+            boundaryList = boundaryCollect.getBoundaryInterval();
+        }
+        return boundaryList;
+    }
+
+    private static boolean containsString(ArrayList<String> list, String string){
+        for (String listString: list){
+            if (listString.equalsIgnoreCase(string)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static ArrayList<String> getSerachKeyWord(ExceptionVariable exceptionVariable, Suspicious suspicious){
+        VariableInfo info = exceptionVariable.variable;
         List<String> addonKeywords = new ArrayList<>();
 
         String variableName = info.variableName;
@@ -101,60 +147,21 @@ public class SearchBoundaryFilter {
         if (!variableName.equals("this") && !VariableUtils.isExpression(info) && variableName.length() > 1){// 论文里写的是大于 2 个字母，而非 1
             keywords.add(variableName.replace(" ",""));
         }
+        return keywords;
+    }
 
-        File codePackage = new File("experiment/searchcode/" + StringUtils.join(keywords,"-"));
-        if (!codePackage.exists()){
-            searchCode(keywords, project);
+    private static List<Interval> processManyCodeFilesOrExpression(File codePackage, String valueType){
+        List<Interval> boundaryList;
+        if (TypeUtils.isSimpleType(valueType)){
+            BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), false, valueType);
+            boundaryList = boundaryCollect.getBoundaryInterval();
         } else {
-            if (codePackage.list().length > 15 || VariableUtils.isExpression(info)){
-                if (TypeUtils.isSimpleType(valueType)){
-                    BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), false, valueType);
-                    List<Interval> boundaryList = boundaryCollect.getBoundaryInterval();
-                    return boundaryList;
-                } else {
-                    BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), true, valueType);
-                    List<Interval> boundaryList = boundaryCollect.getBoundaryInterval();
-                    return boundaryList;
-                }
-            }
-        }
-
-
-        if (TypeUtils.isSimpleType(valueType)) {
-            keywords.remove(variableName);
-            codePackage = new File("experiment/searchcode/" + StringUtils.join(keywords,"-"));
-            if (!codePackage.exists()){
-                searchCode(keywords, project);
-            }
-            if (!codePackage.exists()){
-                codePackage.mkdir();
-            }
             BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), true, valueType);
-            List<Interval> boundaryList = boundaryCollect.getBoundaryInterval();
-            return boundaryList;
+            boundaryList = boundaryCollect.getBoundaryInterval();
         }
-
-        keywords.remove(valueType);
-        codePackage = new File("experiment/searchcode/" + StringUtils.join(keywords,"-"));
-        if (!codePackage.exists()){
-            searchCode(keywords, project);
-        }
-        if (!codePackage.exists()){
-            codePackage.mkdir();
-        }
-        BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), false, valueType);
-        List<Interval> boundaryList = boundaryCollect.getBoundaryInterval();
         return boundaryList;
     }
 
-    private static boolean containsString(ArrayList<String> list, String string){
-        for (String listString: list){
-            if (listString.equalsIgnoreCase(string)){
-                return true;
-            }
-        }
-        return false;
-    }
 
     public static void searchCode(ArrayList<String> keywords, String project){
         ExecutorService service = Executors.newSingleThreadExecutor();
@@ -195,7 +202,10 @@ class SearchCodeProcess implements Callable<Boolean> {
 
     public synchronized Boolean call() {
         String projName = getProjectFullName(project);
-        GathererJavaGithubCodeSnippet GathererJavaGithubCodeSnippet = new GathererJavaGithubCodeSnippet(keywords, StringUtils.join(keywords, "-"), projName);
+
+        GathererJavaGithubCodeSnippet GathererJavaGithubCodeSnippet = new GathererJavaGithubCodeSnippet(keywords,
+                StringUtils.join(keywords, "-"),
+                projName);
         try {
             GathererJavaGithubCodeSnippet.searchCode();//get code fragments from github
             if (Thread.interrupted()){

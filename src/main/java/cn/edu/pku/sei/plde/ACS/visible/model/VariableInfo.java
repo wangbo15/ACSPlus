@@ -19,7 +19,7 @@ public class VariableInfo implements Comparable<VariableInfo>,Serializable{
 	public boolean isLocalVariable = false;
 	public boolean isFieldVariable = false;
 	public boolean isFinal = false;
-	public boolean isAddon = false;
+	public boolean isAddon = false;	//addOn包含 1. 别处条件。 2. info.null。 3. info.Comparable
 	public int priority = 1;
 	public boolean isExpression = false;
 	public String expressMethod = "";

@@ -380,7 +380,7 @@ public class MethodTwoFixer {
             return false;
         }
         //Assert will call gzlotar to get trace
-        Asserts assertsAfterFix = new Asserts(_classpath,_classSrcPath, _testClassPath, _testSrcPath, testClassName, testMethodName, project);
+        Asserts assertsAfterFix = new Asserts(_classpath,_classSrcPath, _testClassPath, _testSrcPath, testClassName, testMethodName, new ArrayList<String>(), project);
         if (assertsAfterFix.timeout){
             comment.uncomment();
             return false;

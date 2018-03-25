@@ -48,14 +48,14 @@ public class SuspiciousFixer {
         this.project = project;
         this.timeLine = timeLine;
 
-        //TODO: trace of predictor
+        //TODO: trace of pradicates by gzoltar
         traceResults = suspicious.getTraceResult(project, timeLine);
-
+        //这里会给 info 添加 varName.null 和 varName.Comparable
         trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());//belongs to succ test
         falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());//belongs to fail test
 
         if (FAILED_TEST_NUM == 0){
-            FAILED_TEST_NUM = TestUtils.getFailTestNumInProject(project);//run defects4j test
+            FAILED_TEST_NUM = TestUtils.getFailTestNumInProject(project);//run defects4j test. 这个 FAILED_TEST_NUM 几次写都很关键
         }
     }
 
@@ -128,7 +128,7 @@ public class SuspiciousFixer {
     public boolean mainFixProcess(){
         ExceptionExtractor extractor = new ExceptionExtractor(suspicious);
         Map<Integer, List<TraceResult>> traceResultWithLine = traceResultClassify(traceResults);// line => its trace
-        Map<Integer, List<TraceResult>> firstToGo = new TreeMap<Integer, List<TraceResult>>(new Comparator<Integer>() {//why sort again? Did it have been sorted in traceResultClassify()?
+        Map<Integer, List<TraceResult>> firstToGo = new TreeMap<>(new Comparator<Integer>() {//why sort again? Did it have been sorted in traceResultClassify()?
             @Override
             public int compare(Integer integer, Integer t1) {
                 return integer.compareTo(t1);
@@ -140,7 +140,7 @@ public class SuspiciousFixer {
                 firstToGo.put(entry.getKey(), entry.getValue());
             }
         }
-        for (Map.Entry<Integer, List<TraceResult>> entry: firstToGo.entrySet()){
+        for (Map.Entry<Integer, List<TraceResult>> entry: firstToGo.entrySet()){// line num => its trace
             if (timeLine.isTimeout()){
                 return false;
             }
@@ -167,8 +167,8 @@ public class SuspiciousFixer {
     }
 
     private boolean fixInLineWithPredictor(int line, List<String> allConditions, ExceptionExtractor extractor, boolean onlyMethod2) {
-        exceptionVariables = extractor.extract(suspicious,traceResults);
-        List<List<ExceptionVariable>> echelons = extractor.sort();// it seems sort by topological, select top 2 level ?
+        exceptionVariables = extractor.extractVariableByFailedValues(suspicious,traceResults);
+        List<List<ExceptionVariable>> echelons = extractor.getTop2Level();// it seems sort by topological, select top 2 level ?
         Set<String> assertMsgSet = new HashSet<>();
         for (List<ExceptionVariable> echelon: echelons) {// so this loop only process topological top 2 level
             assertMsgSet.addAll(classifyWithAssert(echelon).keySet());
@@ -202,20 +202,24 @@ public class SuspiciousFixer {
 
     //TODO: 跟这里！
     private boolean fixInLineWithTraceResult(int line, List<TraceResult> traceResults, ExceptionExtractor extractor, boolean onlyMethod2){
+        //为何又重新赋值一次？ SuspiciousFixer 构造方法里有了
         trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());
-        falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());//values of failed test-case
-        exceptionVariables = extractor.extract(suspicious,traceResults);
+        //values of failed test-case
+        falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());
+        //根据trace，把failed test中不一样的值加入怀疑list
+        exceptionVariables = extractor.extractVariableByFailedValues(suspicious, traceResults);
 
-        List<List<ExceptionVariable>> echelons = extractor.sort();// 只取 top 2 level
-        for (List<ExceptionVariable> echelon: echelons) {// 对每个 level
+        List<List<ExceptionVariable>> echelons = extractor.getTop2Level();// 只取 top 2 level
+        for (List<ExceptionVariable> echelon: echelons) {// 对每个 level 上的变量
 
+            //生成 if 条件。 KEY: test_cls # test_mtd # assertLine   VAL: if(conds) 列表
             Map<String, List<String>> boundarys = generateBoundarys(echelon);
             if (!onlyMethod2){
                 if (timeLine.isTimeout()){
                     return false;
                 }
                 Map<String, List<String>> boundaryCopy = deepCopyBoundarys(boundarys);
-                String methodOneResult = fixMethodOne(suspicious,boundaryCopy, project, line);
+                String methodOneResult = fixMethodOne(suspicious, boundaryCopy, project, line);
                 RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
                 if (!methodOneResult.equals("")) {
                     RecordUtils.printHistoryBoundary(boundarys, methodOneResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
@@ -242,9 +246,9 @@ public class SuspiciousFixer {
 
     private Map<String, List<String>> generateBoundarys(List<ExceptionVariable> exceptionVariables){
         Map<String, List<String>> assertToBoundarysMap = new HashMap<>();
-        Map<String, List<ExceptionVariable>> assertExceptVarMap = classifyWithAssert(exceptionVariables);
+        Map<String, List<ExceptionVariable>> assertExceptVarMap = classifyWithAssert(exceptionVariables);//KEY：assert 的编号，VAL：异常值列表
         for (Map.Entry<String, List<ExceptionVariable>> assertEchelon : assertExceptVarMap.entrySet()) {
-            List<String> ifStrings = getIfStrings(assertEchelon.getValue());    //run slow, maybe search in github
+            List<String> ifStrings = getIfStrings(assertEchelon.getValue()); //TODO: 重要！生成 if 条件
             if (ifStrings.size()<= 0){
                 continue;
             }
@@ -293,7 +297,7 @@ public class SuspiciousFixer {
                 result.put(exceptionVariable.getAssertMessage(),variables);
             }
             else {
-                result.get(exceptionVariable.getAssertMessage()).add(exceptionVariable);
+                result.get(exceptionVariable.getAssertMessage()).add(exceptionVariable);//if-else 只是个插入 map 的操作而已
             }
         }
         return result;
@@ -305,9 +309,10 @@ public class SuspiciousFixer {
 
 //        Map<ExceptionVariable, ArrayList<String>> result = new HashMap<>();
         for (ExceptionVariable exceptionVariable: exceptionVariables){
-            ArrayList<String> boundarys = new ArrayList<>(getBoundary(exceptionVariable));  //TODO:
-            for (String statement: boundarys){
-                String ifString = MathUtils.replaceSpecialNumber(getIfStatementFromBoundary(statement));
+            List<String> boundarys = getBoundary(exceptionVariable);    //TODO: 重要！生成 if 条件
+
+            for (String condition: boundarys){
+                String ifString = MathUtils.replaceSpecialNumber(getIfStatementFromBoundary(condition)); // statement 变成 if(condition)
                 if (!returnList.contains(ifString) && !ifString.equals("")){
                     returnList.add(ifString);
                 }
@@ -323,6 +328,7 @@ public class SuspiciousFixer {
     private List<String> getBoundary(ExceptionVariable exceptionVariable){
         if (!boundarysMap.containsKey(exceptionVariable)){
             long downLoadStartTime = System.currentTimeMillis();
+            //TODO: 重要！生成 if 条件
             List<String> boundarys = BoundaryGenerator.generate(suspicious,exceptionVariable, trueValues, falseValues, project);
             timeLine.addDownloadTime(System.currentTimeMillis()-downLoadStartTime);
             if(timeLine.isTimeout()){
@@ -346,6 +352,7 @@ public class SuspiciousFixer {
 
         return "";
     }
+
     private String fixMethodTwoML(Suspicious suspicious, String assertMsg, List<String> allConditions, String project, int line) {
         if (allConditions.size() == 0) {
             return "";
@@ -372,8 +379,6 @@ public class SuspiciousFixer {
             String testClassName = assertKey.split("#")[0];
             String testMethodName = assertKey.split("#")[1];
             int assertLine = Integer.valueOf(assertKey.split("#")[2]);
-            Asserts asserts = suspicious._assertsMap.get(testClassName+"#"+testMethodName); // important! value been put in 'VariableTracer.trace()'
-            AssertComment comment = new AssertComment(asserts, assertLine);
 
             if (assertLine == -1){
                 testClassName = suspicious._failTests.get(0).split("#")[0];
@@ -386,7 +391,8 @@ public class SuspiciousFixer {
                 }
             }
 
-            if (!CodeUtils.getLineFromCode(FileUtils.getCodeFromFile(suspicious._testSrcPath, testClassName),assertLine).contains("assert")){// error test stmt is 'assert'?
+            String testCode = FileUtils.getCodeFromFile(suspicious._testSrcPath, testClassName);
+            if (!CodeUtils.getLineFromCode(testCode, assertLine).contains("assert")){// error test stmt is 'assert'?
                 assertLine = -1;    //对于 Math-25 这样是没有 assert 的
             }
 
@@ -394,50 +400,35 @@ public class SuspiciousFixer {
                     suspicious._srcPath,
                     suspicious._testClasspath,
                     suspicious._testSrcPath);
-            String fixString = fixCapturer.getFixFrom(testClassName, testMethodName, assertLine, suspicious.classname(), suspicious.functionnameWithoutParam());//return or throw
-            // errorLine 不为 0，直接用errorLine，否则用 suspicious._errorLineMap 里面是 testMethod 为 key，源码 if 之后的行号
+
+            String ifBody = fixCapturer.getFixFrom(testClassName,
+                    testMethodName,
+                    assertLine,
+                    suspicious.classname(),
+                    suspicious.functionnameWithoutParam());//return or throw
+
+            // errorLine 不为 0，直接用errorLine，否则用 suspicious._errorLineMap 里面是 testMethod 为 key，源码 if 之后的行号。所以看模板I的patch，大多在if内下一行
             List<Integer> patchLineList = (errorLine != 0) ? Arrays.asList(errorLine) : suspicious._errorLineMap.get(testClassName+"#"+testMethodName);    // insert line number?
             List<String> ifStatementList = entry.getValue();
-            List<String> bannedStatementList = new ArrayList<>();
 
-            /**
-             * //add break or continue in for-stmt
-             if(fixString.equals("")){
-                String srcRoot = suspicious._srcPath;
-                String filePath = srcRoot.trim() + suspicious._classname.replace(".", "/").trim() + ".java";
-
-                CompilationUnit cu = (CompilationUnit) JavaFile.genASTFromSource(JavaFile.readFileToString(filePath),
-                        ASTParser.K_COMPILATION_UNIT);
-                LoopVisitor loopVisitor = new LoopVisitor(cu, errorLine);
-                cu.accept(loopVisitor);
-
-                if(loopVisitor.isInDoStmt() || loopVisitor.isInWhileStmt()){
-                    fixString = "break;";
-                }
-            }
-            */
-
-            /* why ban,run too slowly!!! */
-            for (String statemnt : ifStatementList) {
-                if (ifStringFilter(statemnt, fixString, patchLineList.get(0))) {
-                    bannedStatementList.add(statemnt);
-                }
-            }
-            ifStatementList.removeAll(bannedStatementList);
-            bannedHistory.addAll(bannedStatementList);
-
+            int patchLine = patchLineList.get(0);
+            banIfStmtsByNLP(ifStatementList, ifBody, patchLine); //慢！
 
             if (ifStatementList.size() == 0){
                 return "";
             }
-            if (suspicious._isConstructor && fixString.contains("return")){
+            if (suspicious._isConstructor && ifBody.contains("return")){//构造方法不能用 return 的patch
                 continue;
             }
-            if (fixString.equals("")){
+            if (ifBody.equals("")){
                 continue;
             }
-            Patch patch = new Patch(testClassName, testMethodName, suspicious.classname(), patchLineList, entry.getValue(), fixString);
-            comment.comment();  //backup what?
+            List<String> ifPreds = entry.getValue();
+            Patch patch = new Patch(testClassName, testMethodName, suspicious.classname(), patchLineList, ifPreds, ifBody);//注意 Patch 包含某行的全部 patchString
+
+            Asserts asserts = suspicious._assertsMap.get(testClassName+"#"+testMethodName); // important! value been put in 'VariableTracer.trace()'
+            AssertComment comment = new AssertComment(asserts, assertLine);
+            comment.comment();  //看样子像是注释其他 assert ？ 待确认
             boolean result = methodOneFixer.addPatch(patch);
             comment.uncomment();
             if (result){
@@ -450,6 +441,22 @@ public class SuspiciousFixer {
             return methodOneFixer._patches.get(0)._patchString.get(0);
         }
         return "";
+    }
+
+
+    /**
+     * ban 的机制尚不明确
+     */
+    private void banIfStmtsByNLP(List<String> ifStatementList, String ifBody, int patchLine){
+        List<String> bannedStatementList = new ArrayList<>();
+        /* 运行很慢的循环，内部用 NLP 的主语分析 */
+        for (String statemnt : ifStatementList) {
+            if (ifStringFilter(statemnt, ifBody, patchLine)) {
+                bannedStatementList.add(statemnt);
+            }
+        }
+        ifStatementList.removeAll(bannedStatementList);
+        bannedHistory.addAll(bannedStatementList);
     }
 
     private String fixMethodOneML(Suspicious suspicious, String assertStr, List<String> ifStrings, String project, int errorLine){

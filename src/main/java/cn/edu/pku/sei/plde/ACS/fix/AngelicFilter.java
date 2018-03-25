@@ -81,7 +81,7 @@ public class AngelicFilter {
         backup();
         SourceUtils.insertIfStatementToSourceFile(targetFile, newIfString,targetLine-1,-1,true);
         make();
-        Asserts asserts = new Asserts(classPath,srcPath, testClassName, testSrcPath, testClassName, testMethodName, project);//run trace, slow!
+        Asserts asserts = new Asserts(classPath,srcPath, testClassName, testSrcPath, testClassName, testMethodName, new ArrayList<String>(), project);//run trace, slow!
         recovery();
         int errAssertAfterFix = asserts.errorNum();
         if (errAssertAfterFix != 0){

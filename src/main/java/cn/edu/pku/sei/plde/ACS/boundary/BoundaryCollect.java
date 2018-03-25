@@ -203,6 +203,7 @@ public class BoundaryCollect {
                 }
             }
         }
+
         intervalCountMap.putAll(reversedNewInterval);//假设有 [0, DOUBLE_MAX)，则加入 (-DOUBLE_MAX, 0)
         List<Map.Entry<Interval, Integer>> entries = new ArrayList<Map.Entry<Interval, Integer>>(intervalCountMap.entrySet());
         Collections.sort(entries, new Comparator<Map.Entry<Interval, Integer>>() { //按 interval 的出现次数，从高到低排序
@@ -228,7 +229,7 @@ public class BoundaryCollect {
     public ArrayList<Interval> getBoundaryInterval(){
         List<Map.Entry<Interval, Integer>> entries = getBoundaryIntervalMapList();
         ArrayList<Interval> result = new ArrayList<>();
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < 20; i++){   //取 top 20 个表达式，符合原文
             if (i<entries.size()){
                 result.add(entries.get(i).getKey());
             }

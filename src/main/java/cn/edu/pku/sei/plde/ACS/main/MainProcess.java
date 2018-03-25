@@ -126,7 +126,7 @@ public class MainProcess {
                 if (timeLine.isTimeout()){
                     return false;
                 }
-
+                //修复入口
                 if (fixSuspicious(i, suspicious, project, timeLine)){
                     return true;
                 }
@@ -144,25 +144,22 @@ public class MainProcess {
 
     public boolean fixSuspicious(int i, Suspicious suspicious, String project, TimeLine timeLine) throws Exception{
         successHalfFlag = false;
-//        SuspiciousFixer fixer = new SuspiciousFixer(suspicious, project, timeLine);
 
-        boolean usingML = Config.USING_ML;
         SuspiciousFixer fixer = new SuspiciousFixer(i, suspicious, project, timeLine);// get trace
         if (timeLine.isTimeout()){
             return false;
         }
 
-        if(usingML){
-            if(fixer.mainFixProcessByML()){
-                RecordUtils.printCollectingMessage(suspicious, timeLine);
-                //TODO
-                return isFixSuccess(project, timeLine);
-            }
+        boolean fixed;
+        if(Config.USING_ML){
+            fixed = fixer.mainFixProcessByML();
         }else {
-            if (fixer.mainFixProcess()){
-                RecordUtils.printCollectingMessage(suspicious, timeLine);
-                return isFixSuccess(project, timeLine);
-            }
+            fixed = fixer.mainFixProcess();
+        }
+
+        if(fixed){
+            RecordUtils.printCollectingMessage(suspicious, timeLine);
+            return isFixSuccess(project, timeLine);
         }
 
         return false;

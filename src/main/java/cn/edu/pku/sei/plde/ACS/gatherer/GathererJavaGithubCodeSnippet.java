@@ -113,7 +113,6 @@ public class GathererJavaGithubCodeSnippet {
 
     /**
      * contains bug, only judged by the name of a project, despite some forked repos.
-     * @param url
      */
     public void getCodeSnippets(String url) {
         String html = RequestUtils.getHtml(url, httpClient);
@@ -146,7 +145,7 @@ public class GathererJavaGithubCodeSnippet {
                     if (node instanceof LinkTag) {
                         String link = ((LinkTag) node).getLink();
                         link = link.replace("blob/", "");
-                        if(link.contains(project)){
+                        if(link.contains(project)){//TODO: 只看 proj name 并不足够，例如 Math-35，搜出大量的相同文件的 fragments
                             //continue;
                             flag = true;
                             break;

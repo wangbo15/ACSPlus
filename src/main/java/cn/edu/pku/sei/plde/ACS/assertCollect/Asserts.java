@@ -74,14 +74,7 @@ public class Asserts {
         _assertLineMap = CodeUtils.getAssertInTest(_code, testMethodName, _methodStartLine);// assert line str -> line num
         _asserts = new ArrayList<>(_assertLineMap.keySet());
         _assertNums = _asserts.size();
-        _errorAssertLines = getErrorAssertLine();//有执行 gzoltar ！
-    }
-
-    /**
-     * 会调用 gzoltar
-     */
-    public Asserts(String classpath, String srcPath,  String testClasspath, String testSrcPath, String testClassname, String testMethodName, String project){
-        this(classpath, srcPath, testClasspath, testSrcPath, testClassname, testMethodName, new ArrayList<String>(), project);
+        _errorAssertLines = getErrorAssertLine();//有执行 gzoltar! 有 _errorThrowLines.add()
     }
 
     private List<Integer> getErrorAssertLine(){

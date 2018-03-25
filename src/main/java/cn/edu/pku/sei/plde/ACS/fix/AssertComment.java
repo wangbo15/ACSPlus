@@ -40,7 +40,7 @@ public class AssertComment {
     }
 
 
-    public void comment(){
+    public void comment(){// 为什么打 comment ？
         if (!errorAsserts.contains(line)){
             return;
         }

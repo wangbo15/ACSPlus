@@ -17,7 +17,7 @@ import java.util.*;
 public class BoundaryGenerator {
 
     public static ExceptionVariable GENERATING_VARIABLE;
-
+    //TODO: 可能会改这里
     public static List<String> generate(Suspicious suspicious, ExceptionVariable exceptionVariable, Map<VariableInfo, List<String>> trueValues, Map<VariableInfo, List<String>> falseValues, String project) {
         List<Interval> intervals = new ArrayList<>();
         GENERATING_VARIABLE = exceptionVariable;
@@ -39,14 +39,15 @@ public class BoundaryGenerator {
                 continue;
             }
         }
-        List<String> returnList = new ArrayList<>();
+        List<String> condList = new ArrayList<>();
         for (Interval interval: intervals){
-            String ifString = generateWithSingleWord(exceptionVariable,interval.toString());
-            if (!ifString.equals("") && !ifString.contains("!=")){
-                returnList.add(ifString);
+            //TODO: 生成 Patch 列表
+            String condition = generateWithSingleWord(exceptionVariable, interval.toString());
+            if (!condition.equals("") && !condition.contains("!=")){
+                condList.add(condition);
             }
         }
-        return returnList;
+        return condList;
     }
 
     private static boolean allSpecificValue(List<String> values){
@@ -66,19 +67,19 @@ public class BoundaryGenerator {
      */
     private static String generateWithSingleWord(ExceptionVariable variable, String intervals) {
         if (variable.variable.variableName.equals("this")){
-            return intervals.equals("this")?"":"this.equals("+intervals+")";
+            return intervals.equals("this") ? "" : "this.equals(" + intervals + ")";
         }
         if (variable.variable.variableName.equals("return")){
             return intervals;
         }
-        if (variable.variable.isAddon){// isAddon 是什么意思？
+        if (variable.variable.isAddon){// isAddon 是什么意思？ 好像是添加的变量，例如别的 if express，var.Comparable
             if (variable.variable.variableName.endsWith(".Comparable")){
                 String variableName = variable.variable.variableName.substring(0,variable.variable.variableName.lastIndexOf("."));
                 switch (intervals){
                     case "true":
-                        return variableName+" instanceof Comparable<?>";
+                        return variableName + " instanceof Comparable<?>";
                     case "false":
-                        return "!("+variableName+" instanceof Comparable<?>)";
+                        return "!(" + variableName + " instanceof Comparable<?>)";
                 }
             }
             if (variable.variable.variableName.endsWith(".null")){
@@ -114,7 +115,7 @@ public class BoundaryGenerator {
             if (smallest.endsWith("]")){
                 smallestClose = true;
             }
-            smallest = smallest.substring(0, smallest.length()-1);
+            smallest = smallest.substring(0, smallest.length() - 1);
             if (biggest.contains("MIN_VALUE") || biggest.equals("-Double.MAX_VALUE")){
                 return variable.variable.variableName + lessSymbol(smallestClose)+"("+varType+")" + smallest;
             }

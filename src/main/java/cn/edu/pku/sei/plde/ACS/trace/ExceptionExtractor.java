@@ -28,13 +28,15 @@ public class ExceptionExtractor {
      * @param traceResults
      * @return
      */
-    public List<ExceptionVariable> extract(Suspicious suspicious, List<TraceResult> traceResults){
+    public List<ExceptionVariable> extractVariableByFailedValues(Suspicious suspicious, List<TraceResult> traceResults){
         this.traceResults = traceResults;
-        exceptionVariables = AbandanTrueValueFilter.abandon(suspicious, traceResults, suspicious.getAllInfo());//靠通过和未通过的测试，删掉值没有改变的变量
+
+        //靠通过和未通过的测试，删掉值没有改变的变量 !
+        exceptionVariables = AbandanTrueValueFilter.abandon(suspicious, traceResults, suspicious.getAllInfo());
         return exceptionVariables;
     }
 
-    public List<List<ExceptionVariable>> sort(){
+    public List<List<ExceptionVariable>> getTop2Level(){
         List<List<ExceptionVariable>> result = new ArrayList<>();
         List<ExceptionVariable> sortList = new ArrayList<>(exceptionVariables);
         List<List<String>> thisValue = new ArrayList<>();

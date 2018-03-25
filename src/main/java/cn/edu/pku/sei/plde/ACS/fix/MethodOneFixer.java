@@ -48,7 +48,7 @@ public class MethodOneFixer {
         String truePatchString = "";
         int truePatchLine = 0;
         String code = FileUtils.getCodeFromFile(javaBackup);
-        patch._patchString = TypeUtils.arrayDup(patch._patchString);
+        patch._patchString = TypeUtils.arrayDup(patch._patchString);    //这句平白无故 dup 一下？
         boolean fixedFlag = false;
 
         int tried = 0;
@@ -75,32 +75,43 @@ public class MethodOneFixer {
                 FileUtils.copyFile(javaBackup, targetJavaFile);
                 CodeUtils.addCodeToFile(targetJavaFile, patchString, patchLine);
                 triedPatch.add(patchString);
-                System.out.print("Method 1 try patch: "+patchString);
+                System.out.print("Method 1 try patch: " + patchString);
+
                 if (!patch._addonFunction.equals("")){
                     CodeUtils.addMethodToFile(targetJavaFile, patch._addonFunction, patch._className.substring(patch._className.lastIndexOf(".")+1));
                 }
+
                 if (!patch._addonImport.equals("")){
                     CodeUtils.addImportToFile(targetJavaFile, patch._addonImport);
                 }
+
                 try {
                     targetClassFile.delete();
-                    ShellUtils.shellRun(Arrays.asList("javac -Xlint:unchecked -source 1.6 -target 1.6 -cp "+ buildClasspath(Arrays.asList(PathUtils.getJunitPath())) +" -d "+_classpath+" "+ targetJavaFile.getAbsolutePath()));
-                }
-                catch (IOException e){
+                    ShellUtils.shellRun(Arrays.asList("javac -Xlint:unchecked -source 1.6 -target 1.6 -cp "
+                            + buildClasspath(Arrays.asList(PathUtils.getJunitPath())) +
+                            " -d " + _classpath + " " + targetJavaFile.getAbsolutePath()));
+                } catch (IOException e){
                     System.out.println("fix fail");
                     continue;
                 }
+
                 if (!targetClassFile.exists()){ //编译不成功
                     System.out.println("MethodOneFixer: fix fail because of compile fail");
-                    if(patchString.startsWith("if(false){")){
+                    if(patchString.startsWith("if(false){")){//如果是 if(false){ body; } 中 body 的问题，则直接跳出。
                         System.out.println("MethodOneFixer: fix string is illegal, jump out of MethodOneFixer");
                         break END_FOREACH_PATCH_STR;//break the outer for-stmt
                     }else{
                         continue;
                     }
                 }
+
                 //Assert will call gzlotar to get trace
-                Asserts asserts = new Asserts(_classpath,_classSrcPath, _testClassPath, _testSrcPath, patch._testClassName, patch._testMethodName, _project);
+                Asserts asserts = new Asserts(_classpath, _classSrcPath, _testClassPath, _testSrcPath,
+                        patch._testClassName,
+                        patch._testMethodName,
+                        new ArrayList<String>() /*空 libPath*/,
+                        _project);
+
                 int errAssertNumAfterFix = asserts.errorNum();
                 int errAssertBeforeFix = _suspicious._assertsMap.get(patch._testClassName+"#"+patch._testMethodName).errorNum();
                 if (errAssertNumAfterFix < errAssertBeforeFix){
@@ -115,23 +126,25 @@ public class MethodOneFixer {
                         else {
                             RecordUtils.recordIfReturn(code,patchString, patchLine, _project);
                         }
-                        FileUtils.copyFile(classBackup, targetClassFile);
-                        FileUtils.copyFile(javaBackup, targetJavaFile);
+
+                        restore(classBackup, targetClassFile, javaBackup, targetJavaFile);
+
                         //if (errorTestAterFix == 0){
                             fixedFlag = true;
                             break;
                         //}
                     }
                 }
-                FileUtils.copyFile(classBackup, targetClassFile);
-                FileUtils.copyFile(javaBackup, targetJavaFile);
+                restore(classBackup, targetClassFile, javaBackup, targetJavaFile);
             }
+
         }//END  for (String patchString: patch._patchString){
+
         if (minErrorTest < _errorTestNum){
             patch._patchString.clear();
             patch._patchString.add(truePatchString);
             patch._patchLines.clear();
-            patch._patchLines.add(truePatchLine);
+            patch._patchLines.add(truePatchLine);   //关注一下 patchLines 的操作
             _patches.add(patch);
             System.out.println("MethodOneFixer: fix success");
             SuspiciousFixer.FAILED_TEST_NUM = minErrorTest;
@@ -140,12 +153,9 @@ public class MethodOneFixer {
             System.out.println("MethodOneFixer: fix fail");
         }
 
-        FileUtils.copyFile(classBackup, targetClassFile);
-        FileUtils.copyFile(javaBackup, targetJavaFile);
+        restore(classBackup, targetClassFile, javaBackup, targetJavaFile);
         return false;
     }
-
-
 
     public int fix(){
         if (_patches.size() == 0){
@@ -184,6 +194,10 @@ public class MethodOneFixer {
         return 0;
     }
 
+    private void restore(File classBackup, File targetClassFile, File javaBackup, File targetJavaFile){
+        FileUtils.copyFile(classBackup, targetClassFile);
+        FileUtils.copyFile(javaBackup, targetJavaFile);
+    }
 
     private Map<String, String> getTestsOfPatch(){
         Map<String, String> result = new HashMap<>();

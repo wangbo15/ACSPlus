@@ -212,7 +212,9 @@ public class Suspicious implements Serializable{
         return InfoUtils.filterBannedVariable(_variableInfo);
     }
 
-
+    /**
+     * 重要方法
+     */
     public List<VariableInfo> getVariableInfo(int line){
         String srcRoot = this._srcPath;
         if (_variableInfo == null){
@@ -322,16 +324,19 @@ public class Suspicious implements Serializable{
 
     public List<TraceResult> getTraceResult(String project, TimeLine timeLine) {
         VariableTracer tracer = new VariableTracer(_srcPath, _testSrcPath, this, project);
-        List<TraceResult> traceResults = new ArrayList<TraceResult>();
+        List<TraceResult> traceResults = new ArrayList<>();
         List<String> trueTests = new ArrayList<>(_tests);
         trueTests.removeAll(_failTests);
+
         int tracedTestCount = 0;
-        for (String testclass: trueTests){
-            if (!_failTests.contains(testclass) && !testFilter(_testSrcPath, testclass.split("#")[0], testclass.split("#")[1])){
+        for (String testClass: trueTests){
+            String testClassname = testClass.split("#")[0];
+            String testMethodName = testClass.split("#")[1];
+            if (!_failTests.contains(testClass) && !testFilter(_testSrcPath, testClassname, testMethodName)){
                 continue;
             }
             try{
-                traceResults.addAll(tracer.trace(classname(), functionname(), testclass.split("#")[0], testclass.split("#")[1], getDefaultErrorLine(), true));
+                traceResults.addAll(tracer.trace(classname(), functionname(), testClass.split("#")[0], testClass.split("#")[1], getDefaultErrorLine(), true));
             } catch (IOException e){
                 e.printStackTrace();
             }
@@ -343,12 +348,19 @@ public class Suspicious implements Serializable{
                 return new ArrayList<>();
             }
         }
+
+        // 对每个失败测试用 gzoltar trace
         for (String testclass: _failTests){
             try{
                 int line = getDefaultErrorLine();
                 assert line > 0;
-                //这里 trace ！！
-                List<TraceResult> tr = tracer.trace(classname(), functionname(),testclass.split("#")[0], testclass.split("#")[1],line,false);
+
+                String clsName = classname();
+                String funName = functionname();
+                String testClassname = testclass.split("#")[0];
+                String testMethodName = testclass.split("#")[1];
+                //这里 trace ！！ 有执行 gzoltar ！
+                List<TraceResult> tr = tracer.trace(clsName, funName, testClassname, testMethodName,line,false);
 
                 traceResults.addAll(tr);
             } catch (IOException e){

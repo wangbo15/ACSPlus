@@ -56,7 +56,10 @@ public class VariableTracer {
      * @return
      * @throws IOException
      */
-    public List<TraceResult> trace(String classname,String functionname, String testClassname, String testMethodName,int errorLine, boolean isSuccess)throws IOException{
+    public List<TraceResult> trace(String classname, String functionname,
+                                   String testClassname, String testMethodName,
+                                   int errorLine, boolean isSuccess)throws IOException{
+
         _classname = classname;
         _testClassname = testClassname;
         _testMethodName = testMethodName;

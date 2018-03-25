@@ -238,20 +238,24 @@ public class AbandanTrueValueFilter {
         return trueValues;
     }
 
-
+    /**
+     * @param traceResults: 一个 Test Method 一个 TraceResult
+     */
     public static Map<VariableInfo, List<String>> getTrueValue(List<TraceResult> traceResults, List<VariableInfo> vars){
-        Map<VariableInfo, List<String>> trueValues = new HashMap<VariableInfo, List<String>>();
+        Map<VariableInfo, List<String>> trueValues = new HashMap<>();
         for (TraceResult traceResult: traceResults){
             if (!traceResult.getTestResult()) {
                 continue;
             }
             Set<String> keys = traceResult.getResultMap().keySet();
             for (String key: keys){
-                VariableInfo infoKey = getVariableInfoWithName(vars, key);
+                VariableInfo infoKey = getVariableInfoWithName(vars, key);//给 info 添加了 varName.null 和 varName.Comparable
                 if (infoKey == null){
                     continue;
                 }
-                List<String> value = trueValues.containsKey(infoKey)?appandList(trueValues.get(infoKey),traceResult.get(key)):traceResult.get(key);
+                List<String> currValues = trueValues.get(infoKey);
+                List<String> tracedValues = traceResult.get(key);
+                List<String> value = trueValues.containsKey(infoKey) ? appandList(currValues, tracedValues) : tracedValues;
                 trueValues.put(infoKey, value);
             }
 
@@ -265,13 +269,15 @@ public class AbandanTrueValueFilter {
             if (traceResult.getTestResult()) {
                 continue;
             }
-            Set<String> keys = traceResult.getResultMap().keySet();
+            Set<String> keys = traceResult.getResultMap().keySet(); //当前失败测试的变量们，包括了 var.null 和 var.Comparable
             for (String key: keys){
-                VariableInfo infoKey = getVariableInfoWithName(vars, key);
+                VariableInfo infoKey = getVariableInfoWithName(vars, key); //内建 "var.null" 或 "var.Comparable"
                 if (infoKey == null){
                     continue;
                 }
-                List<String> value = falseValues.containsKey(infoKey)?appandList(falseValues.get(infoKey),traceResult.get(key)):traceResult.get(key);
+                List<String> currValues = falseValues.get(infoKey);
+                List<String> tracedValues = traceResult.get(key);
+                List<String> value = falseValues.containsKey(infoKey) ? appandList(currValues, tracedValues) : tracedValues;
                 falseValues.put(infoKey, value);
             }
         }
@@ -293,6 +299,9 @@ public class AbandanTrueValueFilter {
         return new String[]{value};
     }
 
+    /**
+     * 重要方法，如果infos 内没有 "var.null" 或 "var.Comparable" 则新建对应 info 并返回
+     */
     private static VariableInfo getVariableInfoWithName(List<VariableInfo> infos, String name){
         Collections.sort(infos, new Comparator<VariableInfo>() {
             @Override
@@ -300,15 +309,19 @@ public class AbandanTrueValueFilter {
                 return -Integer.valueOf(variableInfo.priority).compareTo(t1.priority);
             }
         });
+
         List<VariableInfo> addons = new ArrayList<>();
         for (VariableInfo info: infos){
             if (info.variableName.equals(name)){
                 return info;
             }
             if (TypeUtils.isComplexType(info.getStringType())){
-                addons.addAll(InfoUtils.changeObjectInfo(info));
+                List<VariableInfo> nullAndComparable = InfoUtils.changeObjectInfo(info);
+                assert nullAndComparable.size() == 2;//只包含info.null和info.Comparable
+                addons.addAll(nullAndComparable);
             }
         }
+
         for (VariableInfo info: addons){
             info.isAddon = true;
             if (info.variableName.equals(name)){

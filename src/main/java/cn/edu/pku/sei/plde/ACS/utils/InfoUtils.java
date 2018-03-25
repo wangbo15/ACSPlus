@@ -47,19 +47,21 @@ public class InfoUtils {
         return variableInfos;
     }
 
-
+    /**
+     * 重要方法，给 info 添加了 varName.null 和 varName.Comparable
+     */
     public static List<VariableInfo> changeObjectInfo(VariableInfo info){
         if (!TypeUtils.isComplexType(info.getStringType())){
             return Arrays.asList(info);
         }
-        VariableInfo info1 = new VariableInfo(info.variableName+".null",TypeEnum.BOOLEAN,true,null);
+        VariableInfo info1 = new VariableInfo(info.variableName + ".null", TypeEnum.BOOLEAN,true,null);
         info1.isLocalVariable = info.isLocalVariable;
         info1.isFieldVariable = info.isFieldVariable;
         info1.isParameter = info.isParameter;
         info1.isPublic = info.isPublic;
         info1.isFinal = info.isFinal;
         info1.isStatic = info.isStatic;
-        VariableInfo info2 = new VariableInfo(info.variableName+".Comparable",TypeEnum.BOOLEAN,true,null);
+        VariableInfo info2 = new VariableInfo(info.variableName + ".Comparable", TypeEnum.BOOLEAN,true,null);
         info2.isLocalVariable = info.isLocalVariable;
         info2.isFieldVariable = info.isFieldVariable;
         info2.isParameter = info.isParameter;

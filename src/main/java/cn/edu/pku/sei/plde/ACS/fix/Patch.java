@@ -18,15 +18,6 @@ public class Patch {
     public String _addonImport = "";
 
 
-
-    public boolean equals(Patch patch){
-        return _testClassName.equals(patch._testClassName) &&
-                _testMethodName.equals(patch._testMethodName) &&
-                _className.equals(patch._className) &&
-                _patchString.equals(patch._patchString) &&
-                _patchLines.containsAll(patch._patchLines);
-    }
-
     public Patch(String testClassName, String testMethodName, String className, List<Integer> patchLine, List<String> ifStrings, String fixString){
         _testClassName = testClassName;
         _testMethodName = testMethodName;
@@ -40,7 +31,7 @@ public class Patch {
             fixString = fixString.replace(addonFunctionName, "patch_method");
         }
         if (fixString.contains("///")){
-            _addonImport = fixString.split("///")[0];
+            _addonImport = fixString.split("///")[0];  // 所谓 addon 是填一些 import 之类的东西
             fixString = fixString.split("///")[1];
         }
         //add to judge the fixString is legal statement
@@ -49,8 +40,6 @@ public class Patch {
             _patchString.add(generatePatchString(ifString, fixString));
         }
     }
-
-
 
     private String generatePatchString(String ifString, String fixString){
         String patchString = "";
