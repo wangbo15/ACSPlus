@@ -10,12 +10,9 @@ import java.util.List;
  * Created by nightwish on 17-6-2.
  */
 public class ExprUtil {
-    public static List<String> loadConditions(String projectAndBug, int ith){
-        List<String> res = new ArrayList<>();
+    public static List<String> loadConditions(String projectAndBug, int ith, int topK){
+        List<String> res = new ArrayList<>(topK);
         String project = projectAndBug.split("_")[0].toLowerCase();
-
-        List<String> thisExprs = new ArrayList<>();
-//        String bugID = projectAndBug.split("_")[1];
 
         String filePath = Config.PREDICTOR_OUT_ROOT + project + "/res/" + projectAndBug.toLowerCase() + "_" + ith + ".res.csv";
 
@@ -23,29 +20,33 @@ public class ExprUtil {
         BufferedReader bReader = null;
         try {
             bReader = new BufferedReader(new FileReader(rslFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        String line = null;
+            String line = null;
 
-        try {
+            int size = 0;
             while ((line = bReader.readLine()) != null) {
-                line = line.split("\t")[0];
-                if(line.contains(" & ") || line.contains(" | ")){
+                if(!line.contains("\t")){
                     continue;
                 }
-                if(line.contains("this.")){
-                    thisExprs.add("if(" + line + ")");
-                }else{
-                    res.add("if(" + line + ")");
+                line = (line.split("\t")[0]).trim();
+                res.add(line);
+                size++;
+                if(size > topK){
+                    break;
                 }
             }
-            bReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if(bReader != null) {
+                try {
+                    bReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        //add this exprs to the end
-        res.addAll(thisExprs);
         return res;
     }
 }

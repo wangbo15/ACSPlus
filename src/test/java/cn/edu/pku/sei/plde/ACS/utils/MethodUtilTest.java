@@ -1,7 +1,5 @@
 package cn.edu.pku.sei.plde.ACS.utils;
 
-import org.apache.commons.lang.StringUtils;
-import org.eclipse.core.internal.expressions.TypeExtension;
 import org.junit.Assert;
 import org.junit.Test;
 

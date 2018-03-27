@@ -18,10 +18,16 @@ public class BoundaryGenerator {
 
     public static ExceptionVariable GENERATING_VARIABLE;
     //TODO: 可能会改这里
-    public static List<String> generate(Suspicious suspicious, ExceptionVariable exceptionVariable, Map<VariableInfo, List<String>> trueValues, Map<VariableInfo, List<String>> falseValues, String project) {
+    public static List<String> generate(Suspicious suspicious, ExceptionVariable exceptionVariable, String project) {
         List<Interval> intervals = new ArrayList<>();
         GENERATING_VARIABLE = exceptionVariable;
-        List<Interval> variableBoundary = SearchBoundaryFilter.getInterval(exceptionVariable, project, suspicious);
+
+        //去下载的 codes 里面找
+        List<Interval> variableBoundary = SearchBoundaryFilter.getInterval(
+                exceptionVariable,
+                project,
+                suspicious);
+
         for (String value : exceptionVariable.values){ // 变量在失败测试上的值
             try {
                 if (MathUtils.isMaxMinValue(value)){
@@ -50,31 +56,41 @@ public class BoundaryGenerator {
         return condList;
     }
 
-    private static boolean allSpecificValue(List<String> values){
-        for (String value: values){
-            if (!value.equals("null") && !value.equals("true") && !value.equals("false")){
-                return false;
-            }
+    /**
+     * 根据exception var 来过滤预测出的 conds，{@link BoundaryGenerator#generate} 的 ML 版
+     */
+    public static List<String> generateByMLConds(Suspicious suspicious, ExceptionVariable exceptionVar, String project, List<String> conds) {
+
+        // 对于该特殊类型沿用原来的生成方法
+        String excepVarName = exceptionVar.variable.variableName;
+        if(excepVarName.endsWith(".Comparable") || excepVarName.endsWith(".null")){
+            return generate(suspicious, exceptionVar, project);
         }
-        return true;
+
+
+        List<Interval> intervals = new ArrayList<>();
+        GENERATING_VARIABLE = exceptionVar;
+
+
+        return conds;
     }
 
     /**
      * 生成 Patch 列表的方法
-     * @param variable
+     * @param exceptionVar
      * @param intervals
      * @return
      */
-    private static String generateWithSingleWord(ExceptionVariable variable, String intervals) {
-        if (variable.variable.variableName.equals("this")){
+    private static String generateWithSingleWord(ExceptionVariable exceptionVar, String intervals) {
+        if (exceptionVar.variable.variableName.equals("this")){
             return intervals.equals("this") ? "" : "this.equals(" + intervals + ")";
         }
-        if (variable.variable.variableName.equals("return")){
+        if (exceptionVar.variable.variableName.equals("return")){
             return intervals;
         }
-        if (variable.variable.isAddon){// isAddon 是什么意思？ 好像是添加的变量，例如别的 if express，var.Comparable
-            if (variable.variable.variableName.endsWith(".Comparable")){
-                String variableName = variable.variable.variableName.substring(0,variable.variable.variableName.lastIndexOf("."));
+        if (exceptionVar.variable.isAddon){// isAddon 是什么意思？ 好像是添加的变量，例如别的 if express，var.Comparable
+            if (exceptionVar.variable.variableName.endsWith(".Comparable")){
+                String variableName = exceptionVar.variable.variableName.substring(0,exceptionVar.variable.variableName.lastIndexOf("."));
                 switch (intervals){
                     case "true":
                         return variableName + " instanceof Comparable<?>";
@@ -82,8 +98,8 @@ public class BoundaryGenerator {
                         return "!(" + variableName + " instanceof Comparable<?>)";
                 }
             }
-            if (variable.variable.variableName.endsWith(".null")){
-                String variableName = variable.variable.variableName.substring(0,variable.variable.variableName.lastIndexOf("."));
+            if (exceptionVar.variable.variableName.endsWith(".null")){
+                String variableName = exceptionVar.variable.variableName.substring(0,exceptionVar.variable.variableName.lastIndexOf("."));
                 switch (intervals){
                     case "true":
                         return variableName+" == null";
@@ -92,13 +108,13 @@ public class BoundaryGenerator {
                 }
             }
         }
-        if (MathUtils.isNumberType(variable.variable.getStringType())) {
+        if (MathUtils.isNumberType(exceptionVar.variable.getStringType())) {
             if (!intervals.contains(", ")){
                 if (intervals.equals("NaN")){
-                    return  MathUtils.getComplexOfNumberType(variable.variable.getStringType()) +".isNaN("+variable.variable.variableName+")";
+                    return  MathUtils.getComplexOfNumberType(exceptionVar.variable.getStringType()) +".isNaN("+exceptionVar.variable.variableName+")";
                 }
                 else {
-                    return variable.variable.variableName + "==" + intervals;
+                    return exceptionVar.variable.variableName + "==" + intervals;
                 }
             }
 
@@ -107,7 +123,7 @@ public class BoundaryGenerator {
             boolean smallestClose = false;
             String biggest = intervals.split(", ")[0];  //为何数轴左边的是biggest，右边是smallest
             String smallest = intervals.split(", ")[1];
-            String varType = MathUtils.getSimpleOfNumberType(variable.variable.getStringType());
+            String varType = MathUtils.getSimpleOfNumberType(exceptionVar.variable.getStringType());
             if (biggest.startsWith("[")){
                 biggestClose = true;
             }
@@ -117,13 +133,13 @@ public class BoundaryGenerator {
             }
             smallest = smallest.substring(0, smallest.length() - 1);
             if (biggest.contains("MIN_VALUE") || biggest.equals("-Double.MAX_VALUE")){
-                return variable.variable.variableName + lessSymbol(smallestClose)+"("+varType+")" + smallest;
+                return exceptionVar.variable.variableName + lessSymbol(smallestClose)+"("+varType+")" + smallest;
             }
             if (smallest.contains("MAX_VALUE")){
-                return variable.variable.variableName + greaterSymbol(biggestClose)+"("+varType+")" + biggest;
+                return exceptionVar.variable.variableName + greaterSymbol(biggestClose)+"("+varType+")" + biggest;
             }
             if (biggest.equals(smallest) && biggestClose && smallestClose){
-                return variable.variable.variableName + "==" +smallest;
+                return exceptionVar.variable.variableName + "==" +smallest;
             }
 
             double biggestBoundary;
@@ -152,7 +168,7 @@ public class BoundaryGenerator {
             //        interval.put("backwardInterval", variable.variable.variableName + greaterSymbol(smallestClose)+"("+ varType+")" + smallestBoundary);
             //    }
             //    else if (value <= smallestBoundary && value >= biggestBoundary) {
-                    interval.put("innerInterval", "("+variable.variable.variableName + lessSymbol(smallestClose)+"("+varType+")" + smallestBoundary + " && " + variable.variable.variableName + greaterSymbol(biggestClose)+"("+varType+")" + biggestBoundary+")");
+                    interval.put("innerInterval", "("+exceptionVar.variable.variableName + lessSymbol(smallestClose)+"("+varType+")" + smallestBoundary + " && " + exceptionVar.variable.variableName + greaterSymbol(biggestClose)+"("+varType+")" + biggestBoundary+")");
             //    }
             //}
 
@@ -166,15 +182,15 @@ public class BoundaryGenerator {
                 return generateWithTwoInterval(interval);
             }
         }
-        if (variable.variable.variableName.contains("==")||variable.variable.variableName.contains("!=") || variable.variable.variableName.contains(">") || variable.variable.variableName.contains("<")){
+        if (exceptionVar.variable.variableName.contains("==")||exceptionVar.variable.variableName.contains("!=") || exceptionVar.variable.variableName.contains(">") || exceptionVar.variable.variableName.contains("<")){
             if (intervals.equals("true")){
-                return variable.variable.variableName;
+                return exceptionVar.variable.variableName;
             }
             if (intervals.equals("false")){
-                return "!("+variable.variable.variableName+")";
+                return "!("+exceptionVar.variable.variableName+")";
             }
         }
-        return variable.variable.variableName + "==" + intervals;
+        return exceptionVar.variable.variableName + "==" + intervals;
     }
 
     private static String generateWithOneInterval(Map<String, String> intervals) {

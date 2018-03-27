@@ -108,9 +108,9 @@ public class MainProcess {
         for (int i = 0; i < suspiciouses.size(); i++){
             Suspicious suspicious = suspiciouses.get(i);
 
-            if(suspicious.getDefaultErrorLine() != 327){
-                continue;
-            }
+//            if(suspicious.getDefaultErrorLine() != 327){
+//                continue;
+//            }
 
             suspicious._libPath = libPath;
             boolean tried = false;

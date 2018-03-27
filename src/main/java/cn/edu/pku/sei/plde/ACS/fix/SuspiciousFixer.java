@@ -2,9 +2,7 @@ package cn.edu.pku.sei.plde.ACS.fix;
 
 import cn.edu.pku.sei.plde.ACS.assertCollect.Asserts;
 import cn.edu.pku.sei.plde.ACS.boundary.BoundaryGenerator;
-import cn.edu.pku.sei.plde.ACS.jdtVisitor.LoopVisitor;
 import cn.edu.pku.sei.plde.ACS.localization.Suspicious;
-import cn.edu.pku.sei.plde.ACS.main.Config;
 import cn.edu.pku.sei.plde.ACS.main.TimeLine;
 import cn.edu.pku.sei.plde.ACS.trace.ExceptionExtractor;
 import cn.edu.pku.sei.plde.ACS.trace.ExceptionVariable;
@@ -14,13 +12,10 @@ import cn.edu.pku.sei.plde.ACS.utils.*;
 import cn.edu.pku.sei.plde.ACS.visible.model.VariableInfo;
 import com.google.common.collect.Sets;
 
-import java.io.File;
 import java.util.*;
 
-import cn.edu.pku.sei.plde.ACS.utils.ShellUtils;
-import org.eclipse.jdt.core.dom.ASTParser;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-//import edu.pku.sei.conditon.simple.Invocker;
+import edu.pku.sei.conditon.dedu.extern.FileInvoker;
+
 
 /**
  * Created by yanrunfa on 16-4-13.
@@ -60,65 +55,39 @@ public class SuspiciousFixer {
     }
 
     public boolean mainFixProcessByML(){
-        String srcRoot = suspicious._srcPath;
-        String testSrcRoot = suspicious._testSrcPath;
-        String filePath = suspicious.classname().replace(".", "/");
-
-        if(filePath.contains("$")){
-            int dolarIdx = filePath.indexOf('$');
-            filePath = filePath.substring(0, dolarIdx) + ".java";
-        }else{
-            filePath += ".java";
-        }
-
-        int line = suspicious.getDefaultErrorLine();
-
-        String jdkEightPath = "/home/nightwish/program_files/jdk1.8.0_111/bin/java";
-
-        String predCmd = jdkEightPath + " -jar Condition.jar " + this.project +
-                " " + srcRoot + " " + testSrcRoot + " " + filePath + " " + line + " " + this.ithSuspicous;
-
-        if(runPredictor(predCmd) == false){
-            return false;
-        }
-
-        List<String> allConditions = ExprUtil.loadConditions(this.project, this.ithSuspicous);
-
-        if(allConditions.size() == 0){
-            System.out.println("NO COND PRED: " + predCmd);
+        List<String> allConditions = getPredicatedConds();
+        if(allConditions.isEmpty()){
             return false;
         }
 
         ExceptionExtractor extractor = new ExceptionExtractor(suspicious);
-        Map<Integer, List<TraceResult>> traceResultWithLine = traceResultClassify(traceResults);
-        Map<Integer, List<TraceResult>> firstToGo = new TreeMap<Integer, List<TraceResult>>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer integer, Integer t1) {
-                return integer.compareTo(t1);
-            }
-        });
-        for (Map.Entry<Integer, List<TraceResult>> entry: traceResultWithLine.entrySet()){
-            if (suspicious.tracedErrorLine.contains(entry.getKey())){
-                firstToGo.put(entry.getKey(), entry.getValue());
-            }
-        }
-        for (Map.Entry<Integer, List<TraceResult>> entry: firstToGo.entrySet()){
+        Map<Integer, List<TraceResult>> traceResultWithLine = traceResultClassify(traceResults);// line => its trace
+        //先处理有 trace 的 line
+        Map<Integer, List<TraceResult>> firstToGo = getFirstToGoMap(traceResultWithLine);
+
+        for (Map.Entry<Integer, List<TraceResult>> entry: firstToGo.entrySet()){//行号 -> trace
             if (timeLine.isTimeout()){
                 return false;
             }
-            if (fixInLineWithPredictor(entry.getKey(), allConditions, extractor, false)){
+            int line = entry.getKey();
+            List<TraceResult> traceResults = entry.getValue();
+            boolean onlyMethod2 = false;
+            if (fixInLineWithPredictor(line, traceResults, extractor, allConditions, onlyMethod2)){//why call 'fixInLineWithTraceResult' twice ???
                 return true;
             }
         }
-        //why need these lines
+        //firstToGo 中未能处理
         for (Map.Entry<Integer, List<TraceResult>> entry: traceResultWithLine.entrySet()){
-            if (firstToGo.containsKey(entry.getKey())){
+            int line = entry.getKey();
+            if (firstToGo.containsKey(line)){   // firstToGo 中的遍历已经处理过
                 continue;
             }
             if (timeLine.isTimeout()){
                 return false;
             }
-            if (fixInLineWithPredictor(entry.getKey(), allConditions, extractor, true)){
+            List<TraceResult> traceResults = entry.getValue();
+            boolean onlyMethod2 = true;
+            if (fixInLineWithPredictor(line, traceResults, extractor, allConditions, onlyMethod2)){
                 return true;
             }
         }
@@ -128,18 +97,9 @@ public class SuspiciousFixer {
     public boolean mainFixProcess(){
         ExceptionExtractor extractor = new ExceptionExtractor(suspicious);
         Map<Integer, List<TraceResult>> traceResultWithLine = traceResultClassify(traceResults);// line => its trace
-        Map<Integer, List<TraceResult>> firstToGo = new TreeMap<>(new Comparator<Integer>() {//why sort again? Did it have been sorted in traceResultClassify()?
-            @Override
-            public int compare(Integer integer, Integer t1) {
-                return integer.compareTo(t1);
-            }
-        });
         //先处理有 trace 的 line
-        for (Map.Entry<Integer, List<TraceResult>> entry: traceResultWithLine.entrySet()){
-            if (suspicious.tracedErrorLine.contains(entry.getKey())){
-                firstToGo.put(entry.getKey(), entry.getValue());
-            }
-        }
+        Map<Integer, List<TraceResult>> firstToGo = getFirstToGoMap(traceResultWithLine);
+
         for (Map.Entry<Integer, List<TraceResult>> entry: firstToGo.entrySet()){// line num => its trace
             if (timeLine.isTimeout()){
                 return false;
@@ -151,57 +111,30 @@ public class SuspiciousFixer {
                 return true;
             }
         }
+
+        //看样子是 firstToGo 中未能处理，什么情况下会走这里？
         for (Map.Entry<Integer, List<TraceResult>> entry: traceResultWithLine.entrySet()){
-            if (firstToGo.containsKey(entry.getKey())){
+            int line = entry.getKey();
+            if (firstToGo.containsKey(line)){// firstToGo 中的遍历已经处理过
                 continue;
             }
             if (timeLine.isTimeout()){
                 return false;
             }
             boolean onlyMethod2 = true;
-            if (fixInLineWithTraceResult(entry.getKey(), entry.getValue(), extractor, onlyMethod2)){
+            if (fixInLineWithTraceResult(entry.getKey(), entry.getValue(), extractor, onlyMethod2)){//对于不在 firstToGo 的 onlyMethod2
                 return true;
             }
         }
         return false;
     }
 
-    private boolean fixInLineWithPredictor(int line, List<String> allConditions, ExceptionExtractor extractor, boolean onlyMethod2) {
-        exceptionVariables = extractor.extractVariableByFailedValues(suspicious,traceResults);
-        List<List<ExceptionVariable>> echelons = extractor.getTop2Level();// it seems sort by topological, select top 2 level ?
-        Set<String> assertMsgSet = new HashSet<>();
-        for (List<ExceptionVariable> echelon: echelons) {// so this loop only process topological top 2 level
-            assertMsgSet.addAll(classifyWithAssert(echelon).keySet());
-        }
+    private boolean fixInLineWithPredictor(int line,
+                                           List<TraceResult> traceResults,
+                                           ExceptionExtractor extractor,
+                                           List<String> allConditions,
+                                           boolean onlyMethod2){
 
-        for(String assertStr: assertMsgSet){
-            if (!onlyMethod2) {
-                if (timeLine.isTimeout()) {
-                    return false;
-                }
-                String methodOneResult = fixMethodOneML(suspicious, assertStr, allConditions, project, line);
-                RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, new ArrayList<List<ExceptionVariable>>(), line);
-                if (!methodOneResult.equals("")) {
-                    RecordUtils.printHistoryBoundary(new HashMap<String, List<String>>(), methodOneResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
-                    return true;
-                }
-            }
-            if (timeLine.isTimeout()) {
-                return false;
-            }
-            String methodTwoResult = fixMethodTwoML(suspicious, assertStr, allConditions, project, line);
-            RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
-            if (!methodTwoResult.equals("")) {
-                RecordUtils.printHistoryBoundary(new HashMap<String, List<String>>(), methodTwoResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    //TODO: 跟这里！
-    private boolean fixInLineWithTraceResult(int line, List<TraceResult> traceResults, ExceptionExtractor extractor, boolean onlyMethod2){
         //为何又重新赋值一次？ SuspiciousFixer 构造方法里有了
         trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());
         //values of failed test-case
@@ -209,17 +142,21 @@ public class SuspiciousFixer {
         //根据trace，把failed test中不一样的值加入怀疑list
         exceptionVariables = extractor.extractVariableByFailedValues(suspicious, traceResults);
 
-        List<List<ExceptionVariable>> echelons = extractor.getTop2Level();// 只取 top 2 level
-        for (List<ExceptionVariable> echelon: echelons) {// 对每个 level 上的变量
+        List<List<ExceptionVariable>> echelons = extractor.getTop2Level();// it seems sort by topological, select top 2 level ?
 
+        for (List<ExceptionVariable> echelon: echelons) {// 对每个 level 上的变量
             //生成 if 条件。 KEY: test_cls # test_mtd # assertLine   VAL: if(conds) 列表
-            Map<String, List<String>> boundarys = generateBoundarys(echelon);
+            Map<String, List<String>> boundarys = generateBoundarysByPredictor(echelon, allConditions);
             if (!onlyMethod2){
                 if (timeLine.isTimeout()){
                     return false;
                 }
                 Map<String, List<String>> boundaryCopy = deepCopyBoundarys(boundarys);
-                String methodOneResult = fixMethodOne(suspicious, boundaryCopy, project, line);
+                String methodOneResult = fixMethodOne(suspicious,
+                        boundaryCopy,
+                        project,
+                        line);
+
                 RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
                 if (!methodOneResult.equals("")) {
                     RecordUtils.printHistoryBoundary(boundarys, methodOneResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
@@ -230,10 +167,16 @@ public class SuspiciousFixer {
                 return false;
             }
             AngelicFilter filter = new AngelicFilter(suspicious, project); // filter what?
+
             Map<String, List<String>> boundaryCopy = deepCopyBoundarys(boundarys);
-            String methodTwoResult = fixMethodTwo(suspicious, filter.filter(line,boundaryCopy,traceResults), project, line, false);
+            String methodTwoResult = fixMethodTwo(suspicious,
+                    filter.filter(line,boundaryCopy,traceResults),
+                    project,
+                    line,
+                    false);
+
             RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
-            if (!methodTwoResult.equals("")) {
+            if ( !methodTwoResult.equals("")) {
                 RecordUtils.printHistoryBoundary(boundarys, methodTwoResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
                 return true;
             }
@@ -243,7 +186,83 @@ public class SuspiciousFixer {
         return false;
     }
 
+    //TODO: 跟这里！
+    private boolean fixInLineWithTraceResult(int line,
+                                             List<TraceResult> traceResults,
+                                             ExceptionExtractor extractor,
+                                             boolean onlyMethod2){
 
+        //为何又重新赋值一次？ SuspiciousFixer 构造方法里有了，包含 obj.null 和 obj.Comparable
+        trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());
+        //values of failed test-case
+        falseValues = AbandanTrueValueFilter.getFalseValue(traceResults, suspicious.getAllInfo());
+        //根据trace，把failed test中不一样的值加入怀疑list
+        exceptionVariables = extractor.extractVariableByFailedValues(suspicious, traceResults);
+
+        List<List<ExceptionVariable>> echelons = extractor.getTop2Level();// 只取 top 2 level
+        for (List<ExceptionVariable> echelon: echelons) {// 对每个 level 上的变量
+            //TODO: 生成 if 条件。 KEY: test_cls # test_mtd # assertLine   VAL: if(conds) 列表
+            Map<String, List<String>> boundarys = generateBoundarys(echelon);
+            if (!onlyMethod2){
+                if (timeLine.isTimeout()){
+                    return false;
+                }
+                Map<String, List<String>> boundaryCopy = deepCopyBoundarys(boundarys);
+                String methodOneResult = fixMethodOne(suspicious,
+                        boundaryCopy,
+                        project,
+                        line);
+
+                RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
+                if (!methodOneResult.equals("")) {
+                    RecordUtils.printHistoryBoundary(boundarys, methodOneResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
+                    return true;
+                }
+            }
+            if (timeLine.isTimeout()){
+                return false;
+            }
+
+            //TODO: 方法1 修复失败，用天使值过滤 方法2
+            AngelicFilter filter = new AngelicFilter(suspicious, project);
+
+            Map<String, List<String>> boundaryCopy = deepCopyBoundarys(boundarys);
+            Map<String, List<String>> filterRes = filter.filter(line, boundaryCopy, traceResults);
+            String methodTwoResult = fixMethodTwo(suspicious,
+                    filterRes,
+                    project,
+                    line,
+                    false);
+
+            RecordUtils.printRuntimeMessage(suspicious, project, exceptionVariables, echelons, line);
+            if ( !methodTwoResult.equals("")) {
+                RecordUtils.printHistoryBoundary(boundarys, methodTwoResult, suspicious, methodOneHistory, methodTwoHistory, bannedHistory);
+                return true;
+            }
+
+        }// end for (List<ExceptionVariable> echelon: echelons)
+        return false;
+    }
+
+    /**
+     * 根据 预测出的表达式 以及 exception var 一起生成表达式
+     */
+    private Map<String, List<String>> generateBoundarysByPredictor(List<ExceptionVariable> exceptionVariables, List<String> allConds){
+        Map<String, List<String>> assertToBoundarysMap = new HashMap<>();
+        Map<String, List<ExceptionVariable>> assertExceptVarMap = classifyWithAssert(exceptionVariables);//KEY：assert 的编号，VAL：异常值列表
+        for (Map.Entry<String, List<ExceptionVariable>> assertEchelon : assertExceptVarMap.entrySet()) {
+            List<String> ifStrings = getIfStringsFromML(assertEchelon.getValue(), allConds); //TODO: 重要！生成 if 条件
+            if (ifStrings.size()<= 0){
+                continue;
+            }
+            assertToBoundarysMap.put(assertEchelon.getKey(), ifStrings);
+        }
+        return assertToBoundarysMap;
+    }
+
+    /**
+     * @return assertToBoundarysMap
+     */
     private Map<String, List<String>> generateBoundarys(List<ExceptionVariable> exceptionVariables){
         Map<String, List<String>> assertToBoundarysMap = new HashMap<>();
         Map<String, List<ExceptionVariable>> assertExceptVarMap = classifyWithAssert(exceptionVariables);//KEY：assert 的编号，VAL：异常值列表
@@ -303,34 +322,68 @@ public class SuspiciousFixer {
         return result;
     }
 
-
-    private List<String> getIfStrings(List<ExceptionVariable> exceptionVariables){
+    /**
+     * {@link SuspiciousFixer#getIfStrings} 的 ML 版本
+     */
+    private List<String> getIfStringsFromML(List<ExceptionVariable> exceptionVariables, List<String> conds) {
         List<String> returnList = new ArrayList<>();
 
-//        Map<ExceptionVariable, ArrayList<String>> result = new HashMap<>();
         for (ExceptionVariable exceptionVariable: exceptionVariables){
-            List<String> boundarys = getBoundary(exceptionVariable);    //TODO: 重要！生成 if 条件
+            List<String> boundarys = pickFromBoundarysMapML(exceptionVariable, conds);    //TODO: 重要！生成 if 条件
 
-            for (String condition: boundarys){
-                String ifString = MathUtils.replaceSpecialNumber(getIfStatementFromBoundary(condition)); // statement 变成 if(condition)
-                if (!returnList.contains(ifString) && !ifString.equals("")){
-                    returnList.add(ifString);
-                }
-            }
+
+
+            addToReturnList(returnList, boundarys); //cond => if(cond)
         }
         return returnList;
     }
 
-    private String getIfStatementFromBoundary(String boundary){
-        return "if ("+ boundary+")";
+    private List<String> getIfStrings(List<ExceptionVariable> exceptionVariables){
+        List<String> returnList = new ArrayList<>();
+
+        for (ExceptionVariable exceptionVariable: exceptionVariables){
+            List<String> boundarys = pickFromBoundarysMap(exceptionVariable);    //TODO: 重要！生成 if 条件
+
+            addToReturnList(returnList, boundarys); //cond => if(cond)
+        }
+        return returnList;
     }
 
-    private List<String> getBoundary(ExceptionVariable exceptionVariable){
+    /**
+     * cond => if(cond)
+     */
+    private void addToReturnList(List<String> returnList, List<String> boundarys){
+        for (String condition: boundarys){
+            String ifString = MathUtils.replaceSpecialNumber("if ("+ condition+")"); // statement 变成 if(condition)
+            if (!returnList.contains(ifString) && !ifString.equals("")){
+                returnList.add(ifString);
+            }
+        }
+    }
+
+    /**
+     * {@link SuspiciousFixer#pickFromBoundarysMap} 的 ML版本
+     */
+    private List<String> pickFromBoundarysMapML(ExceptionVariable exceptionVariable, List<String> conds){
         if (!boundarysMap.containsKey(exceptionVariable)){
             long downLoadStartTime = System.currentTimeMillis();
             //TODO: 重要！生成 if 条件
-            List<String> boundarys = BoundaryGenerator.generate(suspicious,exceptionVariable, trueValues, falseValues, project);
-            timeLine.addDownloadTime(System.currentTimeMillis()-downLoadStartTime);
+            List<String> boundarys = BoundaryGenerator.generateByMLConds(suspicious, exceptionVariable, project, conds);
+            timeLine.addDownloadTime(System.currentTimeMillis() - downLoadStartTime);
+            if(timeLine.isTimeout()){
+                return new ArrayList<>();
+            }
+            boundarysMap.put(exceptionVariable, boundarys);
+        }
+        return boundarysMap.get(exceptionVariable);
+    }
+
+    private List<String> pickFromBoundarysMap(ExceptionVariable exceptionVariable){
+        if (!boundarysMap.containsKey(exceptionVariable)){
+            long downLoadStartTime = System.currentTimeMillis();
+            //TODO: 重要！生成 if 条件
+            List<String> boundarys = BoundaryGenerator.generate(suspicious, exceptionVariable, project);
+            timeLine.addDownloadTime(System.currentTimeMillis() - downLoadStartTime);
             if(timeLine.isTimeout()){
                 return new ArrayList<>();
             }
@@ -514,13 +567,44 @@ public class SuspiciousFixer {
         return false;
     }
 
-    private boolean runPredictor(String predCmd){
-        List<String> errMsgs = ShellUtils.runCmd(predCmd, null);
-        for(String s : errMsgs){
-            if(s.startsWith("PREDICTOR ERROR!")){
-                return false;
+    private String getJavaFilePath(){
+        String filePath = suspicious.classname().replace(".", "/");
+
+        if(filePath.contains("$")){
+            int dolarIdx = filePath.indexOf('$');
+            filePath = filePath.substring(0, dolarIdx) + ".java";
+        }else{
+            filePath += ".java";
+        }
+        return filePath;
+    }
+
+    /**
+     * 先处理有 trace 的 line
+     */
+    private Map<Integer, List<TraceResult>> getFirstToGoMap(Map<Integer, List<TraceResult>> traceResultWithLine){
+        Map<Integer, List<TraceResult>> firstToGo = new TreeMap<>(new Comparator<Integer>() {//why sort again? Did it have been sorted in traceResultClassify()?
+            @Override
+            public int compare(Integer integer, Integer t1) {
+                return integer.compareTo(t1);
+            }
+        });
+        for (Map.Entry<Integer, List<TraceResult>> entry: traceResultWithLine.entrySet()){
+            if (suspicious.tracedErrorLine.contains(entry.getKey())){
+                firstToGo.put(entry.getKey(), entry.getValue());
             }
         }
-        return true;
+        return firstToGo;
+    }
+
+    private List<String> getPredicatedConds(){
+        String srcRoot = suspicious._srcPath;
+        String testSrcRoot = suspicious._testSrcPath;
+        String filePath = getJavaFilePath();
+        int line = suspicious.getDefaultErrorLine();
+
+        FileInvoker.predict(this.project.toLowerCase(), srcRoot, testSrcRoot, filePath, line, ithSuspicous);
+
+        return ExprUtil.loadConditions(this.project, this.ithSuspicous, 200);
     }
 }

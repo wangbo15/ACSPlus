@@ -10,7 +10,6 @@ import org.eclipse.jdt.core.dom.*;
 import cn.edu.pku.sei.plde.ACS.boundary.model.BoundaryInfo;
 import cn.edu.pku.sei.plde.ACS.type.TypeInference;
 import cn.edu.pku.sei.plde.ACS.type.TypeEnum;
-import org.eclipse.osgi.framework.internal.core.SystemBundleActivator;
 
 /**
  * ASTVisit that helps to generate a tree
