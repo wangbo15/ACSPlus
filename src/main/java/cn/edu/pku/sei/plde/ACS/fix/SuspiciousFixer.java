@@ -331,8 +331,6 @@ public class SuspiciousFixer {
         for (ExceptionVariable exceptionVariable: exceptionVariables){
             List<String> boundarys = pickFromBoundarysMapML(exceptionVariable, conds);    //TODO: 重要！生成 if 条件
 
-
-
             addToReturnList(returnList, boundarys); //cond => if(cond)
         }
         return returnList;
@@ -368,7 +366,7 @@ public class SuspiciousFixer {
         if (!boundarysMap.containsKey(exceptionVariable)){
             long downLoadStartTime = System.currentTimeMillis();
             //TODO: 重要！生成 if 条件
-            List<String> boundarys = BoundaryGenerator.generateByMLConds(suspicious, exceptionVariable, project, conds);
+            List<String> boundarys = BoundaryGenerator.generateForML(suspicious, exceptionVariable, conds);
             timeLine.addDownloadTime(System.currentTimeMillis() - downLoadStartTime);
             if(timeLine.isTimeout()){
                 return new ArrayList<>();
@@ -382,7 +380,7 @@ public class SuspiciousFixer {
         if (!boundarysMap.containsKey(exceptionVariable)){
             long downLoadStartTime = System.currentTimeMillis();
             //TODO: 重要！生成 if 条件
-            List<String> boundarys = BoundaryGenerator.generate(suspicious, exceptionVariable, project);
+            List<String> boundarys = BoundaryGenerator.generate(suspicious, exceptionVariable);
             timeLine.addDownloadTime(System.currentTimeMillis() - downLoadStartTime);
             if(timeLine.isTimeout()){
                 return new ArrayList<>();
@@ -603,7 +601,7 @@ public class SuspiciousFixer {
         String filePath = getJavaFilePath();
         int line = suspicious.getDefaultErrorLine();
 
-        FileInvoker.predict(this.project.toLowerCase(), srcRoot, testSrcRoot, filePath, line, ithSuspicous);
+        //FileInvoker.predict(this.project.toLowerCase(), srcRoot, testSrcRoot, filePath, line, ithSuspicous);
 
         return ExprUtil.loadConditions(this.project, this.ithSuspicous, 200);
     }

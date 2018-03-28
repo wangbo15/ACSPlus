@@ -10,6 +10,8 @@ import cn.edu.pku.sei.plde.ACS.type.TypeUtils;
 import cn.edu.pku.sei.plde.ACS.utils.*;
 import cn.edu.pku.sei.plde.ACS.visible.model.VariableInfo;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.jdt.core.dom.Expression;
+
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.*;
@@ -19,7 +21,30 @@ import java.util.concurrent.*;
  */
 public class SearchBoundaryFilter {
 
-    public static List<Interval> getInterval(ExceptionVariable exceptionVariable, String project, Suspicious suspicious) {
+    public static List<Interval> getIntervalML(ExceptionVariable exceptionVar, Expression expr){
+        VariableInfo info = exceptionVar.variable;
+        String valueType = info.isSimpleType ? info.getStringType().toLowerCase() : info.getStringType();
+
+        boolean objectType;
+        if (VariableUtils.isExpression(info)){
+            if (TypeUtils.isSimpleType(valueType)){
+                objectType = false;
+            } else {
+                objectType = true;
+            }
+        } else if (TypeUtils.isSimpleType(valueType)) {
+            objectType = false;
+        } else {
+            objectType = true;
+        }
+        List<Interval> expressionIntervals = BoundaryCollect.getIntervalFromExpression(expr, valueType, objectType);
+        if (expressionIntervals == null){
+            return new ArrayList<>();
+        }
+        return expressionIntervals;
+    }
+
+    public static List<Interval> getInterval(ExceptionVariable exceptionVariable, Suspicious suspicious) {
         VariableInfo info = exceptionVariable.variable;
         String variableName = info.variableName;
         String valueType = info.isSimpleType ? info.getStringType().toLowerCase() : info.getStringType();

@@ -29,6 +29,9 @@ public class BoundaryCollect {
         this.typeName = typeName;//类型名
     }
 
+    /**
+     * Omitted, Just for EmpiricalStudy
+     */
     public BoundaryCollect(String rootPath, boolean isClass, String typeName, String code) {
         this.rootPath = rootPath;
         this.isObject = isClass;
