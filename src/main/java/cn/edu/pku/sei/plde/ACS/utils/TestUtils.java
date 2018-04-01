@@ -118,7 +118,7 @@ public class TestUtils {
     }
 
     public static int getFailTestNumInProject(String projectName){
-        System.out.println(">>>> Enter TestUtils.getFailTestNumInProject(), will call defects4j test");
+        System.out.println("\n>>>> Enter TestUtils.getFailTestNumInProject(), will call defects4j test");
         String testResult = getDefects4jTestResult(projectName);// run defects4j test here
         if (testResult.equals("")){//error occurs in run
             return Integer.MAX_VALUE;

@@ -32,12 +32,12 @@ public class BoundaryGenerator {
             try {
                 if (MathUtils.isMaxMinValue(value)){
                     Double doubleValue = MathUtils.parseStringValue(value);
-                    intervals.add(new Interval(doubleValue, doubleValue, true, true));
+                    intervals.add(new Interval(doubleValue, doubleValue, true, true));//TODO: 这里 new 新的
                     continue;
                 }
                 for (Interval interval: variableBoundary){// 留下异常值所在的 interval
                     if ((interval.containsValue(value)
-                            || !TypeUtils.isSimpleType(exceptionVar.type)) && !intervals.contains(interval)){
+                            || !TypeUtils.isSimpleType(exceptionVar.type)) && !intervals.contains(interval)){ //TODO: 所以这里 contains 的意义？
                         intervals.add(interval);
                     }
                 }
@@ -63,7 +63,10 @@ public class BoundaryGenerator {
 
         // 对于该特殊类型沿用原来的生成方法
         String excepVarName = exceptionVar.variable.variableName;
-        if(excepVarName.endsWith(".Comparable") || excepVarName.endsWith(".null") || VariableUtils.isExpression(exceptionVar.variable)){
+        if(excepVarName.endsWith(".Comparable")
+                || excepVarName.endsWith(".null")
+                || excepVarName.equals("this")
+                || VariableUtils.isExpression(exceptionVar.variable)){
             return generate(suspicious, exceptionVar);
         }
 
@@ -79,19 +82,17 @@ public class BoundaryGenerator {
                 VarCollectVisitor visitor = new VarCollectVisitor();
                 expr.accept(visitor);
                 List<String> vars = visitor.getEachVars();
-                if(vars.size() != 1 || !vars.get(0).equals(excepVarName)){   //只有一个变量，且是当前异常变量
+                if(vars.isEmpty() || !vars.get(0).equals(excepVarName)){   //且是表达式的“第一个变量”是“当前异常变量”
                     continue;
                 }
 
                 if(!isSimpleInfix(expr, excepVarName)){
-                    returnList.add(condition); //不处理直接添加
+                    if(!condition.equals("") && !condition.contains("!=")){
+                        returnList.add(condition);//对于复杂类型，不处理直接添加，但是无视 !=
+                    }
                     continue;
                 }
                 //靠 exception val 过滤一些简单中缀表达式， `var op num`
-                InfixExpression infix = (InfixExpression) expr;
-
-                assert infix.getRightOperand() instanceof NumberLiteral;
-
                 List<Interval> variableBoundary = SearchBoundaryFilter.getIntervalML(exceptionVar, expr);
                 if(variableBoundary == null || variableBoundary.isEmpty()){
                     continue;
@@ -271,8 +272,7 @@ public class BoundaryGenerator {
         List<Interval> intervals = new ArrayList<>();
         for (String value : exceptionVar.values) { // 异常值是否在某个 interval 里
             for (Interval interval: variableBoundary){
-                if ((interval.containsValue(value)
-                        || !TypeUtils.isSimpleType(exceptionVar.type)) && !variableBoundary.contains(interval)){
+                if ((interval.containsValue(value) || !TypeUtils.isSimpleType(exceptionVar.type))){
                     intervals.add(interval);
                 }
             }
@@ -280,7 +280,6 @@ public class BoundaryGenerator {
                 //TODO: 生成 Patch 列表
                 String newCond = generateWithSingleWord(exceptionVar, interval.toString());
                 if (!condition.equals("") && !condition.contains("!=")) {
-                    //returnList.add(newCond);
                     return newCond;
                 }
             }

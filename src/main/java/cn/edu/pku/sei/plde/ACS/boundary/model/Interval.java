@@ -358,7 +358,7 @@ public class Interval {
         if (intervalType() == IntervalType.NumericInterval){
             Double doubleValue;
             try {
-                doubleValue = (double) value;
+                doubleValue = (double) value;//TODO: bug 吧，value 只会是 string
             } catch (ClassCastException e){
                 try {
                     doubleValue = MathUtils.parseStringValue((String) value);

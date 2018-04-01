@@ -401,4 +401,8 @@ public class Suspicious implements Serializable{
         return true;
     }
 
+    @Override
+    public String toString() {
+        return  _function + " @ " + _defaultErrorLine;
+    }
 }

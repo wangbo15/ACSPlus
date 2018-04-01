@@ -251,7 +251,7 @@ public class Localization  {
                 double score = firstline.getSuspiciousness();
                 result.add(new Suspicious(classpath, testClassPath,srcPath,testSrcPath, clzAdd, tagFun,
                         score, firstline.getTests(),firstline.getFailTests(),
-                        new ArrayList<String>(lineNumbers),libPaths));
+                        new ArrayList<>(lineNumbers),libPaths));
                 firstline = statement;
                 lineNumbers.clear();
                 //nann da ko no ba ka no codo??????? First clear(), then contains() ??
@@ -272,6 +272,8 @@ public class Localization  {
         if (!jump){
             return result;
         }
+
+        /*
         try {
             suspicousFile.createNewFile();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(suspicousFile));
@@ -279,8 +281,10 @@ public class Localization  {
             objectOutputStream.close();
         } catch (IOException e){
             e.printStackTrace();
-            return new ArrayList<Suspicious>();
+            return new ArrayList<>();
         }
+        */
+
         RecordUtils recordUtils = new RecordUtils("localization");
         for (Suspicious suspicious: result){
             recordUtils.write(suspicious.classname()+"#"+suspicious.functionnameWithoutParam()+"#"+suspicious.getDefaultErrorLine()+"\n");

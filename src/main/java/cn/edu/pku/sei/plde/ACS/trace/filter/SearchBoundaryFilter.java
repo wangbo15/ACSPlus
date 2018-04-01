@@ -52,7 +52,9 @@ public class SearchBoundaryFilter {
         //获得 3 个搜索关键字
         ArrayList<String> keywords = getSerachKeyWord(exceptionVariable, suspicious);
         File codePackage = new File("experiment/searchcode/" + StringUtils.join(keywords,"-"));
-        assert codePackage.exists();
+        if(!codePackage.exists()){
+            return new ArrayList<>();
+        }
 
         List<Interval> boundaryList;   //getBoundaryInterval() 内有取 top 20
         if (codePackage.list().length > 15 || VariableUtils.isExpression(info)){    // 为何限制 15 个 code file？？ 一般眼见的都是 80 个 file
@@ -66,14 +68,18 @@ public class SearchBoundaryFilter {
         } else if (TypeUtils.isSimpleType(valueType)) {
             keywords.remove(variableName);
             codePackage = new File("experiment/searchcode/" + StringUtils.join(keywords,"-"));
-            assert codePackage.exists();
+            if(!codePackage.exists()){
+                return new ArrayList<>();
+            }
 
             BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), true, valueType);
             boundaryList = boundaryCollect.getBoundaryInterval();
         } else {
             keywords.remove(valueType);
             codePackage = new File("experiment/searchcode/" + StringUtils.join(keywords, "-"));
-            assert codePackage.exists();
+            if(!codePackage.exists()){
+                return new ArrayList<>();
+            }
 
             BoundaryCollect boundaryCollect = new BoundaryCollect(codePackage.getAbsolutePath(), false, valueType);
             boundaryList = boundaryCollect.getBoundaryInterval();

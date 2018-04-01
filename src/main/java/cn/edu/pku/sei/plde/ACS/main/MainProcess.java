@@ -108,18 +108,12 @@ public class MainProcess {
         for (int i = 0; i < suspiciouses.size(); i++){
             Suspicious suspicious = suspiciouses.get(i);
 
-            if(suspicious.getDefaultErrorLine() != 327){
-                continue;
-            }
+//            if(suspicious.getDefaultErrorLine() != 136){
+//                continue;
+//            }
 
             suspicious._libPath = libPath;
-            boolean tried = false;
-            for (Suspicious _suspicious: triedSuspicious){
-                if (_suspicious._function.equals(suspicious._function) && _suspicious.classname().equals(suspicious.classname())){
-                    tried = true;
-                }
-            }
-            if (tried){
+            if (isTried(suspicious)){
                 continue;
             }
             try {
@@ -232,5 +226,14 @@ public class MainProcess {
             }
         }
         return project;
+    }
+
+    private boolean isTried(Suspicious suspicious){
+        for (Suspicious each: triedSuspicious){
+            if (each._function.equals(suspicious._function) && each.classname().equals(suspicious.classname())){
+                return true;
+            }
+        }
+        return false;
     }
 }

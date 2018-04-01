@@ -60,171 +60,243 @@ public class MethodTwoFixer {
     }
 
     //boundarys: org.apache.commons.math.distribution.NormalDistributionTest#testMath280#169 -> if conds
-    public boolean fixML(Map<String, List<String>> boundarys, Set<Integer> errorLines, String project, boolean debug){
+    public boolean fixML(Map<String, List<String>> boundarys, int errorLine, String project, boolean debug){
 
         for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
             List<String> ifStrings = entry.getValue();
             ifStrings = TypeUtils.arrayDup(ifStrings);
-            for (int errorLine: errorLines){
-                List<Integer> ifLines = getIfLine(errorLine);//get the if stmt being modified
-                if (ifLines.size()!=2){
+            List<Integer> ifLines = getIfLine(errorLine);//get the if stmt being modified
+            if (ifLines.size()!=2){
+                continue;
+            }
+            int blockStartLine = ifLines.get(0);//if的下一行，即block开始的行
+            int blockEndLine = ifLines.get(1);  //block 结束 } 所在行
+            String entryKey = entry.getKey();
+            int tried = 0;
+            for (String ifString: ifStrings){
+                if(tried > Config.MAX_TRIED_COND){
+                    break;
+                }
+                if (ifString.equals("")){
                     continue;
                 }
-                int tried = 0;
-                END:
-                for (String ifString: ifStrings){
-                    if(tried > Config.MAX_TRIED_COND){
-                        break END;
-                    }
-                    if (ifString.equals("")){
-                        continue;
-                    }
-                    if (ifString.contains(">") && ifString.contains("<") && !ifString.contains("<?>")){//why jump comparetion?
-                        continue;
-                    }
-                    int blockStartLine = ifLines.get(0);
-                    int blockEndLine = ifLines.get(1);//seems to be wrong
-                    String ifStatement = "";
-                    for (int endLine: getLinesCanAdd(blockStartLine, blockEndLine,_code)) {
-                        String lastLineString = CodeUtils.getLineFromCode(_code, blockStartLine-1);
-                        String wholeLineString = CodeUtils.getWholeLineFromCodeReverse(_code, blockStartLine-1);
-                        boolean result = false;
-                        if (!LineUtils.isIfAndElseIfLine(wholeLineString)) {
-                            continue;
-                        }
-                        else {
+                boolean precessSucc;
+                if (ifString.contains("==")){
+                    precessSucc = preocessEquvalenceExpr(blockStartLine,
+                            blockEndLine,
+                            ifString,
+                            entryKey,
+                            project,
+                            debug);
 
-                            String ifEnd = lastLineString.substring(lastLineString.lastIndexOf(')'));
-                            lastLineString = lastLineString.substring(0, lastLineString.lastIndexOf(')'));
+                }else{
+                    precessSucc = processComparingExpr(blockStartLine,
+                            blockEndLine,
+                            ifString,
+                            entryKey,
+                            project,
+                            debug);
+                }
+                if(precessSucc){
+                    return true;
+                }
+            }
 
-                            String oriExpr = lastLineString.replace("if (", "");
-                            String fixExpr = "(" + getIfStringFromStatement(getIfStatementFromString(ifString));
-                            if (!ifFilterML(oriExpr, fixExpr)){//filter what ??
-                                continue;
-                            }
-                            /*
-                            ifStatement = ifString + "{";
-                            try {
-                                tried++;
-                                result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
-                            } catch (TimeoutException e){
-                                return false;
-                            }
-                            if (result){
-                                correctStartLine = blockStartLine-1;
-                                correctEndLine = endLine;
-                                correctPatch = ifStatement;
-                                triedPatch.add(ifStatement);
-                                return true;
-                            }else{*/
-                                ifStatement = lastLineString + " && " + fixExpr + ifEnd;
-                                try {
-                                    result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
-                                } catch (TimeoutException e){
-                                    return false;
-                                }
-                                if (result){
-                                    correctStartLine = blockStartLine-1;
-                                    correctEndLine = endLine;
-                                    correctPatch = ifStatement;
-                                    triedPatch.add(ifStatement);
-                                    return true;
-                                }
-//                            }
-                        }
-                    }
+        }
+        return false;
+    }
 
+    private boolean processComparingExpr(int blockStartLine,
+                                         int blockEndLine,
+                                         String ifString,
+                                         String entryKey,
+                                         String project,
+                                         boolean debug) {
+
+        String ifStatement;
+        for (int endLine: getLinesCanAdd(blockStartLine, blockEndLine,_code)) {
+            String lastLineString = CodeUtils.getLineFromCode(_code, blockStartLine-1);
+            String wholeLineString = CodeUtils.getWholeLineFromCodeReverse(_code, blockStartLine-1);
+            boolean result;
+            if (!LineUtils.isIfAndElseIfLine(wholeLineString)) {
+                continue;
+            }
+            else {
+                int leftStart = lastLineString.indexOf('(');
+                int rightEnd = lastLineString.lastIndexOf(')');
+
+                String oriExpr = lastLineString.substring(leftStart + 1, rightEnd);
+                String ifBegin = lastLineString.substring(0, leftStart + 1);
+                String ifEnd = lastLineString.substring(rightEnd);
+
+                String fixExpr = "(" + getIfStringFromStatement(getIfStatementFromString(ifString));
+                if (ifFilterML(oriExpr, fixExpr)){//TODO: 过滤
+                    return false;
+                }
+
+                ifStatement = ifBegin + fixExpr + ifEnd; //replace the original expr
+                try {
+                    result = fixWithAddIf(blockStartLine-1, endLine, ifStatement, entryKey,  true, project, debug);
+                } catch (TimeoutException e){
+                    return false;
+                }
+                if (result){
+                    correctStartLine = blockStartLine - 1;
+                    correctEndLine = endLine;
+                    correctPatch = ifStatement;
+                    triedPatch.add(ifStatement);
+                    return true;
                 }
             }
         }
         return false;
     }
 
-    private boolean ifFilterML(String oriExprStr, String fixExprStr) {
-        if(("(" + oriExprStr + ")").equals(fixExprStr)){
-            return false;
-        }
-        Expression ori = (Expression) JavaFile.genASTFromSource(oriExprStr, ASTParser.K_EXPRESSION);
-        Expression fix = (Expression) JavaFile.genASTFromSource(fixExprStr, ASTParser.K_EXPRESSION);
-
-        ExprVisitor visitor0 = new ExprVisitor();
-        ori.accept(visitor0);
-        ExprVisitor visitor1 = new ExprVisitor();
-        fix.accept(visitor1);
-        for(String oriVar : visitor0.vars){
-            if(visitor1.vars.contains(oriVar)){
-                if(fixExprStr.endsWith("== null)") || fixExprStr.endsWith("!= null)")){//no use to judge the null pointer
-                    if(visitor1.num > visitor1.vars.size()){
+    private boolean preocessEquvalenceExpr(int blockStartLine,
+                                           int blockEndLine,
+                                           String ifString,
+                                           String entryKey,
+                                           String project,
+                                           boolean debug) {
+        String ifStatement = "";
+        for (int endLine: getLinesCanAdd(blockStartLine, blockEndLine,_code)) {
+            String lastLineString = CodeUtils.getLineFromCode(_code, blockStartLine - 1);
+            String wholeLineString = CodeUtils.getWholeLineFromCodeReverse(_code, blockStartLine - 1);
+            boolean result = false;
+            if (!LineUtils.isIfAndElseIfLine(wholeLineString)) {
+                continue;
+            } else {
+                String ifEnd = lastLineString.substring(lastLineString.lastIndexOf(')'));
+                lastLineString = lastLineString.substring(0, lastLineString.lastIndexOf(')'));
+                if (!ifFilter(lastLineString, ifString)) {
+                    continue;
+                }
+                ifStatement = lastLineString + "&&" + getIfStringFromStatement(getIfStatementFromString(ifString)) + ifEnd;
+                try {
+                    result = fixWithAddIf(blockStartLine - 1, endLine, ifStatement, entryKey, true, project, debug);
+                } catch (TimeoutException e) {
+                    return false;
+                }
+                if (result) {
+                    correctStartLine = blockStartLine - 1;
+                    correctEndLine = endLine;
+                    correctPatch = ifStatement;
+                    triedPatch.add(ifStatement);
+                    return true;
+                } else {
+                    ifStatement = lastLineString + "||" + getIfStringFromStatement(ifString) + ifEnd;
+                    try {
+                        result = fixWithAddIf(blockStartLine - 1, endLine, ifStatement, entryKey, true, project, debug);
+                    } catch (TimeoutException e) {
+                        return false;
+                    }
+                    if (result) {
+                        correctStartLine = blockStartLine - 1;
+                        correctEndLine = endLine;
+                        correctPatch = ifStatement;
+                        triedPatch.add(ifStatement);
                         return true;
                     }
                 }
-                return false;
             }
         }
         return false;
     }
 
-    private class ExprVisitor extends ASTVisitor {
-        public Set<String> vars = new HashSet<>();
-        public int num = 0;
-        @Override
-        public boolean visit(SimpleName node) {
-            num++;
-            if(Character.isUpperCase(node.toString().charAt(0)) || node.getLocationInParent() == MethodInvocation.NAME_PROPERTY || node.getLocationInParent() == FieldAccess.NAME_PROPERTY){
+    /**
+     * 与原条件相等者过滤，与原条件无变量相同者过滤
+     * @param oriExprStr
+     * @param fixExprStr
+     * @return
+     */
+    private boolean ifFilterML(String oriExprStr, String fixExprStr) {
+        String oriTmp = oriExprStr.replaceAll("\\s", "");
+        String fixTmp = fixExprStr.replaceAll("\\s", "");
+        if(("(" + oriTmp + ")").equals(fixTmp)){
+            return true;
+        }
+        try{
+            Expression ori = (Expression) JavaFile.genASTFromSource(oriExprStr, ASTParser.K_EXPRESSION);
+            ExprVisitor oriVisitor = new ExprVisitor();
+            ori.accept(oriVisitor);
+            // 如果原式没有方法调用，则不filter，否则fixExpr与oriExpr 的调用方法必须有交集
+            if(oriVisitor.methods.isEmpty()){
                 return false;
             }
-            vars.add(node.toString());
+            Expression fix = (Expression) JavaFile.genASTFromSource(fixExprStr, ASTParser.K_EXPRESSION);
+            ExprVisitor fixVisitor = new ExprVisitor();
+            fix.accept(fixVisitor);
+            for(String oriMtd : oriVisitor.methods){
+                if(fixVisitor.methods.contains(oriMtd)){
+                    return false;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            System.err.println(fixExprStr);
+        }
+        return true;
+    }
+
+    private class ExprVisitor extends ASTVisitor {
+        public Set<String> methods = new HashSet<>();
+        @Override
+        public boolean visit(MethodInvocation node) {
+            methods.add(node.getName().getIdentifier());
             return super.visit(node);
         }
     }
 
-    public boolean fix(Map<String, List<String>> boundarys, Set<Integer> errorLines, String project, boolean debug){
+    public boolean fix(Map<String, List<String>> boundarys, int errorLine, String project, boolean debug){
         for (Map.Entry<String, List<String>> entry: boundarys.entrySet()){
             List<String> ifStrings = entry.getValue();
             ifStrings = TypeUtils.arrayDup(ifStrings);
-            for (int errorLine: errorLines){
-                List<Integer> ifLines = getIfLine(errorLine);
-                if (ifLines.size()!=2){
+
+            List<Integer> ifLines = getIfLine(errorLine);
+            if (ifLines.size()!=2){
+                continue;
+            }
+            //if 的起止行
+            int blockStartLine = ifLines.get(0);
+            int blockEndLine = ifLines.get(1);
+
+            for (String ifString: ifStrings){
+                if (ifString.equals("")){
                     continue;
                 }
-                for (String ifString: ifStrings){
-                    if (ifString.equals("")){
+                //只留下 "=="，这个过滤有点夸张吧
+                if (ifString.contains(">") && ifString.contains("<") && !ifString.contains("<?>")){
+                    continue;
+                }
+
+                String ifStatement;
+                for (int endLine: getLinesCanAdd(blockStartLine, blockEndLine,_code)) {
+                    String lastLineString = CodeUtils.getLineFromCode(_code, blockStartLine - 1);
+                    String wholeLineString = CodeUtils.getWholeLineFromCodeReverse(_code, blockStartLine-1);
+                    boolean result = false;
+                    if (!LineUtils.isIfAndElseIfLine(wholeLineString)) { // 只处理 if 和 else if 的行
                         continue;
                     }
-                    if (ifString.contains(">") && ifString.contains("<") && !ifString.contains("<?>")){
-                        continue;
-                    }
-                    int blockStartLine = ifLines.get(0);
-                    int blockEndLine = ifLines.get(1);
-                    String ifStatement="";
-                    for (int endLine: getLinesCanAdd(blockStartLine, blockEndLine,_code)) {
-                        String lastLineString = CodeUtils.getLineFromCode(_code, blockStartLine-1);
-                        String wholeLineString = CodeUtils.getWholeLineFromCodeReverse(_code, blockStartLine-1);
-                        boolean result = false;
-                        if (!LineUtils.isIfAndElseIfLine(wholeLineString)) {
-                            /*
-                            ifStatement = getIfStatementFromString(ifString);
-                            try {
-                                result = fixWithAddIf(blockStartLine, endLine, ifStatement,entry.getKey(), false, project, debug);
-                            } catch (TimeoutException e){
-                                return false;
-                            }
-                            if (result) {
-                                correctStartLine = blockStartLine-1;
-                                correctEndLine = endLine;
-                                correctPatch = ifStatement;
-                                triedPatch.add(ifStatement);
-                                return true;
-                            }*/
+                    else {
+                        String ifEnd = lastLineString.substring(lastLineString.lastIndexOf(')'));
+                        lastLineString = lastLineString.substring(0, lastLineString.lastIndexOf(')'));
+                        if (!ifFilter(lastLineString, ifString)){ // 新条件与原条件相等，或不是 (大于、大于等于、小于、小于等于 NUM) 形式的过滤
                             continue;
                         }
-                        else {
-                            String ifEnd = lastLineString.substring(lastLineString.lastIndexOf(')'));
-                            lastLineString = lastLineString.substring(0, lastLineString.lastIndexOf(')'));
-                            if (!ifFilter(lastLineString, ifString)){//what is this??????
-                                continue;
-                            }
-                            ifStatement =lastLineString+ "&&" + getIfStringFromStatement(getIfStatementFromString(ifString)) + ifEnd;
+                        ifStatement =lastLineString+ "&&" + getIfStringFromStatement(getIfStatementFromString(ifString)) + ifEnd;
+                        try {
+                            result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
+                        } catch (TimeoutException e){
+                            return false;
+                        }
+                        if (result){
+                            correctStartLine = blockStartLine-1;
+                            correctEndLine = endLine;
+                            correctPatch = ifStatement;
+                            triedPatch.add(ifStatement);
+                            return true;
+                        }else{
+                            ifStatement =lastLineString+ "||" +getIfStringFromStatement(ifString) + ifEnd;
                             try {
                                 result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
                             } catch (TimeoutException e){
@@ -236,26 +308,13 @@ public class MethodTwoFixer {
                                 correctPatch = ifStatement;
                                 triedPatch.add(ifStatement);
                                 return true;
-                            }else{
-                                ifStatement =lastLineString+ "||" +getIfStringFromStatement(ifString) + ifEnd;
-                                try {
-                                    result = fixWithAddIf(blockStartLine-1, endLine, ifStatement,entry.getKey(),  true, project, debug);
-                                } catch (TimeoutException e){
-                                    return false;
-                                }
-                                if (result){
-                                    correctStartLine = blockStartLine-1;
-                                    correctEndLine = endLine;
-                                    correctPatch = ifStatement;
-                                    triedPatch.add(ifStatement);
-                                    return true;
-                                }
                             }
                         }
                     }
-
                 }
+
             }
+
         }
         return false;
     }
@@ -425,7 +484,7 @@ public class MethodTwoFixer {
             return getBraceArea(errorLine);
         }
         else {
-            return Arrays.asList(errorLine-1, errorLine);
+            return Arrays.asList(errorLine - 1, errorLine);
         }
     }
 

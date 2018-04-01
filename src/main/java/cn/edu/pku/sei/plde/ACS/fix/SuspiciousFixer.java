@@ -3,6 +3,7 @@ package cn.edu.pku.sei.plde.ACS.fix;
 import cn.edu.pku.sei.plde.ACS.assertCollect.Asserts;
 import cn.edu.pku.sei.plde.ACS.boundary.BoundaryGenerator;
 import cn.edu.pku.sei.plde.ACS.localization.Suspicious;
+import cn.edu.pku.sei.plde.ACS.main.Config;
 import cn.edu.pku.sei.plde.ACS.main.TimeLine;
 import cn.edu.pku.sei.plde.ACS.trace.ExceptionExtractor;
 import cn.edu.pku.sei.plde.ACS.trace.ExceptionVariable;
@@ -11,10 +12,9 @@ import cn.edu.pku.sei.plde.ACS.trace.filter.AbandanTrueValueFilter;
 import cn.edu.pku.sei.plde.ACS.utils.*;
 import cn.edu.pku.sei.plde.ACS.visible.model.VariableInfo;
 import com.google.common.collect.Sets;
+import edu.pku.sei.conditon.dedu.extern.FileInvoker;
 
 import java.util.*;
-
-import edu.pku.sei.conditon.dedu.extern.FileInvoker;
 
 
 /**
@@ -56,7 +56,7 @@ public class SuspiciousFixer {
 
     public boolean mainFixProcessByML(){
         List<String> allConditions = getPredicatedConds();
-        if(allConditions.isEmpty()){
+        if(allConditions.isEmpty()){//TODO:! 没有预测可用ACS原版
             return false;
         }
 
@@ -170,7 +170,7 @@ public class SuspiciousFixer {
 
             Map<String, List<String>> boundaryCopy = deepCopyBoundarys(boundarys);
             String methodTwoResult = fixMethodTwo(suspicious,
-                    filter.filter(line,boundaryCopy,traceResults),
+                    filter.filter(line, boundaryCopy, traceResults),
                     project,
                     line,
                     false);
@@ -203,6 +203,11 @@ public class SuspiciousFixer {
         for (List<ExceptionVariable> echelon: echelons) {// 对每个 level 上的变量
             //TODO: 生成 if 条件。 KEY: test_cls # test_mtd # assertLine   VAL: if(conds) 列表
             Map<String, List<String>> boundarys = generateBoundarys(echelon);
+
+            if(isEmpty(boundarys)){
+                continue;
+            }
+
             if (!onlyMethod2){
                 if (timeLine.isTimeout()){
                     return false;
@@ -396,25 +401,17 @@ public class SuspiciousFixer {
             return "";
         }
         MethodTwoFixer fixer = new MethodTwoFixer(suspicious);
-        if (fixer.fix(ifStrings, Sets.newHashSet(errorLine), project, debug)) {
+        boolean successed;
+        if(Config.USING_ML){
+            successed = fixer.fixML(ifStrings, errorLine, project, debug);
+        }else{
+            successed = fixer.fix(ifStrings, errorLine, project, debug);
+        }
+        if (successed) {
             return fixer.correctPatch + "[" + fixer.correctStartLine + "," + fixer.correctEndLine + "]";
         }
         methodTwoHistory = fixer.triedPatch;
 
-        return "";
-    }
-
-    private String fixMethodTwoML(Suspicious suspicious, String assertMsg, List<String> allConditions, String project, int line) {
-        if (allConditions.size() == 0) {
-            return "";
-        }
-        MethodTwoFixer methodTwoFixer = new MethodTwoFixer(suspicious);
-        Map<String, List<String>> tmpMap = new HashMap<>();
-        tmpMap.put(assertMsg, allConditions);
-        if (methodTwoFixer.fixML(tmpMap, Sets.newHashSet(line), project, false)) {
-            return methodTwoFixer.correctPatch + "[" + methodTwoFixer.correctStartLine + "," + methodTwoFixer.correctEndLine + "]";
-        }
-        methodTwoHistory = methodTwoFixer.triedPatch;
         return "";
     }
 
@@ -510,47 +507,6 @@ public class SuspiciousFixer {
         bannedHistory.addAll(bannedStatementList);
     }
 
-    private String fixMethodOneML(Suspicious suspicious, String assertStr, List<String> ifStrings, String project, int errorLine){
-        if (ifStrings.size() == 0){
-            return "";
-        }
-        ReturnCapturer fixCapturer = new ReturnCapturer(suspicious._classpath,suspicious._srcPath, suspicious._testClasspath, suspicious._testSrcPath);
-        MethodOneFixer methodOneFixer = new MethodOneFixer(suspicious, project);
-
-        String testClassName = assertStr.split("#")[0];
-        String testMethodName = assertStr.split("#")[1];
-        int assertLine = Integer.valueOf(assertStr.split("#")[2]);
-        Asserts asserts = suspicious._assertsMap.get(testClassName+"#"+testMethodName);
-        AssertComment comment = new AssertComment(asserts, assertLine);
-        if (assertLine == -1){
-            testClassName = suspicious._failTests.get(0).split("#")[0];
-            testMethodName = suspicious._failTests.get(0).split("#")[1];
-            if (suspicious._assertsMap.containsKey(suspicious._failTests.get(0))){
-                if (suspicious._assertsMap.get(suspicious._failTests.get(0))._errorAssertLines.size()>0){
-                    assertLine = suspicious._assertsMap.get(suspicious._failTests.get(0))._errorAssertLines.get(0);
-                }
-            }
-        }
-        if (!CodeUtils.getLineFromCode(FileUtils.getCodeFromFile(suspicious._testSrcPath, testClassName),assertLine).contains("assert")){// error test stmt is 'assert'?
-            assertLine = -1;
-        }
-        String fixString = fixCapturer.getFixFrom(testClassName, testMethodName, assertLine, suspicious.classname(), suspicious.functionnameWithoutParam());//return or throw
-        List<Integer> patchLine = errorLine != 0? Arrays.asList(errorLine) : suspicious._errorLineMap.get(testClassName+"#"+testMethodName);    // insert line number?
-        if (suspicious._isConstructor && fixString.contains("return") || fixString.equals("")){
-            return "";
-        }
-        Patch patch = new Patch(testClassName, testMethodName, suspicious.classname(), patchLine, ifStrings, fixString);
-        comment.comment();//backup what?
-        boolean result = methodOneFixer.addPatch(patch);
-        comment.uncomment();
-
-        int finalErrorNums = methodOneFixer.fix();
-        methodOneHistory = methodOneFixer.triedPatch;
-        if (finalErrorNums != -1){
-            return methodOneFixer._patches.get(0)._patchString.get(0);
-        }
-        return "";
-    }
 
     private boolean ifStringFilter(String ifStatement,String fixString, int patchLine){
         DocumentBaseFilter filter = new DocumentBaseFilter(suspicious);
@@ -601,8 +557,21 @@ public class SuspiciousFixer {
         String filePath = getJavaFilePath();
         int line = suspicious.getDefaultErrorLine();
 
-        //FileInvoker.predict(this.project.toLowerCase(), srcRoot, testSrcRoot, filePath, line, ithSuspicous);
+        //TODO: for debug
+        FileInvoker.predict(this.project.toLowerCase(), srcRoot, testSrcRoot, filePath, line, ithSuspicous);
 
         return ExprUtil.loadConditions(this.project, this.ithSuspicous, 200);
+    }
+
+    private boolean isEmpty(Map<String, List<String>> boundarys){
+        if(boundarys == null || boundarys.isEmpty()){
+            return true;
+        }
+        for(Map.Entry<String, List<String>> entry: boundarys.entrySet()){
+            if(entry.getValue().isEmpty() == false){
+                return false;
+            }
+        }
+        return true;
     }
 }
