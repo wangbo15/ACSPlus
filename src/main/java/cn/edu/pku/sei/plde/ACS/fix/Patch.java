@@ -17,7 +17,9 @@ public class Patch {
     public String _addonFunction = "";
     public String _addonImport = "";
 
-
+    /**
+     * 需要import的东西，需要添加的函数（如Math91），都在这里处理
+     */
     public Patch(String testClassName, String testMethodName, String className, List<Integer> patchLine, List<String> ifStrings, String fixString){
         _testClassName = testClassName;
         _testMethodName = testMethodName;

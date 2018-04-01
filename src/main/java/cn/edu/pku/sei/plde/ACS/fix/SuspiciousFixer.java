@@ -472,7 +472,10 @@ public class SuspiciousFixer {
                 continue;
             }
             List<String> ifPreds = entry.getValue();
-            Patch patch = new Patch(testClassName, testMethodName, suspicious.classname(), patchLineList, ifPreds, ifBody);//注意 Patch 包含某行的全部 patchString
+
+            //注意 Patch 包含某行的全部 patchString
+            //另外 M93 斐波那契的添加函数，在里面有处理
+            Patch patch = new Patch(testClassName, testMethodName, suspicious.classname(), patchLineList, ifPreds, ifBody);
 
             Asserts asserts = suspicious._assertsMap.get(testClassName+"#"+testMethodName); // important! value been put in 'VariableTracer.trace()'
             AssertComment comment = new AssertComment(asserts, assertLine);

@@ -102,7 +102,7 @@ public class ReturnCapturer {
         _functionCode = FileUtils.getTestFunctionCodeFromCode(_classCode, _testMethodName);
         _errorLineNum = getErrorLineNumFromTestTrace();
         if (_assertLine == -1){
-            return fixTest();
+            return fixTest();   //看起来是没有assertLine 就去找抛出的异常
         }
         else {
             return getFixFromLine(_assertLine);
@@ -291,7 +291,7 @@ public class ReturnCapturer {
 
             //String attachLines = slicingProcess(returnParam, callParam, assertLine);
             String attachLines = staticSlicingProcess(returnParam, callParam, statements);
-            String addonFunction = addonFunctions(returnExpression);
+            String addonFunction = addonFunctions(returnExpression);    //Math93 所添加的斐波那契函数来自这里，是从当前Test类中提取的
             returnString = syncParams(returnString);
             return attachLines + returnString + ";" + addonFunction;
         }
