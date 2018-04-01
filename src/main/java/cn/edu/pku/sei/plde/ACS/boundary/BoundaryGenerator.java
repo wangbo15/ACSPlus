@@ -77,6 +77,13 @@ public class BoundaryGenerator {
         OUTER:
         for(String condition: conds){
             try {
+                if(condition.contains("<=")){
+                    condition = condition.replaceAll("<=", "<");
+                }
+                if(condition.contains(">=")){
+                    condition = condition.replaceAll(">=", ">");
+                }
+
                 Expression expr = (Expression) JavaFile.genASTFromSourceAsJava7(condition, ASTParser.K_EXPRESSION);
 
                 VarCollectVisitor visitor = new VarCollectVisitor();
