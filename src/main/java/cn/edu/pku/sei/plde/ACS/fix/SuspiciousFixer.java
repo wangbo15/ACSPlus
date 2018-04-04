@@ -37,13 +37,16 @@ public class SuspiciousFixer {
     private List<String> methodTwoHistory = new ArrayList<>();
     private List<String> bannedHistory = new ArrayList<>();
 
+    /**
+     * 调用 RunTestAgent 来获取 trace
+     */
     public SuspiciousFixer(int ithSuspicous, Suspicious suspicious, String project, TimeLine timeLine){
         this.ithSuspicous = ithSuspicous;
         this.suspicious = suspicious;
         this.project = project;
         this.timeLine = timeLine;
 
-        //TODO: trace of pradicates by gzoltar
+        //TODO: trace of predicates by gzoltar
         traceResults = suspicious.getTraceResult(project, timeLine);
         //这里会给 info 添加 varName.null 和 varName.Comparable
         trueValues = AbandanTrueValueFilter.getTrueValue(traceResults, suspicious.getAllInfo());//belongs to succ test

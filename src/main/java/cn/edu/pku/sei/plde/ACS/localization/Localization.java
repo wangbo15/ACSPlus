@@ -249,9 +249,17 @@ public class Localization  {
                 String clzAdd = getClassAddressFromStatement(firstline);
                 String tagFun = getTargetFunctionFromStatement(firstline);
                 double score = firstline.getSuspiciousness();
-                result.add(new Suspicious(classpath, testClassPath,srcPath,testSrcPath, clzAdd, tagFun,
-                        score, firstline.getTests(),firstline.getFailTests(),
-                        new ArrayList<>(lineNumbers),libPaths));
+                result.add(new Suspicious(classpath,
+                        testClassPath,
+                        srcPath,
+                        testSrcPath,
+                        clzAdd,
+                        tagFun,
+                        score,
+                        firstline.getTests(),  /*tests*/
+                        firstline.getFailTests(), /*failTests*/
+                        new ArrayList<>(lineNumbers),
+                        libPaths));
                 firstline = statement;
                 lineNumbers.clear();
                 //nann da ko no ba ka no codo??????? First clear(), then contains() ??

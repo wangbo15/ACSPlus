@@ -7,7 +7,6 @@ import cn.edu.pku.sei.plde.ACS.main.Config;
 import cn.edu.pku.sei.plde.ACS.type.TypeUtils;
 import cn.edu.pku.sei.plde.ACS.utils.*;
 
-import cn.edu.pku.sei.plde.ACS.visible.model.MethodInfo;
 import cn.edu.pku.sei.plde.ACS.visible.model.VariableInfo;
 import org.apache.commons.lang.StringUtils;
 import sun.misc.BASE64Encoder;
@@ -47,14 +46,6 @@ public class VariableTracer {
 
     /**
      * 重要方法！完成 trace
-     * @param classname
-     * @param functionname
-     * @param testClassname
-     * @param testMethodName
-     * @param errorLine
-     * @param isSuccess
-     * @return
-     * @throws IOException
      */
     public List<TraceResult> trace(String classname, String functionname,
                                    String testClassname, String testMethodName,
@@ -67,7 +58,7 @@ public class VariableTracer {
 
         //有执行 gzoltar ！
         Asserts asserts = new Asserts(_classpath,_srcPath,_testClasspath,_testSrcPath,
-                testClassname,testMethodName,
+                testClassname, testMethodName,
                 _suspicious._libPath,_project);
 
         ErrorLineTracer tracer = new ErrorLineTracer(_suspicious, asserts, _classname, _functionname);
@@ -77,7 +68,7 @@ public class VariableTracer {
         for (int line: errorLines){
             List<VariableInfo> variableInfos = _suspicious.getVariableInfo(line);
             variableInfos.removeAll(getBannedVariables(asserts, line));
-            if (variableInfos.size() == 0 /*&&  methodInfos.size() == 0*/){
+            if (variableInfos.size() == 0){
                 continue;
             }
             Map<String, Integer> commentedTestClasses = tracer._commentedTestClass;
@@ -98,7 +89,17 @@ public class VariableTracer {
                 if (CodeUtils.getLineFromCode(code, line-1).contains("else if")){
                     traceLine = getLineBeforeIf(code, line-1);
                 }
-                String shellResult = traceShell(_testClassname, _classname, functionname(), commentedTestClass.getKey(), variableInfos, new ArrayList<MethodInfo>(), traceLine);
+                
+                String funcName = functionName();
+                String testClasspath = commentedTestClass.getKey();
+                //TODO: 重要！跑 trace
+                String shellResult = traceShell(_testClassname,
+                        _classname,
+                        funcName,
+                        testClasspath,
+                        variableInfos,
+                        traceLine);
+
                 if (shellResult.contains(">>") && shellResult.contains("<<")) {
                     String traceResult = analysisShellResult(shellResult);
                     results.addAll(traceAnalysis(shellResult, traceResult, commentedTestClass.getValue(), line));
@@ -162,8 +163,8 @@ public class VariableTracer {
         }
         String assertLine = asserts._asserts.get(0);
         String code = FileUtils.getCodeFromFile(_srcPath, _classname);
-        int methodParam = CodeUtils.getMethodParams(assertLine, functionname()).size();
-        Map<List<String>, List<Integer>> methodLine = CodeUtils.getMethodLine(code,functionname());
+        int methodParam = CodeUtils.getMethodParams(assertLine, functionName()).size();
+        Map<List<String>, List<Integer>> methodLine = CodeUtils.getMethodLine(code, functionName());
         for (Map.Entry<List<String>, List<Integer>> entry: methodLine.entrySet()){
             if (entry.getKey().size() == methodParam){
                 List<VariableInfo> variableInfos = _suspicious.getVariableInfo(errorLine);
@@ -234,11 +235,11 @@ public class VariableTracer {
     }
 
     //会调用 RunTestAgent.jar，通过 "java -javaagent:"
-    private String traceShell(String testClassname, String classname, String functionname, String testClasspath, List<VariableInfo> vars, List<MethodInfo> methods, int errorLine) throws IOException{
-        String tracePath = PathUtils.getAgentPath();
-        String junitPath = PathUtils.getJunitPath();
+    private String traceShell(String testClassname, String classname, String functionName, String testClasspath, List<VariableInfo> vars, int errorLine) throws IOException{
+        String tracePath = PathUtils.getAgentPath();    // RunTestAgent.jar 的路径
+        String junitPath = PathUtils.getJunitPath();    // junit-4.10.jar 的路径
 
-        String agentArg = buildAgentArg(classname, functionname, testClasspath, vars, methods, errorLine);
+        String agentArg = buildAgentArg(classname, functionName, testClasspath, vars, errorLine);
         String encodedAgentArg = new BASE64Encoder().encode(agentArg.getBytes());
         encodedAgentArg = "\""+encodedAgentArg/*.substring(0, encodedAgentArg.length()-1)*/+"\"";
         String classpath = buildClasspath(Arrays.asList(junitPath));
@@ -252,7 +253,7 @@ public class VariableTracer {
     }
 
 
-    private String buildAgentArg(String classname,String functionname, String testClassPath, List<VariableInfo> vars, List<MethodInfo> methods, int errorLine){
+    private String buildAgentArg(String classname,String functionname, String testClassPath, List<VariableInfo> vars, int errorLine){
         String agentClass = "class:"+ classname;
         String agentFunc = "func:" + functionname;
         String agentLine = "line:"+ errorLine;
@@ -275,17 +276,6 @@ public class VariableTracer {
 
         }
         String agentMethods = "";
-        if (methods.size() > 0){
-            agentMethods = "method:";
-        }
-        for (MethodInfo method: methods){
-            agentMethods += method.methodName;
-            if (!method.isSimpleType){
-                agentMethods += "??";
-                agentMethods += method.otherType;
-            }
-            agentMethods += "//";
-        }
         return StringUtils.join(Arrays.asList(agentClass,agentFunc,agentLine,agentSrc,agentCp,agentVars,agentMethods, agentTest, agentTestSrc),",,");
     }
 
@@ -307,7 +297,7 @@ public class VariableTracer {
     }
 
 
-    public String functionname(){
+    public String functionName(){
         return _functionname.substring(0, _functionname.indexOf("("));
     }
 

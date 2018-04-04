@@ -41,9 +41,9 @@ public class MainProcess {
     }
 
     public  boolean mainProcess(String projectType, int projectNumber, TimeLine timeLine) throws Exception{
-        String project = setWorkDirectory(projectType,projectNumber);
+        String project = setWorkDirectory(projectType, projectNumber);
         if (!checkProjectDirectory()){
-            System.out.println("Main Process: set work directory error at project "+projectType+"-"+projectNumber);
+            System.out.println("Main Process: set work directory error at project " + projectType + "-" + projectNumber);
             File recordPackage = new File(Config.PATCH_PATH);
             recordPackage.mkdirs();
             File main = new File(Config.FIX_RESULT_FILE_PATH);
@@ -52,7 +52,7 @@ public class MainProcess {
                     main.createNewFile();
                 }
                 FileWriter writer = new FileWriter(main, true);
-                writer.write("project "+project+" path error\n");
+                writer.write("project " + project + " path error\n");
                 writer.close();
             }catch (IOException e){
                 e.printStackTrace();
@@ -102,13 +102,15 @@ public class MainProcess {
         return true;
     }
 
-
     public boolean suspiciousLoop(List<Suspicious> suspiciouses, String project, TimeLine timeLine) {
 
         for (int i = 0; i < suspiciouses.size(); i++){
             Suspicious suspicious = suspiciouses.get(i);
 
-//            if(suspicious.getDefaultErrorLine() != 136){
+//            if(suspicious.getDefaultErrorLine() != 714){
+//                continue;
+//            }
+//            if(i != 2){
 //                continue;
 //            }
 
