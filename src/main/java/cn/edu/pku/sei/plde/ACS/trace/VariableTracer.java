@@ -62,7 +62,7 @@ public class VariableTracer {
                 _suspicious._libPath,_project);
 
         ErrorLineTracer tracer = new ErrorLineTracer(_suspicious, asserts, _classname, _functionname);
-        List<Integer> errorLines = tracer.trace(errorLine, isSuccess);//对于Math_25，定位行之前的紧邻 if 之后的每行
+        List<Integer> errorLines = tracer.trace(errorLine, isSuccess);  //对于Math_25，定位行之前的紧邻 if 之后的每行
         List<TraceResult> results = new ArrayList<>();
         //_suspicious.setErrorLines(errorLines);
         for (int line: errorLines){
@@ -90,7 +90,7 @@ public class VariableTracer {
                     traceLine = getLineBeforeIf(code, line-1);
                 }
                 
-                String funcName = functionName();
+                String funcName = functionName();   //源文件的出错方法
                 String testClasspath = commentedTestClass.getKey();
                 //TODO: 重要！跑 trace
                 String shellResult = traceShell(_testClassname,
@@ -234,12 +234,31 @@ public class VariableTracer {
         return results;
     }
 
-    //会调用 RunTestAgent.jar，通过 "java -javaagent:"
+    /**
+      会调用 RunTestAgent.jar，通过 "java -javaagent:"
+     */
     private String traceShell(String testClassname, String classname, String functionName, String testClasspath, List<VariableInfo> vars, int errorLine) throws IOException{
         String tracePath = PathUtils.getAgentPath();    // RunTestAgent.jar 的路径
         String junitPath = PathUtils.getJunitPath();    // junit-4.10.jar 的路径
 
         String agentArg = buildAgentArg(classname, functionName, testClasspath, vars, errorLine);
+        /*
+        # 以 M3 为例，参数为：
+        class:org.apache.commons.math3.util.MathArrays,,
+        func:linearCombination,,
+        line:846,,
+        src:/home/nightwish/workspace/bug_repair/ACSPlus/project/Math_3/src/main/java/,,
+        cp:"/home/nightwish/workspace/bug_repair/ACSPlus/project/Math_3/target/classes/:/home/nightwish/.m2/repository/org/joda/joda-convert/1.1/joda-convert-1.1.jar:/home/nightwish/.m2/repository/org/easymock/easymock/3.4/easymock-3.4.jar:/home/nightwish/.m2/repository/commons-io/commons-io/2.5/commons-io-2.5.jar",,
+        # 变量及其类型
+        var:len//prodHigh??double[]//prodLowSum//prodHighCur//a??double[]//b??double[]//this??MathArrays//,,
+        # 以下 3 项基本为空
+        # agentMethods
+        ,,
+        # agentTest
+        ,,
+        # agentTestSrc
+
+        */
         String encodedAgentArg = new BASE64Encoder().encode(agentArg.getBytes());
         encodedAgentArg = "\""+encodedAgentArg/*.substring(0, encodedAgentArg.length()-1)*/+"\"";
         String classpath = buildClasspath(Arrays.asList(junitPath));

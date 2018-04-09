@@ -74,7 +74,8 @@ public class Asserts {
         _assertLineMap = CodeUtils.getAssertInTest(_code, testMethodName, _methodStartLine);// assert line str -> line num
         _asserts = new ArrayList<>(_assertLineMap.keySet());
         _assertNums = _asserts.size();
-        _errorAssertLines = getErrorAssertLine();//有执行 gzoltar! 有 _errorThrowLines.add()
+        //TODO: 有执行 gzoltar! 有 _errorThrowLines.add()
+        _errorAssertLines = getErrorAssertLine();
     }
 
     private List<Integer> getErrorAssertLine(){

@@ -18,7 +18,7 @@ import java.util.*;
  * Created by yanrunfa on 16/3/30.
  */
 public class ErrorLineTracer {
-    public Asserts asserts;
+    private Asserts asserts;
     public String classname;
     public String methodName;
     private String methodNameWithParam;
